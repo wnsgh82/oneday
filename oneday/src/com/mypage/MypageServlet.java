@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.util.MyServlet;
 
 @WebServlet("/mypage/*")
-public class mypageServlet extends MyServlet{
+public class MypageServlet extends MyServlet{
 	private static final long serialVersionUID = 1L;
 
 	@Override
