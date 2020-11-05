@@ -169,13 +169,12 @@ public class OnedayImpl implements OnedayDAO{
 		String sql;
 		
 		try {
-			sql="select classNum, className, classAddr, classCount, classPrice,"
-					+ " classContent, classHitCount, classEnabled, classIFN,"
-					+ " classCreated, classStart, classEnd, c.userId, userName"
-					+ " from classtb c"
-					+ " join member1 m on m.userId=c.userId"
-					+ " order by classNum desc"
-					+ " offset ? rows fetch first ? rows only";
+			sql="select classNum, className, classAddr, classCount, classPrice, "
+					+ " classEnabled, classIFN, "
+					+ " classStart, classEnd, userId, userName "
+					+ " from classtb  "
+					+ " order by classNum desc "
+					+ " offset ? rows fetch first ? rows only ";
 			
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, offset);
@@ -191,11 +190,8 @@ public class OnedayImpl implements OnedayDAO{
 				dto.setClassAddr(rs.getString("classAddr"));
 				dto.setClassCount(rs.getInt("classCount"));
 				dto.setClassPrice(rs.getString("classPrice"));
-				dto.setClassContent(rs.getString("classContent"));
-				dto.setClassHitCount(rs.getInt("classHitCount"));
 				dto.setClassEnabled(rs.getInt("classEnabled"));
 				dto.setClassIFN(rs.getString("classIFN"));
-				dto.setClassCreated(rs.getString("classCreated"));
 				dto.setClassStart(rs.getString("classStart"));
 				dto.setClassEnd(rs.getString("classEnd"));
 				dto.setUserId(rs.getString("userId"));
@@ -236,9 +232,8 @@ public class OnedayImpl implements OnedayDAO{
 		try {
 			sql="select classNum, className, classAddr, classCount, classPrice,"
 					+ " classContent, classHitCount, classEnabled, classIFN,"
-					+ " classCreated, classStart, classEnd, c.userId, userName"
-					+ " from classtb c"
-					+ " join member1 m on m.userId=c.userId"
+					+ " classCreated, classStart, classEnd, userId, userName"
+					+ " from classtb "
 					+ " where classNum = ?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
