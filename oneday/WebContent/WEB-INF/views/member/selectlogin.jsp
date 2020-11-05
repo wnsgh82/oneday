@@ -27,11 +27,9 @@
 		<!-- 여기부터 자기가 만드는거임!  -->
 
 	<div class="signbox">
-        
-        <h3 style="text-align: left;">&nbsp;</h3>
-        <h3 style="text-align: left;">&nbsp;</h3>
-        <h3 style="text-align: left;">&nbsp;</h3>
-        <h3 style="text-align: left;">&nbsp;</h3>
+		<div class="title-area">
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;회원가입</h3>
+		</div>
         <div class="userbox">
             <div class="userbox1" style="">
             <div class="signimg">

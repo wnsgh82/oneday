@@ -2,26 +2,19 @@
 
 body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGothic, Sans-serif; font-weight:normal; }
 
-ul, li {
+.notice ul, li {
 	list-style: none;
 }
-
-
-body {
-	background: #EFEFEF ;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 16px;
-	font-weight: 200;
-	color: #000000;
-}
-a {
+.notice a {
 	text-decoration: none;
 }
-
 #wrapper {
 	padding: 0;
 }
-.inner { width:1200px; margin:0 auto; }
+.inner { 
+	width:960px; 
+	margin:0 auto; 
+}
 
 .title-area { width:100%; padding:10px 0; border-bottom:2px solid #000; margin-bottom:50px; }
 

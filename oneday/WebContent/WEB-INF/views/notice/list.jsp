@@ -23,44 +23,49 @@
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
 
-<section class="notice">
-<div class="inner">
-   <div class="title-area">
-  	  <h3>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</h3>
-   </div>
+<div class="body_tem">
+	<div class="content_tem">
+		
+		<section class="notice">
+		<div class="inner">
+		<div class="title-area">
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;게시판이름</h3>
+		</div>
+		   <div>
+		      <div class="board-notice">
+		         <ul class="article-table">
+		            <li class="item title">
+		               <span class="number">번호</span>
+		               <span class="subject">제목</span>
+		               <span class="date">작성일</span>
+		               <span class="hit">조회수</span>
+		            </li>
+		
+		            <li class="item">
+		               <span class="number">1</span>
+		               <span class="subject"><a href="./notice-view.html?&Boardid=15">제목샘플1</a></span>
+		               <span class="date">2020-11-03</span>
+		               <span class="hit">조회수</span>
+		            </li>
+		            <li class="item">
+		               <span class="number">2</span>
+		               <span class="subject"><a href="./notice-view.html?&Boardid=14">제목샘플2</a></span>
+		               <span class="date">2020-11-03</span>
+		               <span class="hit">조회수</span>
+		            </li>
+		          </ul>
+		      </div>
+		   </div>
+		   
+		
+		  <div class="pagenation">
+		       <ul><li class="number select"><a href="?&cCurrent=1">1</a></li></ul>
+		   </div>
+		</div>
+		</section> 
 
-   <div>
-      <div class="board-notice">
-         <ul class="article-table">
-            <li class="item title">
-               <span class="number">번호</span>
-               <span class="subject">제목</span>
-               <span class="date">작성일</span>
-               <span class="hit">조회수</span>
-            </li>
-
-            <li class="item">
-               <span class="number">1</span>
-               <span class="subject"><a href="./notice-view.html?&Boardid=15">제목샘플1</a></span>
-               <span class="date">2020-11-03</span>
-               <span class="hit">조회수</span>
-            </li>
-            <li class="item">
-               <span class="number">2</span>
-               <span class="subject"><a href="./notice-view.html?&Boardid=14">제목샘플2</a></span>
-               <span class="date">2020-11-03</span>
-               <span class="hit">조회수</span>
-            </li>
-          </ul>
-      </div>
-   </div>
-   
-
-  <div class="pagenation">
-       <ul><li class="number select"><a href="?&cCurrent=1">1</a></li></ul>
-   </div>
+	</div>
 </div>
-</section> 
 
 <!-- footer -->
 <div class="footer_tem">
