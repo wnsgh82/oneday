@@ -24,7 +24,6 @@ public class MypageServlet extends MyServlet{
 	    	  
 	      }
 	}
-	protected void mypageMain(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	}
+
 
 }
