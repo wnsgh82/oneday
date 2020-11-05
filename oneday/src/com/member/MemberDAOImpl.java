@@ -116,7 +116,7 @@ public class MemberDAOImpl implements MemberDAO{
 		String sql;
 		
 		try {
-			sql="select userId, userPwd, userName, userBirth, userTel,"
+			sql="select userId, userPwd, userName, userTel,"
 					+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert"
 					+ " from member1"
 					+ " where userId = ?";
@@ -131,7 +131,6 @@ public class MemberDAOImpl implements MemberDAO{
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setUserName(rs.getString("userName"));
-				dto.setUserBirth(rs.getString("userBirth"));
 				dto.setUserTel(rs.getString("userTel"));
 				dto.setUserZip(rs.getString("userZip"));
 				dto.setUserAddr1(rs.getString("userAddr1"));
