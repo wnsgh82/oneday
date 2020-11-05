@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface MemberDAO {
 	
-	public int insertMember(MemberDTO dto) throws SQLException;
+	public int insertMember(MemberDTO dto  , int enable) throws SQLException;
 	public int updateMember(MemberDTO dto) throws SQLException;
 	public int deleteMember(String userId) throws SQLException; //°ü¸®ÀÚ°¡ È¸¿ø Å»Åð
 	public int deleteMember(String userId, String userPwd) throws SQLException; //È¸¿øÀÌ Á÷Á¢ Å»Åð

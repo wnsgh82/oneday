@@ -137,35 +137,30 @@ public class MemberServlet extends HttpServlet{
 		String cp=req.getContextPath();
 		
 		try {
-			String email1=req.getParameter("email1");
-			String email2=req.getParameter("email2");
-			String email= email1+"@"+email2;
-			
-			String tel1=req.getParameter("tel1");
-			String tel2=req.getParameter("tel2");
-			String tel3=req.getParameter("tel3");
-			String tel=tel1+"-"+tel2+"-"+tel3;
+
 			
 			MemberDTO dto = new MemberDTO();
 			
 			dto.setUserId(req.getParameter("userId"));
 			dto.setUserName(req.getParameter("userName"));
 			dto.setUserPwd(req.getParameter("userPwd"));
-			String birth=req.getParameter("userBirth").replaceAll("(\\.|\\-|\\/)", "");
-			dto.setUserBirth(birth);
-			dto.setUserEmail(email);
-			dto.setUserTel(tel);
+			dto.setUserEmail(req.getParameter("userEmail"));
+			dto.setUserTel(req.getParameter("userTel"));
 			dto.setUserZip(req.getParameter("userZip"));
 			dto.setUserAddr1(req.getParameter("userAddr1"));
 			dto.setUserAddr2(req.getParameter("userAddr2"));
 			
 			String cert=req.getParameter("userCert");
-			if(cert==null) {
-				cert="";
+			
+			int enable = 0;
+			if(cert!=null) {
+				enable =100;
+				dto.setUserEnabled(enable);;
 			}
+			
 			dto.setUserCert(cert);
 			
-			dao.insertMember(dto);
+			dao.insertMember(dto,enable);
 			
 			resp.sendRedirect(cp);
 			return;
@@ -181,7 +176,7 @@ public class MemberServlet extends HttpServlet{
 		//입력이 제대로 안됐으면 다시 회원가입 창으로 
 		req.setAttribute("mode", "member");
 		req.setAttribute("title", "회원 가입");
-		String path="/WEB-INF/views/member/member.jsp";
+		String path="/WEB-INF/views/member/list.do";
 		forward(req, resp, path);
 	}
 	

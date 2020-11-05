@@ -15,76 +15,54 @@ public class MemberDAOImpl implements MemberDAO{
 	private Connection conn=DBConn.getConnection();
 	
 	@Override
-	public int insertMember(MemberDTO dto) throws SQLException {
+	public int insertMember(MemberDTO dto , int enable) throws SQLException {
 		int result=0;
 		PreparedStatement pstmt=null;
-		String sql;
+		String sql = "";
 		
 		try {
-			conn.setAutoCommit(false); //자동 커밋 되지 않도록
+
 			
-			sql="insert into member1(userId, userPwd, userName, userBirth, userTel,"
-					+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert)"
-					+ " values(?,?,?,?,?,?,?,?,?,1,?)";
-			
+			if(enable==0) {
+				sql="insert into member1(userId, userPwd, userName, userTel,"
+						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled)"
+						+ " values(?,?,?,?,?,?,?,?,1)";				
+			}else {
+				sql="insert into member1(userId, userPwd, userName,  userTel,"
+						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert)"
+						+ " values(?,?,?,?,?,?,?,?,100,?)";			
+			}
+		
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getUserId());
 			pstmt.setString(2, dto.getUserPwd());
 			pstmt.setString(3, dto.getUserName());
-			pstmt.setString(4, dto.getUserBirth());
-			pstmt.setString(5, dto.getUserTel());
-			pstmt.setString(6, dto.getUserZip());
-			pstmt.setString(7, dto.getUserAddr1());
-			pstmt.setString(8, dto.getUserAddr2());
-			pstmt.setString(9, dto.getUserEmail());
-			pstmt.setString(10, dto.getUserCert());
+			pstmt.setString(4, dto.getUserTel());
+			pstmt.setString(5, dto.getUserZip());
+			pstmt.setString(6, dto.getUserAddr1());
+			pstmt.setString(7, dto.getUserAddr2());
+			pstmt.setString(8, dto.getUserEmail());
+			if(enable==100) {
+				pstmt.setString(9, dto.getUserCert());
+			}
 			
 			result=pstmt.executeUpdate();
 			
-			conn.commit(); //커밋
+
 			
 		} catch (SQLIntegrityConstraintViolationException e) {
-			try {
-				conn.rollback(); //예외가 발생하면 롤백
-			} catch (Exception e2) {
-				
-			}
 			e.printStackTrace();
 			throw e;
-			
-		} catch (SQLDataException e) {
-			
-			try {
-				conn.rollback(); //예외가 발생하면 롤백
-			} catch (Exception e2) {
-				
-			}
-			e.printStackTrace();
-			throw e;
-			
 		} catch (SQLException e) {
-			try {
-				conn.rollback(); //예외가 발생하면 롤백
-			} catch (Exception e2) {
-				
-			}
 			e.printStackTrace();
-			throw e;
-			
 		} finally {
 			if(pstmt!=null) {
 				try {
 					pstmt.close();
-				} catch (Exception e2) {
-					
+				} catch (Exception e2) {			
 				}
 			}
-			
-			try {
-				conn.setAutoCommit(true); //자동 커밋 되도록 돌려놓음 (기본값)
-			} catch (Exception e2) {
-				
-			}
+
 		}
 
 		return result;
@@ -116,7 +94,7 @@ public class MemberDAOImpl implements MemberDAO{
 		String sql;
 		
 		try {
-			sql="select userId, userPwd, userName, userTel,"
+			sql="select userId, userPwd, userName, userBirth, userTel,"
 					+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert"
 					+ " from member1"
 					+ " where userId = ?";
@@ -131,6 +109,7 @@ public class MemberDAOImpl implements MemberDAO{
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setUserName(rs.getString("userName"));
+				dto.setUserBirth(rs.getString("userBirth"));
 				dto.setUserTel(rs.getString("userTel"));
 				dto.setUserZip(rs.getString("userZip"));
 				dto.setUserAddr1(rs.getString("userAddr1"));
