@@ -25,19 +25,19 @@
         </div>
         <div id="header">
             <div id="logo">
-                <h1><%-- <img alt="" src="${pageContext.request.contextPath}/resource/css/images/haru2.png"> --%><a href="#"></a></h1>
+                <h1><%-- <img alt="" src="${pageContext.request.contextPath}/resource/css/images/haru2.png"> --%><a href="${pageContext.request.contextPath}/main/main.do"></a></h1>
             </div>
         </div>
         
         <div id="menu">
             <ul>
-                <li><a href="#">소개</a></li>
-                <li><a href="${pageContext.request.contextPath}">원데이클래스</a></li>
-                <li><a href="#">이벤트</a></li>
-                <li><a href="#">수강후기</a></li>
-                <li><a href="#">공지사항</a></li>
+                <li><a href="${pageContext.request.contextPath}">소개</a></li>
+                <li><a href="${pageContext.request.contextPath}/oneday/list.do">원데이클래스</a></li>
+                <li><a href="${pageContext.request.contextPath}">이벤트</a></li>
+                <li><a href="${pageContext.request.contextPath}">수강후기</a></li>
+                <li><a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a></li>
                 <li>
-                    <a href="#">문의하기</a>
+                    <a href="${pageContext.request.contextPath}">문의하기</a>
                 </li>
             </ul>
         </div>
