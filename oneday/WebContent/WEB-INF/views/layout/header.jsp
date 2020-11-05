@@ -33,7 +33,7 @@
             <ul>
                 <li><a href="${pageContext.request.contextPath}">소개</a></li>
                 <li><a href="${pageContext.request.contextPath}/oneday/list.do">원데이클래스</a></li>
-                <li><a href="${pageContext.request.contextPath}">이벤트</a></li>
+                <li><a href="${pageContext.request.contextPath}/oneday/event.do">이벤트</a></li>
                 <li><a href="${pageContext.request.contextPath}">수강후기</a></li>
                 <li><a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a></li>
                 <li>
