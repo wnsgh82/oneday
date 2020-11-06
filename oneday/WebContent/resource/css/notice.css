@@ -32,10 +32,11 @@ body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGo
 .item { width:100%; padding:15px 0; border-bottom:1px solid #f1f1f1; }
 .item:after { content:''; display:block; width:0; height:0; clear:both; float:none; }
 .item span { display:block; text-align:center; font-size:14px; color:#232323; }
-.item .number { width:7%; float:left; }
-.item .subject { width:68%; float:left; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.item .number { width:9%; float:left; }
+.item .subject { width:58%; float:left; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .item .date { width:15%; float:left; }
-.item .hit { width:10%; float:left; }
+.item .hit { width:9%; float:left; }
+.item .no_file { width:9%; float:left; }
 .item span a { color:#232323; font-size:14px; }
 .item span a:hover { text-decoration:underline; }
 
@@ -53,3 +54,37 @@ body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGo
 .lnb .tab a { color:#000; font-size:16px; padding:10px 0; display:block; }
 .lnb .notice-tit { background-color:#000; border-color:#000; }
 .lnb .notice-tit a { color:#fff; }
+
+#listfooter{
+	width: 960px; 
+	margin: 10px auto; 
+	border-spacing: 0px;
+}
+#listfooter tr {
+	width: 100%;
+}
+.resetbutton {
+}
+#resetbutton botton {
+	width: 100px;
+	border-style: none;
+}
+#listfooter button{
+	width: 70px;
+	height: 30px;
+	background: #f1f1f1;
+	border-radius: 9px;
+	border: 1px solid #ccc;
+}
+#listfooter input {
+	border: 1px solid #ccc;
+	border-radius: 9px;
+	height: 30px;
+	
+}
+.selectField {
+	border-radius: 9px;
+	border: 1px solid #ccc;
+	height: 30px;
+	
+}
