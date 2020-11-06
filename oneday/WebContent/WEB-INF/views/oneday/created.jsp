@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 
@@ -122,9 +123,12 @@ function sendOk() {
 </div>
 
 <!--content  -->
-<div class="body_tem" style="border-top: 1px solid; ">
-	<div class="content_" style="width: 960px; min-height: 500px; margin: 0 auto;" >
-	
+<div class="body_tem">
+	<div class="content_tem">
+		<div class="title-area">
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;게시판이름</h3>
+		</div>
+		
 		<!-- 여기부터 자기가 만드는거임!  -->
 		<div>
 			
@@ -206,7 +210,7 @@ function sendOk() {
 			      <td align="center" >
 			      	<c:if test="${mode=='update'}">
 			      		<input type="hidden" name="page" value="${page}">
-			      		<input type="hidden" name="num" value="${dto.classNum}">
+			      		<input type="hidden" name="classNum" value="${dto.classNum}">
 			      		<input type="hidden" name="classIFN" value="${dto.classIFN}"> 
 			      			
 			      	</c:if>

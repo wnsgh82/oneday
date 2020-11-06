@@ -29,12 +29,15 @@ public class OnedayServlet extends MyUploadServlet{
 		String uri=req.getRequestURI();
 		String cp=req.getContextPath();
 		
+		
 		HttpSession session=req.getSession();
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		/*
 		if(info==null) {
 			resp.sendRedirect(cp+"/member/login.do");
 			return;
 		} //지금 로그인 안 된 상태에서 원데이 클래스 클릭 -> 로그인 -> 메인화면으로 돌아감  => 수정!!!!
+		*/
 		
 		//이미지 저장할 경로
 		String root=session.getServletContext().getRealPath("/");
@@ -115,7 +118,12 @@ public class OnedayServlet extends MyUploadServlet{
 			dto.setClassName(req.getParameter("className"));
 			dto.setClassAddr(req.getParameter("classAddr"));
 			dto.setClassCount(Integer.parseInt(req.getParameter("classCount")));
-			dto.setClassPrice(req.getParameter("classPrice"));
+			
+			int price=Integer.parseInt(req.getParameter("classPrice"));
+			String classPrice=String.format("%,d", price);
+			classPrice+="원";
+			dto.setClassPrice(classPrice);
+			
 			dto.setClassContent(req.getParameter("classContent"));
 			dto.setClassStart(req.getParameter("classStart"));
 			dto.setClassEnd(req.getParameter("classEnd"));
