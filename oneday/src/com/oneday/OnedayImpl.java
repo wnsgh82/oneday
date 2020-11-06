@@ -223,7 +223,7 @@ public class OnedayImpl implements OnedayDAO{
 	}
 
 	@Override
-	public OnedayDTO readOneday(int num) {
+	public OnedayDTO readOneday(int classNum) {
 		OnedayDTO dto=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -236,7 +236,7 @@ public class OnedayImpl implements OnedayDAO{
 					+ " from classtb "
 					+ " where classNum = ?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, classNum);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {

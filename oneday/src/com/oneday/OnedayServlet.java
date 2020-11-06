@@ -154,8 +154,8 @@ public class OnedayServlet extends MyUploadServlet{
 		String page=req.getParameter("page");
 		
 		try {
-			int num=Integer.parseInt(req.getParameter("classNum"));
-			OnedayDTO dto=dao.readOneday(num);
+			int classNum=Integer.parseInt(req.getParameter("classNum"));
+			OnedayDTO dto=dao.readOneday(classNum);
 			if(dto==null) {
 				resp.sendRedirect(cp+"/oneday/list.do?page="+page);
 				return;
