@@ -1,5 +1,6 @@
 package com.notice;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,6 +10,9 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public int insertNotice(NoticeDTO dto) throws SQLException {
 		//글올리기
 		int result=0;
+		PreparedStatement pstmt=null;
+		
+		String sql;
 		
 		return result;
 	}

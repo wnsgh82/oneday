@@ -25,7 +25,7 @@
 	<div class="content_tem">
 	
 		<!-- 여기부터 자기가 만드는거임!  -->
-		<div>
+		<div id="" style="width: 960px; margin: 0 auto;">
 			메인입니다.
 		</div>
 	    

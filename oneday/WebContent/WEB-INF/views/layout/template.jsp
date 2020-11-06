@@ -27,7 +27,7 @@
 		</div>
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
-		<div id="">
+		<div id="" style="width: 960px; margin: 0 auto">
 			
 		</div>
 	    
