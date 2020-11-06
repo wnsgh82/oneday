@@ -111,15 +111,19 @@
 	margin:30px 0 0; 
 	text-align: center;
 }
-.btn-wrap a { 
+
+.btn-wrap button {
 	display:block; 
 	cursor:pointer; 
-}
-.signup-submit {
 	background-color: #222;
 	color: #fff;
 	font-size: 16px;
 	box-sizing: border-box;
+	width: 600px;
+	height: 50px;
+	border-radius: 9px;
+}
+.signup-submit {
 /* 	border: 1px solid #ddd; */
 }
 
