@@ -10,24 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/oneday.css">
 
 <style type="text/css">
-.boxTF {
-    border:1px solid #999999;
-    padding:3px 5px 5px;
-    border-radius:4px;
-    background-color:#ffffff;
-    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
-}
 
-.boxTA {
-    border:1px solid #999999;
-    height:150px;
-    padding:3px 5px;
-    border-radius:4px;
-    background-color:#ffffff;
-    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
-}
 
 .btn {
     color:#333333;
@@ -134,7 +120,7 @@ function sendOk() {
 			
 			<div>
 			<form name="onedayForm" method="post" enctype="multipart/form-data">
-			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+			  <table style="width: 930px; margin: 10px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">클래스 제목</td>
 			      <td style="padding-left:10px;"> 
@@ -166,8 +152,8 @@ function sendOk() {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">클래스 기간</td>
 			      <td style="padding-left:10px;"> 
-			          <input type="date" name="classStart" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.classStart}">
-			          <input type="date" name="classEnd" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.classEnd}">
+			          <span><input type="date" name="classStart" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.classStart}">&nbsp;&nbsp;
+			          <input type="date" name="classEnd" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.classEnd}"></span>
 			      </td>
 			  </tr>
 			  
@@ -181,7 +167,7 @@ function sendOk() {
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 			      <td valign="top" style="padding:5px 0px 5px 10px;"> 
-			          <textarea name="classContent" rows="12" class="boxTA" style="width: 95%;">${dto.classContent}</textarea>
+			          <textarea name="classContent" rows="30" class="boxTA" style="width: 95%;">${dto.classContent}</textarea>
 			      </td>
 			  </tr>
 			  
@@ -214,9 +200,9 @@ function sendOk() {
 			      		<input type="hidden" name="classIFN" value="${dto.classIFN}"> 
 			      			
 			      	</c:if>
-			        <button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
-			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
+			        <button type="button" class="classBtn3" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+			        <button type="reset" class="classBtn3">다시입력</button>
+			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 
 				  </td>
 			    </tr>

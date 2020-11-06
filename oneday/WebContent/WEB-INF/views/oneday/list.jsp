@@ -83,7 +83,7 @@ function article(classNum){
 			      <td align="center">
 			          &nbsp;
 			      </td>
-			      <td align="right" width="100">
+			      <td align="center" width="100">
 			      <%--관리자 또는 강사만 클래스 등록 가능  --%>
 			      <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userEnabled==100 }">
 			          <button type="button" class="classBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/created.do';">클래스 등록</button>

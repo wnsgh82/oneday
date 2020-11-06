@@ -44,8 +44,8 @@
 			    </td>
 			</tr>
 			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="left">
-			       클래스 장소  : ${dto.classAddr}
+			    <td colspan="2" align="left" style="padding-left: 5px;">
+			      클래스 장소  : ${dto.classAddr}
 			    </td>
 			</tr>
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
@@ -61,7 +61,7 @@
 				<td colspan="2" style="padding: 10px 5px" align="center">
 					<img src="${pageContext.request.contextPath}/uploads/photo/${dto.classIFN}"
 					 		style="max-width: 100%; height: auto; resize: both;">
-				</td>
+				</td> 
 			</tr>
 			
 			<tr style="border-bottom: 1px solid #cccccc;">

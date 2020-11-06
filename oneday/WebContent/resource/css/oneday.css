@@ -1,4 +1,7 @@
 @charset "UTF-8";
+
+/*원데이 클래스 리스트 */
+
 .imgLayout {
 	width: 290px;
 	height: 330px;
@@ -11,7 +14,7 @@
 .imgLayout img:hover {
 	opacity: 80%;
 }
-
+/*이미지레이아웃 내 텍스트들*/
 .addr{
 	width: 270px;
 	height: 25px;
@@ -56,6 +59,9 @@
 	font-weight: 500;
 }
 
+/*원데이클래스에서 쓰는 버튼들*/
+
+/*클래스 등록 버튼*/
 .classBtn{
 	width: 300px;
     background: #FC3C55;
@@ -72,6 +78,11 @@
 	 
 }
 
+.classBtn:hover{
+	background: #FC4B62;
+}
+
+/*클래스 내 빨간 버튼*/
 .classBtn2{
     background: #FC3C55;
     margin: 30px 0 0;
@@ -84,7 +95,7 @@
     font-size: 12px;
     font-weight: normal; 
 }
-
+/*클래스 내 기본 어두운 버튼*/
 .classBtn3{
     background: #000000;
     margin: 30px 0 0;
@@ -98,6 +109,29 @@
     font-weight: normal; 
 }
 
+.classBtn3:hover{
+	background: #40434A;
+}
+
+/*원데이 클래스 등록 CSS*/
+.boxTF {
+    border:1px solid #999999;
+    padding:3px 5px 5px;
+    border-radius:4px;
+    background-color:#ffffff;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+}
+
+.boxTA {
+    border:1px solid #999999;
+    height:150px;
+    padding:3px 5px;
+    border-radius:4px;
+    background-color:#ffffff;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+}
+
+/*원데이 클래스 스티커*/
 .sticker {
     font-size: 11px;
     display: inline-block;
