@@ -1,19 +1,47 @@
 package com.notice;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class NoticeDAOImpl implements NoticeDAO {
+import com.util.DBConn;
 
+public class NoticeDAOImpl implements NoticeDAO {
+	private Connection conn=DBConn.getConnection();
 	@Override
 	public int insertNotice(NoticeDTO dto) throws SQLException {
 		//글올리기
 		int result=0;
 		PreparedStatement pstmt=null;
-		
 		String sql;
 		
+		try {
+			sql="INSERT INTO notice(notice, noNum, noName, noSubject, noContent,"
+					+ "  noCreated, noSFN, noOFN, noHitCount)"
+					+ "  VALUES(?, notice_seq.NEXTVAL, ?, ?, ?, SYSDATE, ?, ?, 0)";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNotice());
+			pstmt.setString(2, dto.getNoName());
+			pstmt.setString(3, dto.getNoSubject());
+			pstmt.setString(4, dto.getNoContent());
+			pstmt.setString(5, dto.getNoSaveFileName());
+			pstmt.setString(6, dto.getNoOrginalFileName());
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
 		return result;
 	}
 

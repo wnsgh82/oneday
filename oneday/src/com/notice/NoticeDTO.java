@@ -2,6 +2,7 @@ package com.notice;
 
 public class NoticeDTO {
 	private int noNum;
+	private int notice;
 	private String noName;
 	private String noSubject;
 	private String noContent;
@@ -57,6 +58,12 @@ public class NoticeDTO {
 	}
 	public void setNofileSize(long nofileSize) {
 		this.nofileSize = nofileSize;
+	}
+	public int getNotice() {
+		return notice;
+	}
+	public void setNotice(int notice) {
+		this.notice = notice;
 	}
 	
 }

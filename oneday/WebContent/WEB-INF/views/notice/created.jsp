@@ -59,17 +59,17 @@
 function sendOk() {
     var f = document.noticeForm;
 
-	var str = f.subject.value;
+	var str = f.noSubject.value;
     if(!str) {
         alert("제목을 입력하세요. ");
-        f.subject.focus();
+        f.noSubject.focus();
         return;
     }
 
-	str = f.content.value;
+	str = f.noContent.value;
     if(!str) {
         alert("내용을 입력하세요. ");
-        f.content.focus();
+        f.noContent.focus();
         return;
     }
 
@@ -105,12 +105,12 @@ function deleteFile(num) {
 		<div style="width: 960px; margin: 0 auto" >
 			
 			<div>
-			<form name="onedayForm" method="post" enctype="multipart/form-data">
+			<form name="noticeForm" method="post" enctype="multipart/form-data">
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">클래스 제목</td>
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">제목</td>
 			      <td style="padding-left:10px;"> 
-			          <input type="text" name="className" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.className}">
+			          <input type="text" name="noSubject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.noSubject}">
 			      </td>
 			  </tr>
 
@@ -131,7 +131,7 @@ function deleteFile(num) {
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 			      <td valign="top" style="padding:5px 0px 5px 10px;"> 
-			          <textarea name="classContent" rows="12" class="boxTA" style="width: 95%;">${dto.classContent}</textarea>
+			          <textarea name="noContent" rows="12" class="boxTA" style="width: 95%;">${dto.noContent}</textarea>
 			      </td>
 			  </tr>
 			  
@@ -147,9 +147,9 @@ function deleteFile(num) {
 				  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
 				      <td width="100" bgcolor="#eeeeee" style="text-align: center;">등록이미지</td>
 				      <td style="padding-left:10px;"> 
-				      	<c:if test="${not empty dto.saveFilename}">
-				             ${dto.originalFilename}
-				             | <a href="javascript:deleteFile('${dto.num}');">삭제</a>
+				      	<c:if test="${not empty dto.noSaveFileName}">
+				             ${dto.noOrginalFileName}
+				             | <a href="javascript:deleteFile('${dto.noNum}');">삭제</a>
 				         </c:if>     
 				       </td>
 				  </tr> 
@@ -163,13 +163,14 @@ function deleteFile(num) {
 			      <td align="center" >
 			      	<c:if test="${mode=='update'}">
 			      		<input type="hidden" name="page" value="${page}">
-			      		<input type="hidden" name="classNum" value="${dto.classNum}">
-			      		<input type="hidden" name="classIFN" value="${dto.classIFN}"> 
+			      		<input type="hidden" name="noNum" value="${dto.noNum}">
+			      		<input type="hidden" name="noSaveFileName" value="${dto.noSaveFileName}"> 
+			      		<input type="hidden" name="noOrginalFileName" value="${dto.noOrginalFileName}"> 
 			      			
 			      	</c:if>
 			        <button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
+			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?rows${rows }';">${mode=='update'?'수정취소':'등록취소'}</button>
 
 				  </td>
 			    </tr>

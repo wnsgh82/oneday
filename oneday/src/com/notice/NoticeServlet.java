@@ -1,20 +1,26 @@
 package com.notice;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.member.SessionInfo;
-import com.util.MyServlet;
+import com.util.MyUploadServlet;
 
 @WebServlet("/notice/*")
-public class NoticeServlet extends MyServlet{
+public class NoticeServlet extends MyUploadServlet{
 	private static final long serialVersionUID = 1L;
 
+	
+	private String pathname;
+
+	
 	@Override
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -71,6 +77,39 @@ public class NoticeServlet extends MyServlet{
 	}
 	
 	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//글저장하기
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		NoticeDAO dao = new NoticeDAOImpl();
+		String cp=req.getContextPath();
+		
+		String rows=req.getParameter("rows");
+		
+		try {
+			NoticeDTO dto=new NoticeDTO();
+			if(req.getParameter("notice")!=null) {
+				dto.setNotice(Integer.parseInt("notice"));
+			}
+			dto.setNoName(info.getUserName());
+			dto.setNoSubject(req.getParameter("noSubject"));
+			dto.setNoContent(req.getParameter("noContent"));
+			
+			Part p=req.getPart("selectFile");
+			Map<String, String> map=doFileUpload(p, pathname);
+			if(map!=null) {
+				String noSaveFileName=map.get("noSaveFileName");
+				String noOrginalFileName=map.get("noOrginalFileName");
+				dto.setNoSaveFileName(noSaveFileName);
+				dto.setNoOrginalFileName(noOrginalFileName);
+			}
+			
+			dao.insertNotice(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/notice/list.do?rows="+rows);
 		
 	}
 	
