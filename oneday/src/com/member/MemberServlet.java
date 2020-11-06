@@ -63,6 +63,9 @@ public class MemberServlet extends HttpServlet{
 	
 	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//로그인 폼
+		
+		
+		
 		String path="/WEB-INF/views/member/login.jsp";
 		forward(req, resp, path);
 	}
@@ -115,7 +118,7 @@ public class MemberServlet extends HttpServlet{
 		//세션에 저장된 모든 정보를 지우고 세션을 초기화
 		session.invalidate();
 		
-		//특정한 정보만 삭제할 경우
+		//특정한 정보만 삭제할 경우!!
 		//session.removeAttribute("member");
 		
 		String cp=req.getContextPath();
@@ -125,6 +128,14 @@ public class MemberServlet extends HttpServlet{
 	
 	protected void memberForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//회원가입 폼
+		String userEnabled = req.getParameter("userEnabled");
+		
+		if(userEnabled == null) {
+			userEnabled= "1";
+		}
+		int enable = Integer.parseInt(userEnabled);
+		
+		req.setAttribute("userEnabled", enable);
 		req.setAttribute("mode", "member");
 		req.setAttribute("title", "회원 가입");
 		String path="/WEB-INF/views/member/member.jsp";
@@ -203,6 +214,7 @@ public class MemberServlet extends HttpServlet{
 	
 	protected void selectlogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//회원가입 선택 
+	
 		String path="/WEB-INF/views/member/selectlogin.jsp";
 		forward(req, resp, path);
 		

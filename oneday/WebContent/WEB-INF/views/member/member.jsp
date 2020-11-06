@@ -205,6 +205,17 @@ function membercreated() {
 		                        </dl>
 		                    </div>
 		                    
+		                    <!--자격증  --> <!--자격증  -->
+		                    <c:if test="${userEnabled==100 }">
+		                    <div class="sign-form-box">
+		                        <dl class="both">
+		                            <dt>자격증</dt>
+		                            <dd>
+		                                <input type="text" name="userCert"  placeholder="강사 자격증을 입력해주세요.">
+		                            </dd>
+		                        </dl>
+		                    </div>
+		                    </c:if>
 		                    <div class="btn-wrap"><button type="button" onclick="membercreated();" class="signup-submit">회원가입 완료</button></div>
 		                </div>
 		            </div>
