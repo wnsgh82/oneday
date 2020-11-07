@@ -27,12 +27,16 @@ function deleteBoard(classNum) {
 }
 
 function apply(){
-	<c:if test="${memberScope.member.userId==null}">
+/* 	<c:if test="${memberScope.member.userId==null}">
 		alert("로그인 후 이용하실 수 있습니다.");
 		location.href="${pageContext.request.contextPath}/member/login.do";
 	</c:if>
-	
+	 */
 	//여기서부터 ~ 신청~ 짜시면 됩니다~
+	var f= document.stdsendf;
+	
+	f.action="${pageContext.request.contextPath}/std/created.do";
+	f.submit();
 }
 </script>
 
@@ -102,15 +106,20 @@ function apply(){
 			      	<input type="hidden" name="classNum" value="${dto.classNum}">
 			      	<input type="hidden" name="page" value="${page}">
 			      </c:if>
+			      <form name="stdsendf" method="post">
 			      <span>
 			     	<input type="hidden" name="userName" value="${dto.userName}">
 			      	<input type="hidden" name="className" value="${dto.className}">
 			      	<input type="hidden" name="classStart" value="${dto.classStart}">
 			      	<input type="hidden" name="classEnd" value="${dto.classEnd}">
 			      	<input type="hidden" name="classNum" value="${dto.classNum}">
+			      	<input type="hidden" name="classAddr" value="${dto.classAddr}">
+			      	<input type="hidden" name="classPrice" value="${dto.classPrice}">
+			      	<input type="hidden" name="classCount" value="${dto.classCount}">
 			      	
 			      	<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
 			      </span>
+			      </form>
 			   </td>
 			   
 			</tr>

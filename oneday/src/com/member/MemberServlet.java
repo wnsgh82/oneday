@@ -109,6 +109,9 @@ public class MemberServlet extends MyUploadServlet{
 					SessionInfo info=new SessionInfo();
 					info.setUserId(dto.getUserId());
 					info.setUserName(dto.getUserName());
+					info.setEmail(dto.getUserEmail());
+					info.setTel(dto.getUserTel());
+					info.setBirth(dto.getUserBirth());
 					info.setUserEnabled(dto.getUserEnabled());
 					
 					//세션에 정보 저장
