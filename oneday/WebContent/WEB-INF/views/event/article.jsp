@@ -33,10 +33,9 @@ function eventApply(){
 		location.href="${pageContext.request.contextPath}/member/login.do";
 	</c:if>
 	 */
-	//여기서부터 ~ 신청~ 짜시면 됩니다~
 	var f= document.stdsendf;
 	
-	f.action="${pageContext.request.contextPath}/std/created.do";
+	f.action="${pageContext.request.contextPath}/event_apply/created.do";
 	f.submit();
 }
 </script>
@@ -53,7 +52,7 @@ function eventApply(){
 <div class="body_tem">
 	<div class="content_tem" >
 		<div class="title-area">
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;원데이클래스</h3>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;★이벤트★</h3>
 		</div>
 		
 		<!-- 여기부터 자기가 만드는거임!  -->

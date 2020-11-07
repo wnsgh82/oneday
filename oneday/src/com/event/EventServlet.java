@@ -104,8 +104,8 @@ public class EventServlet extends MyUploadServlet {
 
 	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String cp=req.getContextPath();
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
+//		HttpSession session=req.getSession();
+//		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
 		EventDAO dao = new EventDAOImpl();
 		
