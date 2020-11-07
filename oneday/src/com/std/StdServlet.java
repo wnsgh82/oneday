@@ -32,6 +32,8 @@ public class StdServlet extends MyUploadServlet{
 			createFrom(req, resp);
 		}else if(uri.indexOf("created_ok.do")!=-1) {
 			createSubmit(req, resp);
+		}else if(uri.indexOf("created2.do")!=-1) {
+			tt(req, resp);
 		}
 		
 		
@@ -90,7 +92,13 @@ public class StdServlet extends MyUploadServlet{
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp);
+		resp.sendRedirect(cp+"/std/created2.do");
 	}
-	
+	protected void tt(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		String path="/WEB-INF/views/std/created2.jsp";
+		forward(req, resp, path);
+		
+	}
 }
