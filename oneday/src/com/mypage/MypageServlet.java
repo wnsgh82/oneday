@@ -31,14 +31,24 @@ public class MypageServlet extends MyServlet{
 		      }else if(info.getUserEnabled()==200) {	//관리자일 때 
 		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
 		      }
-	      }else if(uri.indexOf("login_ok.do")!=-1) {
+	      }else if(uri.indexOf("memberUpdate.do")!=-1) {
+	    	  updateForm(req, resp);
+	      }else if(uri.indexOf("memberUpdate_ok.do")!=-1) {
 	    	  
 	      }
-	      
-	      
-	      
+
 	      
 	}
-
-
+	
+	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//회원 정보 수정 폼
+		String cp=req.getContextPath();
+		
+		forward(req, resp, "/WEB-INF/views/");
+		
+	}
+	
+	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//회원 정보 수정 처리
+	}
 }
