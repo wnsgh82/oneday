@@ -23,7 +23,7 @@ public class MemberDAOImpl implements MemberDAO{
 		try {
 
 			
-			if(enable==0) {
+			if(enable==1) {
 				sql="insert into member1(userId, userPwd, userName, userTel,"
 						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled)"
 						+ " values(?,?,?,?,?,?,?,?,1)";				

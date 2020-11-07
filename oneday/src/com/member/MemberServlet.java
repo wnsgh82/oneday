@@ -1,8 +1,15 @@
 package com.member;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLDataException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +18,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import com.util.MyUploadServlet;
+
+
 
 @WebServlet("/member/*")
-public class MemberServlet extends HttpServlet{
+public class MemberServlet extends MyUploadServlet{
 	private static final long serialVersionUID = 1L;
+	private String pathname;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,6 +47,10 @@ public class MemberServlet extends HttpServlet{
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		String uri=req.getRequestURI();
+		HttpSession session=req.getSession();
+		
+	    String root=session.getServletContext().getRealPath("/");
+	    pathname=root+"uploads"+File.separator+"photoimg";
 		
 		if(uri.indexOf("login.do")!=-1) {
 			loginForm(req, resp);
@@ -148,8 +165,7 @@ public class MemberServlet extends HttpServlet{
 		String cp=req.getContextPath();
 		
 		try {
-
-			
+	
 			MemberDTO dto = new MemberDTO();
 			
 			dto.setUserId(req.getParameter("userId"));
@@ -161,16 +177,22 @@ public class MemberServlet extends HttpServlet{
 			dto.setUserAddr1(req.getParameter("userAddr1"));
 			dto.setUserAddr2(req.getParameter("userAddr2"));
 			
-			String cert=req.getParameter("userCert");
-			
-			int enable = 0;
-			if(cert!=null) {
-				enable =100;
-				dto.setUserEnabled(enable);;
+			int enable = 1;
+				
+			if(enable ==100) {
+				String filename=null; 
+				Part p=req.getPart("userCert"); // 일반회원은 null 
+				Map<String, String> map= doFileUpload(p, pathname); 
+				if(map!=null) {
+					filename=map.get("saveFilename"); 
+					dto.setUserCert(filename); 
+					enable =100;
+					dto.setUserEnabled(enable); 
+				}			
 			}
-			
-			dto.setUserCert(cert);
-			
+		
+		
+				
 			dao.insertMember(dto,enable);
 			
 			resp.sendRedirect(cp);
@@ -219,5 +241,7 @@ public class MemberServlet extends HttpServlet{
 		forward(req, resp, path);
 		
 	}
+	
 
+	
 }

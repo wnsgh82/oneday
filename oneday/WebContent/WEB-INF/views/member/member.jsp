@@ -114,7 +114,7 @@ function membercreated() {
 </div>
 
 <!--content  -->
-<form name="memberF" method="post">
+<form name="memberF" method="post" enctype="multipart/form-data">
 <div class="body_tem">
 	<div class="content_tem">
 		 <div class="title-area">
@@ -204,6 +204,8 @@ function membercreated() {
 		                            </dd>
 		                        </dl>
 		                    </div>
+		     
+		                    
 		                    
 		                    <!--자격증  --> <!--자격증  -->
 		                    <c:if test="${userEnabled==100 }">
@@ -211,11 +213,13 @@ function membercreated() {
 		                        <dl class="both">
 		                            <dt>자격증</dt>
 		                            <dd>
-		                                <input type="text" name="userCert"  placeholder="강사 자격증을 입력해주세요.">
+		                                <input type="file" name="userCert" size="53" style="height: 25px;" >
+		                                <input type="hidden" name="userEnabled" value="100">
 		                            </dd>
 		                        </dl>
 		                    </div>
 		                    </c:if>
+
 		                    <div class="btn-wrap"><button type="button" onclick="membercreated();" class="signup-submit">회원가입 완료</button></div>
 		                </div>
 		            </div>
