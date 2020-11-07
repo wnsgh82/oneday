@@ -64,7 +64,6 @@ public class OnedayImpl implements OnedayDAO{
 		try {
 			sql="update classtb set className=?, classAddr=?, classCount=?, classPrice=?,"
 					+ " classContent=?, classIFN=?, classStart=?, classEnd=? "
-					+ " from classtb"
 					+ " where classNum = ?";
 			
 			pstmt=conn.prepareStatement(sql);
@@ -232,7 +231,8 @@ public class OnedayImpl implements OnedayDAO{
 		try {
 			sql="select classNum, className, classAddr, classCount, classPrice,"
 					+ " classContent, classHitCount, classEnabled, classIFN,"
-					+ " classCreated, classStart, classEnd, userId, userName"
+					+ " classCreated, to_char(classStart,'yyyy-mm-dd') classStart, "
+					+ " to_char(classEnd,'yyyy-mm-dd') classEnd, userId, userName"
 					+ " from classtb "
 					+ " where classNum = ?";
 			pstmt=conn.prepareStatement(sql);
