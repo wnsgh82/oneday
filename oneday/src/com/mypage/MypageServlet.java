@@ -2,6 +2,7 @@ package com.mypage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,9 @@ import com.member.MemberDAO;
 import com.member.MemberDAOImpl;
 import com.member.MemberDTO;
 import com.member.SessionInfo;
+import com.oneday.OnedayDAO;
+import com.oneday.OnedayDTO;
+import com.oneday.OnedayImpl;
 import com.util.FileManager;
 import com.util.MyUploadServlet;
 
@@ -36,6 +40,13 @@ public class MypageServlet extends MyUploadServlet{
 	      //이미지 저장할 경로
 		  String root=session.getServletContext().getRealPath("/");
 		  pathname=root+"uploads"+File.separator+"photo";
+		  
+		  //강사 마이페이지 - 나의 클래스에 전달할 파라미터 값
+		  TrmyDAO dao=new TrmyDAO();
+		  List<TrmyDTO> list=dao.readClass(info.getUserId());
+		  
+		  req.setAttribute("list", list);
+		  
 	      
 	      if(uri.indexOf("mypageMain.do")!= -1) {
 	    	  if(info.getUserEnabled()==1) {	//수강생일 때 

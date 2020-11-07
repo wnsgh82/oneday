@@ -11,4 +11,5 @@ public interface OnedayDAO {
 	public int dataCount();
 	public List<OnedayDTO> listOneday(int offset,int rows);
 	public OnedayDTO readOneday(int num);
+
 }

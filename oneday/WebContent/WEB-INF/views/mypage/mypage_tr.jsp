@@ -11,6 +11,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/mypage.css">
+
+<style type="text/css">
+
+a{
+	text-decoration: none;
+	color: #000000;
+}
+
+a:hover{
+	text-decoration: none;
+	color: tomato;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -68,11 +83,13 @@
                 <div id="table_content">
                       <!-- 여기 포문돌려서 값 불러왕 -->
                       <c:forEach var="dto" items="${list}">
-                        <ul>
+                        <ul style="background: white; border-bottom: 1px solid #e0e0e0;">
                             <li style="width: 10%;"><p>&nbsp;</p></li>
-                            <li style="width: 50%; text-align: left; padding-left: 10px;"><p>${dto.className}</p></li>
-                            <li style="width: 20%;"><p>솰라솰라</p></li>
-                            <li style="width: 20%;"><p>솰라솰라</p></li>
+                            <li style="width: 50%; text-align: left; padding-left: 10px;">
+                            		<a href="${pageContext.request.contextPath}/oneday/article.do?classNum=${dto.classNum}">${dto.className}</a>
+                            </li>
+                            <li style="width: 20%;"><p>${dto.classDate}</p></li>
+                            <li style="width: 20%; color: tomato;"><p>${dto.classEnabled}</p></li>
                         </ul>
                       </c:forEach>
                 </div>

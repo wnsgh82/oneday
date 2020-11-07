@@ -13,6 +13,4 @@ public interface MemberDAO {
 	public MemberDTO readMember(String userId);
 	public List<MemberDTO> listMember(); //관리자가 회원 목록 열람
 	
-	
-	
 }

@@ -40,7 +40,7 @@ function article(classNum){
 			  <c:if test="${status.index==0}">  <%--forEach구문 처음 시작했으면 --%>
 			  	<tr>
 			  </c:if>
-			  <c:if test="${status.index!=0 && status.index%4==0}">  <%--처음이 아니고, 3으로 나눠떨어지면 줄바꿈 --%>
+			  <c:if test="${status.index!=0 && status.index%3==0}">  <%--처음이 아니고, 3으로 나눠떨어지면 줄바꿈 --%>
 			  	<c:out value="</tr><tr>" escapeXml="false"/>
 			  </c:if> 	
 			  <td width="300" align="center">
@@ -77,12 +77,6 @@ function article(classNum){
 			
 			<table style="width: 100%; margin-top: 10px; border-spacing: 0;">
 			   <tr height="40">
-			      <td align="left" width="100">
-			          &nbsp;
-			      </td>
-			      <td align="center">
-			          &nbsp;
-			      </td>
 			      <td align="center" width="100">
 			      <%--관리자 또는 강사만 클래스 등록 가능  --%>
 			      <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userEnabled==100 }">

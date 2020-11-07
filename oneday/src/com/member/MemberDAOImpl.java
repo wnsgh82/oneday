@@ -254,5 +254,4 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return list;
 	}
-
 }
