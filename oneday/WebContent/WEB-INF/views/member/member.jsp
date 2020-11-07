@@ -205,7 +205,10 @@ function membercreated() {
 		                        </dl>
 		                    </div>
 		     
-		                    
+		                    <c:if test="${userEnabled==1}">
+		                    	<input type="hidden" name="userEnabled" value="1">
+		                    	<input type="hidden" name="userCert" value="">
+		                    </c:if>
 		                    
 		                    <!--자격증  --> <!--자격증  -->
 		                    <c:if test="${userEnabled==100 }">

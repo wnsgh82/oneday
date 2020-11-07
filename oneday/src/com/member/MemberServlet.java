@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +23,7 @@ import javax.servlet.http.Part;
 
 import com.util.MyUploadServlet;
 
-
-
+@MultipartConfig
 @WebServlet("/member/*")
 public class MemberServlet extends MyUploadServlet{
 	private static final long serialVersionUID = 1L;
@@ -177,7 +177,7 @@ public class MemberServlet extends MyUploadServlet{
 			dto.setUserAddr1(req.getParameter("userAddr1"));
 			dto.setUserAddr2(req.getParameter("userAddr2"));
 			
-			int enable = 1;
+			int enable = Integer.parseInt(req.getParameter("userEnabled"));
 				
 			if(enable ==100) {
 				String filename=null; 
@@ -190,9 +190,7 @@ public class MemberServlet extends MyUploadServlet{
 					dto.setUserEnabled(enable); 
 				}			
 			}
-		
-		
-				
+
 			dao.insertMember(dto,enable);
 			
 			resp.sendRedirect(cp);
