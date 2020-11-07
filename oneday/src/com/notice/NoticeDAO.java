@@ -12,6 +12,8 @@ public interface NoticeDAO {
 	
 	public int dataCount();
 	public int dataCount(String condition, String keyword);
+	public int updateHitCount(int num) throws SQLException;
+
 	
 	public List<NoticeDTO> listNotice(int offset, int rows);
 	public List<NoticeDTO> listNotice(int offset, int rows, String condition, String keyword);

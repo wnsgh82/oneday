@@ -2,7 +2,9 @@ package com.notice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.util.DBConn;
@@ -67,34 +69,246 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 	@Override
 	public int dataCount() {
-		//총데이터갯수
-		return 0;
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="SELECT NVL(COUNT(*), 0) FROM notice";
+			pstmt=conn.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		
+		return result;
 	}
 
 	@Override
 	public int dataCount(String condition, String keyword) {
-		//검색시 데이터갯수
-		return 0;
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			if(condition.equalsIgnoreCase("created")) {
+				//날짜로 검색했으면 형시 바꿔주기
+				keyword=keyword.replaceAll("(\\-||\\/||\\.)", "");
+        		sql="SELECT NVL(COUNT(*), 0) FROM notice WHERE TO_CHAR(noCreated, 'YYYYMMDD') = ?  ";
+        	} else {
+        		sql="SELECT NVL(COUNT(*), 0) FROM notice WHERE INSTR(" + condition + ", ?) >= 1 ";
+        	}
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		
+		return result;
 	}
 
 	@Override
 	public List<NoticeDTO> listNotice(int offset, int rows) {
 		//글리스트
-		return null;
+		List<NoticeDTO> list = new ArrayList<>();
+		PreparedStatement pstmt=null;
+		String sql;
+		ResultSet rs=null;
+		
+		try {
+			sql="SELECT noNum, noSubject, noSFN, noHitCount, noCreated"
+					+ "   FROM notice"
+					+ "	  ORDER BY noNum DESC"
+					+ "   OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, rows);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				NoticeDTO dto= new NoticeDTO();
+				
+				dto.setNoNum(rs.getInt("noNum"));
+				dto.setNoSubject(rs.getString("noSubject"));
+				dto.setNoSaveFileName(rs.getString("noSFN"));
+				dto.setNoHitCount(rs.getString("noHitCount"));
+				dto.setNoCretaed(rs.getString("noCreated"));
+
+				list.add(dto);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+			
+		return list;
 	}
 
 	@Override
 	public List<NoticeDTO> listNotice(int offset, int rows, String condition, String keyword) {
 		//글리스트(검색시)
+		List<NoticeDTO> list=new ArrayList<NoticeDTO>();
+		PreparedStatement pstmt=null;
+		StringBuilder sb=new StringBuilder();
+		ResultSet rs=null;
 		
-		return null;
+		try {
+			sb.append("SELECT noNum, noName, noSubject, noSFN, noHitCount, noCreated");
+			sb.append("   FROM notice");
+			if(condition.equalsIgnoreCase("created")) {
+				keyword=keyword.replaceAll("(\\-||\\/||\\.)", "");
+				sb.append("   WHERE TO_CHAR(created, 'YYYYMMDD')=?");
+			} else {
+				sb.append("   WHERE INSTR(" +condition+ ", ?)>=1");
+			}
+			sb.append("	  ORDER BY noNum DESC");
+			sb.append("   OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
+			
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, offset);
+			pstmt.setInt(3, rows);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoticeDTO dto=new NoticeDTO();
+				dto.setNoNum(rs.getInt("noNum"));
+				dto.setNoName(rs.getString("noName"));
+				dto.setNoSubject(rs.getString("noSubject"));
+				dto.setNoContent(rs.getString("noContent"));
+				dto.setNoSaveFileName(rs.getString("noSFN"));
+				dto.setNoHitCount(rs.getString("noHitCount"));
+				dto.setNoCretaed(rs.getString("noCreated"));
+				
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+			
+		return list;
 	}
 
 	@Override
 	public List<NoticeDTO> listNotice() {
 		//맨위에 올라오는 공지글
+		List<NoticeDTO> list=new ArrayList<NoticeDTO>();
+		PreparedStatement pstmt=null;
+		String sql;
+		ResultSet rs=null;
 		
-		return null;
+		try {
+			sql="SELECT noNum, noSubject, noSFN, noHitCount, noCreated"
+					+ "   FROM notice"
+					+ "   WHERE notice=1"
+					+ "	  ORDER BY noNum DESC";
+			pstmt=conn.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoticeDTO dto=new NoticeDTO();
+				dto.setNoNum(rs.getInt("noNum"));
+				dto.setNoSubject(rs.getString("noSubject"));
+				dto.setNoSaveFileName(rs.getString("noSFN"));
+				dto.setNoHitCount(rs.getString("noHitCount"));
+				dto.setNoCretaed(rs.getString("noCreated"));
+				
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+			
+		return list;
 	}
 
 	@Override
@@ -102,6 +316,34 @@ public class NoticeDAOImpl implements NoticeDAO {
 		//가져오기
 		
 		return null;
+	}
+
+	@Override
+	public int updateHitCount(int num) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE notice SET noHitCount=noHitCount+1 WHERE noNum=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
 	}
 
 }

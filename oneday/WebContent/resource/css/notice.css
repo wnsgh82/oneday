@@ -32,11 +32,12 @@ body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGo
 .item { width:100%; padding:15px 0; border-bottom:1px solid #f1f1f1; }
 .item:after { content:''; display:block; width:0; height:0; clear:both; float:none; }
 .item span { display:block; text-align:center; font-size:14px; color:#232323; }
-.item .number { width:9%; float:left; }
-.item .subject { width:58%; float:left; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.item .number { width:6%; float:left; }
+.item .subject { width:55%; float:left; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .item .date { width:15%; float:left; }
 .item .hit { width:9%; float:left; }
 .item .no_file { width:9%; float:left; }
+.item .checkdel { width:5%; float:left; }
 .item span a { color:#232323; font-size:14px; }
 .item span a:hover { text-decoration:underline; }
 

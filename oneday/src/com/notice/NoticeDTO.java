@@ -2,15 +2,18 @@ package com.notice;
 
 public class NoticeDTO {
 	private int noNum;
+	private int listNum;
 	private int notice;
 	private String noName;
 	private String noSubject;
 	private String noContent;
-	private String noDate;
+	private String noCreated;
+	private String noHitCount;
 	
 	private String noSaveFileName;
 	private String noOrginalFileName;
 	private long nofileSize;
+	
 	public int getNoNum() {
 		return noNum;
 	}
@@ -35,11 +38,11 @@ public class NoticeDTO {
 	public void setNoContent(String noContent) {
 		this.noContent = noContent;
 	}
-	public String getNoDate() {
-		return noDate;
+	public String getNoCreated() {
+		return noCreated;
 	}
-	public void setNoDate(String noDate) {
-		this.noDate = noDate;
+	public void setNoCretaed(String noCreated) {
+		this.noCreated = noCreated;
 	}
 	public String getNoSaveFileName() {
 		return noSaveFileName;
@@ -64,6 +67,18 @@ public class NoticeDTO {
 	}
 	public void setNotice(int notice) {
 		this.notice = notice;
+	}
+	public String getNoHitCount() {
+		return noHitCount;
+	}
+	public void setNoHitCount(String noHitCount) {
+		this.noHitCount = noHitCount;
+	}
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
 	}
 	
 }
