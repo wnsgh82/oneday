@@ -20,12 +20,11 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO event(eNum, eName, eSubject, eContent, eIFN, eHitCount, eCreated) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE)";
+			sql = "INSERT INTO event(eNum, eSubject, eContent, eHitCount, eIFN, eCreated) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, 0, ?, SYSDATE)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.geteName());
-			pstmt.setString(2, dto.geteSubject());
+			pstmt.setString(1, dto.geteSubject());
+			pstmt.setString(2, dto.geteIFN());
 			pstmt.setString(3, dto.geteContent());
-			pstmt.setString(4, dto.geteIFN());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -148,7 +147,7 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql="SELECT eNum, eName, eSubject, eIFN, eHitCount, "
+			sql="SELECT eNum, eSubject, eIFN, eHitCount, "
 					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated"
 					+ " FROM EVENT ORDER BY eCreated DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
@@ -163,7 +162,6 @@ public class EventDAOImpl implements EventDAO {
 				EventDTO dto=new EventDTO();
 				
 				dto.seteNum(rs.getInt("eNum"));
-				dto.seteName(rs.getString("eName"));
 				dto.seteSubject(rs.getString("eSubject"));
 				dto.seteIFN(rs.getString("eIFN"));
 				dto.seteHitCount(rs.getInt("eHitCount"));
@@ -203,7 +201,7 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT eNum, eName, eSubject, eContent, eHitCount, eIFN, eCreated "
+			sql = "SELECT eNum, eSubject, eContent, eHitCount, eIFN, eCreated "
 					// 나중에 이벤트 시작, 종료일 추가 예정
 					+ " FROM EVENT WHERE eNum=?";
 			
@@ -214,7 +212,6 @@ public class EventDAOImpl implements EventDAO {
 			if(rs.next()) {
 				dto = new EventDTO();
 				dto.seteNum(rs.getInt("eNum"));
-				dto.seteName(rs.getString("eName"));
 				dto.seteSubject(rs.getString("eSubject"));
 				dto.seteContent(rs.getString("eContent"));
 				dto.seteHitCount(rs.getInt("eHitCount"));
