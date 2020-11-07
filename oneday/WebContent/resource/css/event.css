@@ -64,6 +64,27 @@ body {
 	font-weight: 600;
 }
 
+.event-term {
+	width: 250px;
+	height: 25px;
+	line-height: 25px;
+	margin: 1px auto;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer; 
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.event-start {
+	text-align: left;
+}
+
+.event-end {
+	text-align: right;
+}
 /* 이벤트에서 쓰는 버튼들*/
 
 /*이벤트 등록 버튼*/

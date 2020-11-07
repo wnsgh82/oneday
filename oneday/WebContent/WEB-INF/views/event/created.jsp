@@ -30,7 +30,7 @@ function sendOk() {
         f.eContent.focus();
         return;
     }
- /*   
+    
     str = f.eStart.value;
     if(!str) {
         alert("이벤트 기간 시작일을 입력하세요. ");
@@ -38,13 +38,13 @@ function sendOk() {
         return;
     }
     
-    str = f.etEnd.value;
+    str = f.eEnd.value;
     if(!str) {
         alert("이벤트 기간 종료일을 입력하세요. ");
         f.eEnd.focus();
         return;
     }
-*/   
+   
     var mode="${mode}";
     if(mode=="created" && ! f.selectFile.value){
     	alert("이미지 파일을 선택하세요.");
@@ -95,13 +95,9 @@ function sendOk() {
 			  
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">이벤트 기간</td>
-			      <td style="padding-left:10px;"> 
-			      <!-- 이벤트 기간 추가하고 나면 이걸로 씀
+			      <td style="padding-left:10px;">
 			          <span><input type="date" name="eStart" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.eStart}">&nbsp;&nbsp;
 			          <input type="date" name="eEnd" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.eEnd}"></span>
-			       -->    
-			          <span><input type="date" name="eStart" maxlength="100" class="boxTF" style="width: 40%;">&nbsp;&nbsp;
-			          <input type="date" name="eEnd" maxlength="100" class="boxTF" style="width: 40%;"></span>
 			      </td>
 			  </tr>
 			  

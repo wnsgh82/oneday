@@ -40,7 +40,7 @@ public class EventServlet extends MyUploadServlet {
 		}
 		*/
 		String root = session.getServletContext().getRealPath("/");
-		pathname = root + "uploads" + File.separator + "photo";
+		pathname=root+"uploads"+File.separator+"photo";
 		
 		if(uri.indexOf("list.do")!=-1) {
 			list(req, resp);
@@ -54,7 +54,7 @@ public class EventServlet extends MyUploadServlet {
 			updateForm(req, resp);
 		} else if(uri.indexOf("update_ok.do")!=-1) {
 			updateSubmit(req, resp);
-		} else if(uri.indexOf("reply_ok.do")!=-1) {
+		} else if(uri.indexOf("delete.do")!=-1) {
 			delete(req, resp);
 		} 
 	}
@@ -83,9 +83,9 @@ public class EventServlet extends MyUploadServlet {
 		
 		List<EventDTO> list = dao.listEvevnt(offset, rows);
 		
-		String listUrl = cp + "/event/list.do";
-		String articleUrl = cp + "/evnet/article.do?page=" + current_page;
-		String paging = util.paging(current_page, total_page, listUrl);
+		String listUrl=cp+"/event/list.do";
+		String articleUrl=cp+"/event/article.do?page="+current_page;
+		String paging=util.paging(current_page, total_page, listUrl);
 		
 		req.setAttribute("list", list);
 		req.setAttribute("page", current_page);
@@ -112,11 +112,10 @@ public class EventServlet extends MyUploadServlet {
 		try {
 			EventDTO dto = new EventDTO();
 		
-			dto.seteName(req.getParameter("eName"));
 			dto.seteContent(req.getParameter("eContent"));
-			dto.seteSubject(req.getParameter("eContent"));
-			// dto.setStart(req.getParameter("eStart"));
-			// dto.setEnd(req.getParameter("eEnd"));
+			dto.seteSubject(req.getParameter("eSubject"));
+			dto.seteStart(req.getParameter("eStart"));
+			dto.seteEnd(req.getParameter("eEnd"));
 			
 			String filename=null;
 			Part p = req.getPart("selectFile");
@@ -214,6 +213,8 @@ public class EventServlet extends MyUploadServlet {
 			dto.seteNum(Integer.parseInt(req.getParameter("eNum")));
 			dto.seteSubject(req.getParameter("eSubject"));
 			dto.seteContent(req.getParameter("eContent"));
+			dto.seteStart(req.getParameter("eStart"));
+			dto.seteEnd(req.getParameter("eEnd"));
 			
 			Part p = req.getPart("selectFile");
 			Map<String, String> map = doFileUpload(p, pathname);
@@ -246,13 +247,13 @@ public class EventServlet extends MyUploadServlet {
 			int eNum = Integer.parseInt(req.getParameter("eNum"));
 			EventDTO dto = dao.readEvent(eNum);
 			if(dto==null) {
-				resp.sendRedirect(cp+"event/list.do?page="+page);
+				resp.sendRedirect(cp+"/event/list.do?page="+page);
 				return;
 				
 			}
 			
 			// 관리자가 아니면
-			if(! dto.getUserId().equals(info.getUserId()) && ! info.getUserId().equals("admin")) {
+			if(! info.getUserId().equals("admin")) {
 				resp.sendRedirect(cp+"/event/list.do?page="+page);
 				return;
 			}
@@ -263,7 +264,7 @@ public class EventServlet extends MyUploadServlet {
 			dao.deleteEvent(eNum);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		resp.sendRedirect(cp+"/event/list.do?page="+page);
 	}

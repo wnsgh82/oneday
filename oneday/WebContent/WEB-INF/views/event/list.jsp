@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
 function article(eNum){
-	var url="${articleUrl}&num="+eNum;
+	var url="${articleUrl}&eNum="+eNum;
 	location.href=url;
 }
 </script>
@@ -46,6 +46,8 @@ function article(eNum){
 			  	<div class="imgLayout" onclick="article('${dto.eNum}')">
 			  		<img src="${pageContext.request.contextPath}/uploads/photo/${dto.eIFN}" width="290" height="180" border="0">
 			  		<span class="name">${dto.eSubject}</span>
+			  		<span class="event-term event-start">${dto.eStart}&nbsp;</span>
+			  		<span class="event-term evnet-end">~&nbsp;${dto.eEnd}</span>
 			  		<span class="sticker">진행 중</span>
 			  		<%--여기다 출력할 거  --%>
 			  	</div>

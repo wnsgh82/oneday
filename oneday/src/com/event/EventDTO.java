@@ -3,16 +3,17 @@ package com.event;
 public class EventDTO {
 	private int eNum;
 	private String userId, userName;
-	private String eName;
 	private String eSubject;
 	private String eContent;
-	private String eDate;
 	private String eIFN;
 	private int eHitCount;
 	private int userPoint;
 	private String eCreated;
 	
-	
+	private String eStart, eEnd;
+	private int eEnabled;
+
+
 	public int geteNum() {
 		return eNum;
 	}
@@ -31,12 +32,7 @@ public class EventDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String geteName() {
-		return eName;
-	}
-	public void seteName(String eName) {
-		this.eName = eName;
-	}
+
 	public String geteSubject() {
 		return eSubject;
 	}
@@ -49,17 +45,18 @@ public class EventDTO {
 	public void seteContent(String eContent) {
 		this.eContent = eContent;
 	}
-	public String geteDate() {
-		return eDate;
-	}
-	public void seteDate(String eDate) {
-		this.eDate = eDate;
-	}
+
 	public String geteIFN() {
 		return eIFN;
 	}
 	public void seteIFN(String eIFN) {
 		this.eIFN = eIFN;
+	}
+	public int geteHitCount() {
+		return eHitCount;
+	}
+	public void seteHitCount(int eHitCount) {
+		this.eHitCount = eHitCount;
 	}
 	public int getUserPoint() {
 		return userPoint;
@@ -67,20 +64,29 @@ public class EventDTO {
 	public void setUserPoint(int userPoint) {
 		this.userPoint = userPoint;
 	}
-	
-	public int geteHitCount() {
-		return eHitCount;
-	}
-	public void seteHitCount(int eHitCount) {
-		this.eHitCount = eHitCount;
-	}
-	
 	public String geteCreated() {
 		return eCreated;
 	}
 	public void seteCreated(String eCreated) {
 		this.eCreated = eCreated;
+	}	
+	public String geteStart() {
+		return eStart;
 	}
-	
+	public void seteStart(String eStart) {
+		this.eStart = eStart;
+	}
+	public String geteEnd() {
+		return eEnd;
+	}
+	public void seteEnd(String eEnd) {
+		this.eEnd = eEnd;
+	}
+	public int geteEnabled() {
+		return eEnabled;
+	}
+	public void seteEnabled(int eEnabled) {
+		this.eEnabled = eEnabled;
+	}
 	
 }

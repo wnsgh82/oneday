@@ -73,8 +73,8 @@ function eventApply(){
 			    </td>
 			</tr>
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
-			    <td width="50%" align="left" style="padding-left: 5px;">
-			      이벤트 기간  : ${dto.eStart}&nbsp;-&nbsp;${dto.eEnd}
+			    <td width="50%" align="left" style="padding-left: 5px;">    
+			    	  이벤트 기간  : ${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}
 			    </td>
 			</tr>
 			
@@ -89,7 +89,7 @@ function eventApply(){
 			  <td colspan="2" align="center" style="padding: 10px 5px;" valign="top" height="30">
 			      ${dto.eContent}
 			      <br>
-			      <c:if test="${sessionScope.member.userId==null }">
+			      <c:if test="${sessionScope.member.userId==null}">
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="page" value="${page}">
 			      </c:if>
@@ -97,7 +97,8 @@ function eventApply(){
 			      <span>
 			      	<input type="hidden" name="eSubject" value="${dto.eSubject}">
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
-			      	\
+			      	<input type="hidden" name="eStart" value="${dto.eStart}">
+			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
 			      	<button type="button" class="eBtn" onclick="eventApply();">이벤트 참가</button>
 			      </span>
 			      </form>
@@ -107,8 +108,8 @@ function eventApply(){
 			
 			<tr height="45">
 			    <td>
-			    	 <%--관리자만 이벤트 등록 가능--%>
-			    	 <c:if test="${sessionScope.member.userId=='admin'">
+			    	 <%--관리자만 이벤트 수정, 삭제 가능--%>
+			    	 <c:if test="${sessionScope.member.userId=='admin'}">
 			          <button type="button" class="eBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/event/update.do?eNum=${dto.eNum}&page=${page}';">수정</button>
 			          <button type="button" class="eBtn3" onclick="deleteBoard('${dto.eNum}');">삭제</button>
 			         </c:if>

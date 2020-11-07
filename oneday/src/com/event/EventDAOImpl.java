@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.oneday.OnedayDTO;
 import com.util.DBConn;
 
 public class EventDAOImpl implements EventDAO {
@@ -20,11 +19,14 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO event(eNum, eSubject, eContent, eHitCount, eIFN, eCreated) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, 0, ?, SYSDATE)";
+			sql = "INSERT INTO event(eNum, eSubject, eContent, eHitCount, eIFN, eCreated, eStart, eEnd, eEnabled) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, 0, ?, SYSDATE, ?, ?, 1)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.geteSubject());
-			pstmt.setString(2, dto.geteIFN());
-			pstmt.setString(3, dto.geteContent());
+			pstmt.setString(2, dto.geteContent());
+			pstmt.setString(3, dto.geteIFN());
+			pstmt.setString(4, dto.geteStart());
+			pstmt.setString(5, dto.geteEnd());
+			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -49,13 +51,15 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "UPDATE EVENT SET eSubject=?, eContent=? eIFN=? WHERE eNum=?";
+			sql = "UPDATE EVENT SET eSubject=?, eContent=?, eIFN=?, eStart=?, eEnd=? WHERE eNum=?";
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.geteSubject());
 			pstmt.setString(2, dto.geteContent());
 			pstmt.setString(3, dto.geteIFN());
-			pstmt.setInt(4,  dto.geteNum());
+			pstmt.setString(4, dto.geteStart());
+			pstmt.setString(5, dto.geteEnd());
+			pstmt.setInt(6, dto.geteNum());
 			
 			result=pstmt.executeUpdate();
 			
@@ -76,7 +80,7 @@ public class EventDAOImpl implements EventDAO {
 	}
 
 	@Override
-	public int deleteEvent(int eNum) throws SQLException {
+	public int deleteEvent(int num) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
@@ -84,7 +88,7 @@ public class EventDAOImpl implements EventDAO {
 		try {
 			sql = "DELETE FROM EVENT WHERE eNum=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, eNum);
+			pstmt.setInt(1, num);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -99,7 +103,8 @@ public class EventDAOImpl implements EventDAO {
 				}
 			}
 		}
-		return result;	}
+		return result;	
+	}
 
 	@Override
 	public int dataCount() {
@@ -148,8 +153,8 @@ public class EventDAOImpl implements EventDAO {
 		
 		try {
 			sql="SELECT eNum, eSubject, eIFN, eHitCount, "
-					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated"
-					+ " FROM EVENT ORDER BY eCreated DESC "
+					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated, eStart, eEnd, eEnabled "
+					+ " FROM EVENT ORDER BY eEnabled DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -166,6 +171,9 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteIFN(rs.getString("eIFN"));
 				dto.seteHitCount(rs.getInt("eHitCount"));
 				dto.seteCreated(rs.getString("eCreated"));
+				dto.seteStart(rs.getString("eStart"));
+				dto.seteEnd(rs.getString("eEnd"));
+				dto.seteEnabled(rs.getInt("eEnabled"));
 				
 				list.add(dto);
 			}			
@@ -201,8 +209,8 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT eNum, eSubject, eContent, eHitCount, eIFN, eCreated "
-					// 나중에 이벤트 시작, 종료일 추가 예정
+			sql = "SELECT eNum, eSubject, eContent, eHitCount, eIFN, eCreated, "
+					+ " TO_CHAR(eStart, 'YYYY-MM-DD') eStart, TO_CHAR(eEnd, 'YYYY-MM-DD') eEnd, eEnabled "
 					+ " FROM EVENT WHERE eNum=?";
 			
 			pstmt=conn.prepareStatement(sql);
@@ -217,6 +225,9 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteHitCount(rs.getInt("eHitCount"));
 				dto.seteIFN(rs.getString("eIFN"));
 				dto.seteCreated(rs.getString("eCreated"));
+				dto.seteStart(rs.getString("eStart"));
+				dto.seteEnd(rs.getString("eEnd"));
+				dto.seteEnabled(rs.getInt("eEnabled"));
 			
 			}
 			
