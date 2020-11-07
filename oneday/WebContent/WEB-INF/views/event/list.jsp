@@ -45,9 +45,9 @@ function article(eNum){
 			  <td width="300" align="center">
 			  	<div class="imgLayout" onclick="article('${dto.eNum}')">
 			  		<img src="${pageContext.request.contextPath}/uploads/photo/${dto.eIFN}" width="290" height="180" border="0">
-			  		<span class="event-term blinking">${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}</span>
+			  		<span class="event-term">${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}</span>
 			  		<span class="name">${dto.eSubject}</span>
-			  		<span class="sticker">진행 중</span>
+			  		<span class="sticker blinking">진행 중</span>
 			  		<%--여기다 출력할 거  --%>
 			  	</div>
 			  </td>
@@ -75,13 +75,7 @@ function article(eNum){
 			
 			<table style="width: 100%; margin-top: 10px; border-spacing: 0;">
 			   <tr height="40">
-			      <td align="left" width="100">
-			          &nbsp;
-			      </td>
-			      <td align="center">
-			          &nbsp;
-			      </td>
-			      <td align="right" width="100">
+			      <td align="center" width="100">
 			      <%--관리자만 이벤트 등록 가능  --%>
 			      <c:if test="${sessionScope.member.userId=='admin'}">
 			          <button type="button" class="eBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/created.do';">이벤트 등록</button>

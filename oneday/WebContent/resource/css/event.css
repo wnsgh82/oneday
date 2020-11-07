@@ -82,9 +82,9 @@ body {
 /* 반짝이 */
 
 .blinking{
-	-webkit-animation:blink 1.5s ease-in-out infinite alternate;
-    -moz-animation:blink 1.5s ease-in-out infinite alternate;
-    animation:blink 1.5s ease-in-out infinite alternate;
+	-webkit-animation:blink 1s ease-in-out infinite alternate;
+    -moz-animation:blink 1s ease-in-out infinite alternate;
+    animation:blink 1s ease-in-out infinite alternate;
 }
 @-webkit-keyframes blink{
     0% {opacity:0;}
@@ -99,6 +99,7 @@ body {
     100% {opacity:1;}
 }
 
+/* 여기가지 반짝이 */
 
 
 .eBtn{
@@ -114,6 +115,7 @@ body {
     font-size: 14px;
     font-weight: normal;
     height: 50px;
+ 
 	 
 }
 
