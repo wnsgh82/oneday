@@ -62,7 +62,7 @@ function apply(){
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 : ${dto.userName}
+			       강사명 : ${dto.userName}
 			    </td>
 			    <td width="50%" align="right" style="padding-right: 5px;">
 			        ${dto.classCreated}
@@ -102,7 +102,15 @@ function apply(){
 			      	<input type="hidden" name="classNum" value="${dto.classNum}">
 			      	<input type="hidden" name="page" value="${page}">
 			      </c:if>
-			      <span><button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button></span>
+			      <span>
+			     	<input type="hidden" name="userName" value="${dto.userName}">
+			      	<input type="hidden" name="className" value="${dto.className}">
+			      	<input type="hidden" name="classStart" value="${dto.classStart}">
+			      	<input type="hidden" name="classEnd" value="${dto.classEnd}">
+			      	<input type="hidden" name="classNum" value="${dto.classNum}">
+			      	
+			      	<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
+			      </span>
 			   </td>
 			   
 			</tr>
@@ -124,12 +132,13 @@ function apply(){
 			</table>
 			
 			<%--일대일 댓글문의 해볼 것  --%>
+			<div align="center">
 		<form name="commentForm" method="post">
 			<table style="width: 930px; margin-top: 20px; border-spacing: 0; border-collapse: collapse;">
 				<tr height="40" style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc;">
 					<td style="width: 100px; " align= "center" bgcolor="#eee">작성자</td>
 					<td style="padding-left: 10px;" >
-						<input type="text" name="name" class="boxTF" size="35" maxlength="20">
+						${dto.userName}
 					</td>
 				</tr>
 				<tr style="border-bottom: 1px solid #ccc;">
@@ -140,13 +149,13 @@ function apply(){
 				</tr>
 				<tr height="40">
 					<td colspan="2" align="right">
-						<button type="button" class="btn" onclick="send();">등록하기</button>
-						<button type="reset" class="btn">다시입력</button>
+						<button type="button" class="classBtn3" onclick="send();">등록하기</button>
+						<button type="reset" class="classBtn3">다시입력</button>
 					</td>
 				</tr>
 			</table>
 		</form>
-			
+			</div>
 		</div>
 	    
 	</div>
