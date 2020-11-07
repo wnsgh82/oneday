@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>하루살이</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/mypage.css">
 </head>
@@ -29,7 +30,7 @@
                 <h3>마이페이지</h3>
             </div>
             <ul id="myl_list">
-                <li><a href=""> 회원정보수정</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
                 <li><a href=""> 여기  수강내역 이런거</a></li>
                 <li><a href=""> 이런거 수강생강사</a></li>
                 <li><a href=""> 별로 알아서  </a></li>

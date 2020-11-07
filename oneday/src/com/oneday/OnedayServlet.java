@@ -235,7 +235,7 @@ public class OnedayServlet extends MyUploadServlet{
 			Map<String, String> map=doFileUpload(p, pathname);
 			if(map!=null) {
 				//새로운 이미지를 등록한 경우
-				String filename=map.get("saveFilename");  //왠지 여기서 오류날거같음
+				String filename=map.get("saveFilename");  
 				dto.setClassIFN(filename);
 				
 				//기존 파일 지우기

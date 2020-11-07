@@ -46,8 +46,8 @@
                         <img src="${pageContext.request.contextPath}/resource/images/mypage.png" alt="">
                     </div>
                     <div id="informantion">
-                        <p style="font-size: 13px;">여기 관리자인지 수강생/강사인지</p>
-                        <p style="font-size: 20px; font-weight: 600;"> 이름 (아이디)</p>
+                        <p style="font-size: 13px;">${dto.userEnabled==1 ? "수강생": "강사" }</p>
+                        <p style="font-size: 20px; font-weight: 600;">  ${sessionScope.member.userName} (${sessionScope.member.userId})</p>
                     </div>
 
                 </div>

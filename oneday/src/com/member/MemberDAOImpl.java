@@ -70,8 +70,61 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public int updateMember(MemberDTO dto) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		PreparedStatement pstmt=null;
+		StringBuilder sb= new StringBuilder();
+		
+		try {		
+			sb.append("update member1 set userPwd=?, userName=?, userTel=?, userZip=?, "
+					+ " userAddr1=?, userAddr2=?, userEmail=? ");
+			
+			if(dto.getUserEnabled()==100) {
+				sb.append(", userCert=? ");
+			}
+			
+			sb.append("where userId= ? ");
+			
+			pstmt=conn.prepareStatement(sb.toString());
+			System.out.println("¾ß: "+dto.userEnabled);
+			System.out.println(sb.toString());
+			
+			if(dto.userEnabled==100) {
+				pstmt.setString(1, dto.getUserPwd());
+				pstmt.setString(2, dto.getUserName());
+				pstmt.setString(3, dto.getUserTel());
+				pstmt.setString(4, dto.getUserZip());
+				pstmt.setString(5, dto.getUserAddr1());
+				pstmt.setString(6, dto.getUserAddr2());
+				pstmt.setString(7, dto.getUserEmail());
+				pstmt.setString(8, dto.getUserCert());
+				pstmt.setString(9, dto.getUserId());
+			}else {
+				pstmt.setString(1, dto.getUserPwd());
+				pstmt.setString(2, dto.getUserName());
+				pstmt.setString(3, dto.getUserTel());
+				pstmt.setString(4, dto.getUserZip());
+				pstmt.setString(5, dto.getUserAddr1());
+				pstmt.setString(6, dto.getUserAddr2());
+				pstmt.setString(7, dto.getUserEmail());
+				pstmt.setString(8, dto.getUserId());
+			}
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
