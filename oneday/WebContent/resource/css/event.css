@@ -1,0 +1,84 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+.btn {
+    color:#333333;
+    font-weight:500;
+    font-family:'Noto Sans KR', sans-serif;
+    border:1px solid #cccccc;
+    background-color:#fff;
+    text-align:center;
+    cursor:pointer;
+    padding:3px 10px 5px;
+    border-radius:4px;
+}
+.btn:active, .btn:focus, .btn:hover {
+    background-color:#e6e6e6;
+    border-color: #adadad;
+    color: #333333;
+}
+.btn[disabled], fieldset[disabled] .btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+
+.imgLayout {
+	width: 290px;
+	height: 330px;
+	padding: 1px 1px 10px;
+	margin: 5px;
+	border: 1px solid #999;
+	cursor: pointer;
+}
+
+.imgLayout img:hover {
+	opacity: 80%;
+}
+
+.name{
+	width: 270px;
+	height: 25px;
+	line-height: 25px;
+	margin: 1px auto;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer; 
+	text-align: left;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.classBtn{
+	width: 300px;
+    background: #FC3C55;
+    margin-left: auto;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+    border: 0;
+    
+    text-align: center;
+    color: #fff;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: normal;
+    height: 50px;
+	 
+}
+
+.sticker {
+    font-size: 11px;
+    display: inline-block;
+    padding: 0 5px;
+    color: #FC3C55;
+    margin: 10px 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #FC3C55;
+    font-weight: 600;
+    float: left;
+}
