@@ -3,6 +3,7 @@ package com.event;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -10,8 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.member.SessionInfo;
+import com.oneday.OnedayDAO;
+import com.oneday.OnedayDTO;
+import com.oneday.OnedayImpl;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
 
@@ -92,11 +97,42 @@ public class EventServlet extends MyUploadServlet {
 	}
 
 	protected void createdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		req.setAttribute("mode", "created");
+		forward(req, resp, "/WEB-INF/views/event/created.jsp");
 	}
 
 	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp=req.getContextPath();
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
+		EventDAO dao = new EventDAOImpl();
+		
+		try {
+			EventDTO dto = new EventDTO();
+		
+			dto.seteName(req.getParameter("eName"));
+			dto.seteContent(req.getParameter("eContent"));
+			// dto.setStart(req.getParameter("eStart"));
+			// dto.setEnd(req.getParameter("eEnd"));
+			dto.seteName(info.getUserName());
+			
+			String filename=null;
+			Part p = req.getPart("selectFile");
+			Map<String, String> map=doFileUpload(p, pathname);
+			if(map!=null) {
+				filename=map.get("saveFilename");
+				dto.seteFIN(filename);
+				
+				dao.insertEvent(dto);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/event/list.do");
 	}
 
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

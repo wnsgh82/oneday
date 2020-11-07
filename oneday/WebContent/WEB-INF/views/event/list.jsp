@@ -9,66 +9,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
-
-<style type="text/css">
-.imgLayout {
-	width: 290px;
-	height: 330px;
-	padding: 1px 1px 10px;
-	margin: 5px;
-	border: 1px solid #999;
-	cursor: pointer;
-}
-
-.imgLayout img:hover {
-	opacity: 80%;
-}
-
-.name{
-	width: 270px;
-	height: 25px;
-	line-height: 25px;
-	margin: 1px auto;
-	display: inline-block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	cursor: pointer; 
-	text-align: left;
-	font-size: 14px;
-	font-weight: 600;
-}
-
-.classBtn{
-	width: 300px;
-    background: #FC3C55;
-    margin: 30px 0 0;
-    cursor: pointer;
-    border-radius: 10px 10px 10px 10px;
-    border: 0;
-
-    text-align: center;
-    color: #fff;
-    line-height: 50px;
-    font-size: 14px;
-    font-weight: normal;
-    height: 50px;
-	 
-}
-
-.sticker {
-    font-size: 11px;
-    display: inline-block;
-    padding: 0 5px;
-    color: #FC3C55;
-    margin: 10px 10px 0;
-    box-sizing: border-box;
-    border: 1px solid #FC3C55;
-    font-weight: 600;
-    float: left;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/event.css">
 
 <script type="text/javascript">
 function article(eNum){
