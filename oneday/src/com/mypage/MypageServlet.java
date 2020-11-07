@@ -71,7 +71,7 @@ public class MypageServlet extends MyUploadServlet{
 			
 			req.setAttribute("dto", dto);
 			
-			forward(req, resp, "/WEB-INF/views/mypage/memberUpdate2.jsp");
+			forward(req, resp, "/WEB-INF/views/mypage/update.jsp");
 			return;
 			
 		} catch (Exception e) {

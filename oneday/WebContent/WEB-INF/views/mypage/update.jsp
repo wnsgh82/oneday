@@ -18,6 +18,87 @@
 function update(){
 	var f=document.updateForm;
 	
+	var str;
+
+	str = f.userId.value;
+	str = str.trim();
+	if(!str) {
+		alert("아이디를 입력하세요. ");
+		f.userId.focus();
+		return;
+	}
+	f.userId.value = str;
+	
+	str = f.userPwd.value;
+	str = str.trim();
+	if(!str) {
+		alert("비밀번호 를 입력하세요. ");
+		f.userPwd.focus();
+		return;
+	}
+	f.userPwd.value = str;
+	
+	if(str!=f.userPwd2.value){
+		alert("비밀번호를 확인하세요 ")
+		f.userPwd2.focus();
+		return;
+	}
+	
+	str = f.userName.value;
+	str = str.trim();
+	if(!str) {
+		alert("이름 를 입력하세요. ");
+		f.userName.focus();
+		return;
+	}
+	f.userName.value = str;
+	
+	str = f.userTel.value;
+	str = str.trim();
+	if(!str) {
+		alert("전화번호 를 입력하세요. ");
+		f.userTel.focus();
+		return;
+	}
+	f.userTel.value = str;
+	
+	str = f.userEmail.value;
+	str = str.trim();
+	if(!str) {
+		alert("이메일 입력하세요. ");
+		f.userEmail.focus();
+		return;
+	}
+	f.userEmail.value = str;
+	
+	
+	str = f.userZip.value;
+	str = str.trim();
+	if(!str) {
+		alert("우편번호를 확인하세요. ");
+		f.userZip.focus();
+		return;
+	}
+	f.userZip.value = str;
+	
+	str = f.userAddr1.value;
+	str = str.trim();
+	if(!str) {
+		alert("주소를 확인하세요. ");
+		f.userAddr1.focus();
+		return;
+	}
+	f.userAddr1.value = str;
+	
+	str = f.userAddr2.value;
+	str = str.trim();
+	if(!str) {
+		alert("주소를 확인하세요. ");
+		f.userAddr2.focus();
+		return;
+	}
+	f.userAddr2.value = str;
+	
 	f.action="${pageContext.request.contextPath}/mypage/memberUpdate_ok.do";
 	f.submit();
 	
@@ -165,9 +246,12 @@ function update(){
 										</c:if>
 			
 					                    <div class="btn-wrap">
+					                    	<input type="hidden" name="userId" value="${sessionScope.member.userId}">
 					                   		<input type="hidden" name="userEnabled" value="${sessionScope.member.userEnabled}">
 					                    	<input type="hidden" name="userCert" value="${dto.userCert}">
+					                    	
 					                    	<button type="button" onclick="update();" class="signup-submit">회원정보 수정</button>
+					                    	<button type="reset" class="signup-submit" onclick="javascript:location.href='${pageContext.request.contextPath}/mypage/mypageMain.do'" style="margin-top: 5px;">회원정보 수정 취소</button>
 					                    </div>
 					                </div>
 					            </div>
