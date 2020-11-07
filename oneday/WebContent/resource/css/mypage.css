@@ -50,6 +50,10 @@
     color:#000000; 
 }
 
+#myl_list li a:hover{
+	background: #fff;
+}
+
 /* 오른쪽 */
 #my_right {
     height: 200px;

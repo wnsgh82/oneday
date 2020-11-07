@@ -95,7 +95,7 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		try {
 			sql="select userId, userPwd, userName, userTel,"
-					+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert"
+					+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert "
 					+ " from member1"
 					+ " where userId = ?";
 			
