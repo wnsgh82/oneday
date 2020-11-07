@@ -2,9 +2,12 @@ package com.std;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.member.MemberDTO;
 import com.util.DBConn;
 
 public class StdDAOImpl implements StdDAO{
@@ -68,14 +71,162 @@ public class StdDAOImpl implements StdDAO{
 
 	@Override
 	public List<StdDTO> listStd(int offset, int rows) {
-		// TODO Auto-generated method stub
-		return null;
+		List<StdDTO> list=new ArrayList<StdDTO>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="";
+			
+					//order by userEnable(수강생, 강사)로 할지말지 고민중~
+			
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				StdDTO dto=new StdDTO();
+				
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserName(rs.getString("userName"));
+
+				
+				list.add(dto);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return list;
 	}
 
 	@Override
-	public StdDTO readStd(int num) {
-		// TODO Auto-generated method stub
-		return null;
+	public StdDTO readStd(String userId , int classNum) {
+		StdDTO dto=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="select classNum , userId , className, trName, userName , userEmail , classDate , stdEnabled "
+					+ "  from std"
+					+ "  where userId = ? AND classNum = ?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, classNum);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto=new StdDTO();
+				
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setClassName(rs.getString("className"));
+				dto.setTrName(rs.getString("trName"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setClassDate(rs.getString("classDate"));
+				dto.setStdEnable(rs.getInt("stdEnabled"));
+				
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return dto;
 	}
+
+	@Override
+	public List<StdDTO> listStd(String userId) {
+		List<StdDTO> list=new ArrayList<StdDTO>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="select classNum , userId , className, trName, userName , userEmail , classDate , stdEnabled "
+					+ "  from std"
+					+ "  where userId = ?";
+			
+					//order by userEnable(수강생, 강사)로 할지말지 고민중~
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				StdDTO dto=new StdDTO();
+				
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setClassName(rs.getString("className"));
+				dto.setClassDate(rs.getString("classDate"));
+				dto.setTrName(rs.getString("trName"));
+				
+
+				
+				list.add(dto);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return list;
+	}
+	
 
 }
