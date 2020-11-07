@@ -85,7 +85,6 @@ public class ReviewServlet extends MyUploadServlet{
 		
 		try {
 			ReviewDTO dto = new ReviewDTO();
-			System.out.println(req.getParameter("classNum1"));
 			dto.setClassNum(Integer.parseInt(req.getParameter("classNum1")));
 			dto.setRvContent(req.getParameter("rvContent"));
 			dto.setRvClassName(req.getParameter("className"));
@@ -98,7 +97,7 @@ public class ReviewServlet extends MyUploadServlet{
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"/notice/list.do?rows="+rows);
+		resp.sendRedirect(cp+"/review/list.do");
 	}
 	protected void MycreateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

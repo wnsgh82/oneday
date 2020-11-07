@@ -29,7 +29,7 @@
 		<section class="notice">
 			<div class="inner">
 			<div class="title-area">
-	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;게시판이름</h3>
+	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</h3>
 			</div>
 			
 			<form action="">

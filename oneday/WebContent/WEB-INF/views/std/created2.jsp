@@ -44,7 +44,7 @@ function deleteBoard(classNum) {
             <h3>&nbsp;&nbsp;&nbsp;&nbsp;원데이클래스</h3>
 		</div>
 		
-		<img src="${pageContext.request.contextPath}/resource/images/iiii.jpg" 
+		<img src="${pageContext.request.contextPath}/resource/images/iiii.png" 
 			style=" width: 800px; height: 500px; margin: 10px auto;">
 
 		
