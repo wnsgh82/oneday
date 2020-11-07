@@ -15,36 +15,36 @@
 
 <script type="text/javascript">
 function sendOk() {
-    var f = document.onedayForm;
+    var f = document.eventForm;
 
-	var str = f.eventName.value;
+	var str = f.eSubject.value;
     if(!str) {
         alert("이벤트 제목을 입력하세요. ");
-        f.eventName.focus();
+        f.eSubject.focus();
         return;
     }
 
-	str = f.eventContent.value;
+	str = f.eContent.value;
     if(!str) {
         alert("내용을 입력하세요. ");
-        f.eventContent.focus();
+        f.eContent.focus();
         return;
     }
-    
-    str = f.eventStart.value;
+ /*   
+    str = f.eStart.value;
     if(!str) {
         alert("이벤트 기간 시작일을 입력하세요. ");
-        f.eventStart.focus();
+        f.eStart.focus();
         return;
     }
     
-    str = f.eventEnd.value;
+    str = f.etEnd.value;
     if(!str) {
         alert("이벤트 기간 종료일을 입력하세요. ");
-        f.eventEnd.focus();
+        f.eEnd.focus();
         return;
     }
-    
+*/   
     var mode="${mode}";
     if(mode=="created" && ! f.selectFile.value){
     	alert("이미지 파일을 선택하세요.");
@@ -77,12 +77,12 @@ function sendOk() {
 		<div>
 			
 			<div>
-			<form name="onedayForm" method="post" enctype="multipart/form-data">
+			<form name="eventForm" method="post" enctype="multipart/form-data">
 			  <table style="width: 930px; margin: 10px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">이벤트 제목</td>
 			      <td style="padding-left:10px;"> 
-			          <input type="text" name="className" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.eventName}">
+			          <input type="text" name="eSubject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.eSubject}">
 			      </td>
 			  </tr>
 
@@ -96,15 +96,19 @@ function sendOk() {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">이벤트 기간</td>
 			      <td style="padding-left:10px;"> 
-			          <span><input type="date" name="classStart" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.eventStart}">&nbsp;&nbsp;
-			          <input type="date" name="classEnd" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.eventEnd}"></span>
+			      <!-- 이벤트 기간 추가하고 나면 이걸로 씀
+			          <span><input type="date" name="eStart" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.eStart}">&nbsp;&nbsp;
+			          <input type="date" name="eEnd" maxlength="100" class="boxTF" style="width: 40%;" value="${dto.eEnd}"></span>
+			       -->    
+			          <span><input type="date" name="eStart" maxlength="100" class="boxTF" style="width: 40%;">&nbsp;&nbsp;
+			          <input type="date" name="eEnd" maxlength="100" class="boxTF" style="width: 40%;"></span>
 			      </td>
 			  </tr>
 			  
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 			      <td valign="top" style="padding:5px 0px 5px 10px;"> 
-			          <textarea name="classContent" rows="30" class="boxTA" style="width: 95%;">${dto.eventContent}</textarea>
+			          <textarea name="eContent" rows="30" class="boxTA" style="width: 95%;">${dto.eContent}</textarea>
 			      </td>
 			  </tr>
 			  
@@ -120,7 +124,7 @@ function sendOk() {
 				  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
 				      <td width="100" bgcolor="#eeeeee" style="text-align: center;">등록이미지</td>
 				      <td style="padding-left:10px;"> 
-				          <img id="myPhoto" src="${pageContext.request.contextPath}/uploads/photo/${dto.eventIFN}" width="30" height="30" style="cursor: pointer;">
+				          <img id="myPhoto" src="${pageContext.request.contextPath}/uploads/photo/${dto.eIFN}" width="30" height="30" style="cursor: pointer;">
 				       </td>
 				  </tr> 
 			  
@@ -133,13 +137,13 @@ function sendOk() {
 			      <td align="center" >
 			      	<c:if test="${mode=='update'}">
 			      		<input type="hidden" name="page" value="${page}">
-			      		<input type="hidden" name="classNum" value="${dto.eventNum}">
-			      		<input type="hidden" name="classIFN" value="${dto.eventIFN}"> 
+			      		<input type="hidden" name="eNum" value="${dto.eNum}">
+			      		<input type="hidden" name="eIFN" value="${dto.eIFN}"> 
 			      			
 			      	</c:if>
-			        <button type="button" class="classBtn3" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
-			        <button type="reset" class="classBtn3">다시입력</button>
-			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/event/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
+			        <button type="button" class="eBtn3" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+			        <button type="reset" class="eBtn3">다시입력</button>
+			        <button type="button" class="eBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/event/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 
 				  </td>
 			    </tr>

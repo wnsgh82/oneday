@@ -114,9 +114,9 @@ public class EventServlet extends MyUploadServlet {
 		
 			dto.seteName(req.getParameter("eName"));
 			dto.seteContent(req.getParameter("eContent"));
+			dto.seteSubject(req.getParameter("eContent"));
 			// dto.setStart(req.getParameter("eStart"));
 			// dto.setEnd(req.getParameter("eEnd"));
-			dto.seteName(info.getUserName());
 			
 			String filename=null;
 			Part p = req.getPart("selectFile");

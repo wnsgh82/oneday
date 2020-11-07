@@ -20,13 +20,12 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO event(eName, eSubject, eContent, eIFN, eHitCount, eDate) VALUES (?, ?, ?, ?, 0, SYSDATE)";
+			sql = "INSERT INTO event(eNum, eName, eSubject, eContent, eIFN, eHitCount, eCreated) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getUserName());
+			pstmt.setString(1, dto.geteName());
 			pstmt.setString(2, dto.geteSubject());
 			pstmt.setString(3, dto.geteContent());
 			pstmt.setString(4, dto.geteIFN());
-			pstmt.setInt(5, dto.geteHitCount());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
