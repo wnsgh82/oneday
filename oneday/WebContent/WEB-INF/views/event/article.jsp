@@ -76,6 +76,10 @@ function eventApply(){
 			    <td width="50%" align="left" style="padding-left: 5px;">    
 			    	  이벤트 기간  : ${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}
 			    </td>
+			    <td width="50%" align="right" style="padding-right: 5px;">
+			        조회수 : ${dto.eHitCount}
+			    </td>
+			    
 			</tr>
 			
 			<tr>
@@ -99,7 +103,9 @@ function eventApply(){
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="eStart" value="${dto.eStart}">
 			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
-			      	<button type="button" class="eBtn" onclick="eventApply();">이벤트 참가</button>
+			      	<c:if test="${dto.eEnabled==1}">
+			      		<button type="button" class="eBtn" onclick="eventApply();">이벤트 참가</button>
+			      	</c:if>
 			      </span>
 			      </form>
 			   </td>

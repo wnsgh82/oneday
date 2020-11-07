@@ -2,6 +2,8 @@ package com.event;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +71,7 @@ public class EventServlet extends MyUploadServlet {
 		if(page!=null) {
 			current_page = Integer.parseInt(page);
 		}
-		
+
 		int dataCount = dao.dataCount();
 		
 		int rows = 3;
@@ -143,6 +145,8 @@ public class EventServlet extends MyUploadServlet {
 		try {
 			int eNum = Integer.parseInt(req.getParameter("eNum"));
 			EventDTO dto = dao.readEvent(eNum);
+
+			dao.updateHitCount(eNum);
 			
 			if(dto==null) {
 				resp.sendRedirect(cp+"/event/list.do?page="+page);

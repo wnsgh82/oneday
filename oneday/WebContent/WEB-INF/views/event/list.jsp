@@ -46,8 +46,17 @@ function article(eNum){
 			  	<div class="imgLayout" onclick="article('${dto.eNum}')">
 			  		<img src="${pageContext.request.contextPath}/uploads/photo/${dto.eIFN}" width="290" height="180" border="0">
 			  		<span class="event-term">${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}</span>
-			  		<span class="name">${dto.eSubject}</span>
-			  		<span class="sticker blinking">진행 중</span>
+			  		<span class="eSubject">${dto.eSubject}</span>
+			  		<div class="article-bottom-wrap">
+				  		<c:if test="${dto.eEnabled==1}">
+				  			<span class="sticker blinking">진행 중</span>
+				  		</c:if>
+					  	<c:if test="${dto.eEnabled==2}">
+					  		<span class="sticker-end">종료</span>
+					  	</c:if>
+					  	
+					  	<span class="eHitCount">조회수 : ${dto.eHitCount}</span>
+			  		</div>
 			  		<%--여기다 출력할 거  --%>
 			  	</div>
 			  </td>

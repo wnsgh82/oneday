@@ -144,6 +144,7 @@ public class EventDAOImpl implements EventDAO {
 		
 	}
 
+
 	@Override
 	public List<EventDTO> listEvevnt(int offset, int rows) {
 		List<EventDTO> list = new ArrayList<EventDTO>();
@@ -252,5 +253,32 @@ public class EventDAOImpl implements EventDAO {
 		
 		return dto;
 	}
-	
+
+	@Override
+	public int updateHitCount(int eNum) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		// 글보기에서 조회수 증가
+		try {
+			sql = "UPDATE EVENT SET eHitCount=eHitCount+1 WHERE eNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, eNum);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e2) {
+				}
+			}
+		}
+		
+		return result;
+	}
+
 }

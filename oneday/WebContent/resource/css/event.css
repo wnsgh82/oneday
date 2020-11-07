@@ -39,7 +39,7 @@ body {
 .imgLayout {
 	width: 290px;
 	height: 330px;
-	padding: 1px 1px 10px;
+	padding: 1px 1px 10px 5px;
 	margin: 5px;
 	border: 1px solid #999;
 	cursor: pointer;
@@ -49,7 +49,7 @@ body {
 	opacity: 80%;
 }
 /*이미지레이아웃 내 텍스트들*/
-.name{
+.eSubject{
 	width: 270px;
 	height: 25px;
 	line-height: 25px;
@@ -60,7 +60,7 @@ body {
 	text-overflow: ellipsis;
 	cursor: pointer; 
 	text-align: left;
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: 600;
 }
 
@@ -74,32 +74,10 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: pointer; 
-	font-size: 14px;
-	font-weight: 600;
 	text-align: left;
+	font-size: 14px;
+	color: #999;
 }
-
-/* 반짝이 */
-
-.blinking{
-	-webkit-animation:blink 1s ease-in-out infinite alternate;
-    -moz-animation:blink 1s ease-in-out infinite alternate;
-    animation:blink 1s ease-in-out infinite alternate;
-}
-@-webkit-keyframes blink{
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-@-moz-keyframes blink{
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-@keyframes blink{
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-
-/* 여기가지 반짝이 */
 
 
 .eBtn{
@@ -171,16 +149,51 @@ body {
     background-color:#ffffff;
     font-family:'Noto Sans KR', sans-serif;
 }
+/* 스티커 + 조회수 wrap */
+.article-bottom-wrap {
+    display: inline-block;
+    margin: 50px 10px 0;
+    float: left;
+}
+
 
 /* 스티커 */
-.sticker {
-    font-size: 11px;
-    display: inline-block;
-    padding: 0 5px;
-    color: #FC3C55;
-    margin: 10px 10px 0;
+.article-bottom-wrap .sticker {
+	font-size: 20px;
+	padding: 0 5px;
+	color: #FC3C55;
     box-sizing: border-box;
     border: 1px solid #FC3C55;
     font-weight: 600;
     float: left;
+
 }
+
+/* 조회수 */
+.article-bottom-wrap .eHitCount {
+	padding : 0px;
+	color: #999;
+	font-size: 14px;
+	float: left;
+	margin: 5px 0 0 100px;
+}
+
+/* 반짝이 */
+.blinking{
+	-webkit-animation:blink 1s ease-in-out infinite alternate;
+    -moz-animation:blink 1s ease-in-out infinite alternate;
+    animation:blink 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+/* 여기가지 반짝이 */
