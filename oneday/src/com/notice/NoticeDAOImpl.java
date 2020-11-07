@@ -19,17 +19,16 @@ public class NoticeDAOImpl implements NoticeDAO {
 		String sql;
 		
 		try {
-			sql="INSERT INTO notice(notice, noNum, noName, noSubject, noContent, noCreated, noSFN, noOFN, noHitCount)"
-					+ "  VALUES(?, notice_seq.NEXTVAL, ?, ?, ?, SYSDATE, ?, ?, 0)";
+			sql="INSERT INTO notice(notice, noNum, noSubject, noContent, noCreated, noSFN, noOFN, noHitCount)"
+					+ "  VALUES(?, notice_seq.NEXTVAL, ?, ?, SYSDATE, ?, ?, 0)";
 			
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, dto.getNotice());
-			pstmt.setString(2, dto.getNoName());
-			pstmt.setString(3, dto.getNoSubject());
-			pstmt.setString(4, dto.getNoContent());
-			pstmt.setString(5, dto.getNoSaveFileName());
-			pstmt.setString(6, dto.getNoOrginalFileName());
+			pstmt.setString(2, dto.getNoSubject());
+			pstmt.setString(3, dto.getNoContent());
+			pstmt.setString(4, dto.getNoSaveFileName());
+			pstmt.setString(5, dto.getNoOrginalFileName());
 			
 			result=pstmt.executeUpdate();
 			
@@ -176,8 +175,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 				dto.setNoNum(rs.getInt("noNum"));
 				dto.setNoSubject(rs.getString("noSubject"));
 				dto.setNoSaveFileName(rs.getString("noSFN"));
-				dto.setNoHitCount(rs.getString("noHitCount"));
-				dto.setNoCretaed(rs.getString("noCreated"));
+				dto.setNoHitCount(rs.getInt("noHitCount"));
+				dto.setNoCreated(rs.getString("noCreated"));
 
 				list.add(dto);
 				
@@ -237,8 +236,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 				dto.setNoSubject(rs.getString("noSubject"));
 				dto.setNoContent(rs.getString("noContent"));
 				dto.setNoSaveFileName(rs.getString("noSFN"));
-				dto.setNoHitCount(rs.getString("noHitCount"));
-				dto.setNoCretaed(rs.getString("noCreated"));
+				dto.setNoHitCount(rs.getInt("noHitCount"));
+				dto.setNoCreated(rs.getString("noCreated"));
 				
 				list.add(dto);
 			}
@@ -285,8 +284,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 				dto.setNoNum(rs.getInt("noNum"));
 				dto.setNoSubject(rs.getString("noSubject"));
 				dto.setNoSaveFileName(rs.getString("noSFN"));
-				dto.setNoHitCount(rs.getString("noHitCount"));
-				dto.setNoCretaed(rs.getString("noCreated"));
+				dto.setNoHitCount(rs.getInt("noHitCount"));
+				dto.setNoCreated(rs.getString("noCreated"));
 				
 				list.add(dto);
 			}
@@ -314,8 +313,53 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public NoticeDTO readNotice(int num) {
 		//가져오기
+		NoticeDTO dto=null;
+		ResultSet rs=null;
+		PreparedStatement pstmt=null;
+		String sql;
 		
-		return null;
+		try {
+			sql="SELECT noNum, noSubject, noContent, noCreated, noHitCount, noSFN, noOFN"
+					+ "   FROM notice"
+					+ "   WHERE noNum=?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto=new NoticeDTO();
+				
+				dto.setNoNum(rs.getInt("noNum"));
+				dto.setNoSubject(rs.getString("noSubject"));
+				dto.setNoContent(rs.getString("noContent"));
+				dto.setNoCreated(rs.getString("noCreated"));
+				dto.setNoHitCount(rs.getInt("noHitCount"));
+				dto.setNoSaveFileName(rs.getString("noSFN"));
+				dto.setNoOrginalFileName(rs.getString("noOFN"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		return dto;
 	}
 
 	@Override

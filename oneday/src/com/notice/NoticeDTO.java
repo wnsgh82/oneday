@@ -8,7 +8,7 @@ public class NoticeDTO {
 	private String noSubject;
 	private String noContent;
 	private String noCreated;
-	private String noHitCount;
+	private int noHitCount;
 	
 	private String noSaveFileName;
 	private String noOrginalFileName;
@@ -41,7 +41,7 @@ public class NoticeDTO {
 	public String getNoCreated() {
 		return noCreated;
 	}
-	public void setNoCretaed(String noCreated) {
+	public void setNoCreated(String noCreated) {
 		this.noCreated = noCreated;
 	}
 	public String getNoSaveFileName() {
@@ -68,10 +68,10 @@ public class NoticeDTO {
 	public void setNotice(int notice) {
 		this.notice = notice;
 	}
-	public String getNoHitCount() {
+	public int getNoHitCount() {
 		return noHitCount;
 	}
-	public void setNoHitCount(String noHitCount) {
+	public void setNoHitCount(int noHitCount) {
 		this.noHitCount = noHitCount;
 	}
 	public int getListNum() {

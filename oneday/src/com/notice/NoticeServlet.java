@@ -110,17 +110,11 @@ public class NoticeServlet extends MyUploadServlet{
 			list= dao.listNotice(offset, rows);
 		}
 		
-		for(NoticeDTO ddd : list) {
-			String c= ddd.getNoContent();
-			String cd= ddd.getNoSubject();
-			System.out.println(c +":"+ cd);
-		}
-		
 		//공지글
 		List<NoticeDTO> listNotice=null;
 		listNotice=dao.listNotice();
 		for(NoticeDTO dto : listNotice) {
-			dto.setNoCretaed(dto.getNoCreated().substring(0,10));
+			dto.setNoCreated(dto.getNoCreated().substring(0,10));
 		}
 		
 		//글번호 만들기 -> 중간에 지워도 순서대로 되는거
@@ -131,22 +125,18 @@ public class NoticeServlet extends MyUploadServlet{
 			listNum=dataCount-(offset+n);
 			dto.setListNum(listNum); //list에 출력된 num
 			
-			dto.setNoCretaed(dto.getNoCreated().substring(0,10));
+			dto.setNoCreated(dto.getNoCreated().substring(0,10));
 			//리스트에는 년월일만 출력할거니까
 			n++;
 		}
-		for(NoticeDTO ddd : list) {
-		String d=ddd.getNoCreated();
-		System.out.println(d);
-		}
-		
+
 		
 		String query="";
 		String listUrl;
 		String articleUrl;
 		
 		listUrl=cp+"/notice/list.do?rows="+rows;
-		articleUrl=cp+"/notiec/article.do?page="+current_page+"&rows="+rows;
+		articleUrl=cp+"/notice/article.do?page="+current_page+"&rows="+rows;
 		if(keyword.length()!=0) {
 			query="&condition="+condition+"&keyword="+keyword;
 			
@@ -209,7 +199,7 @@ public class NoticeServlet extends MyUploadServlet{
 			dto.setNoSubject(req.getParameter("noSubject"));
 			dto.setNoContent(req.getParameter("noContent"));
 			
-			Part p=req.getPart("selectFile");
+			Part p=req.getPart("upload");
 			Map<String, String> map = doFileUpload(p, pathname);
 			if(map!=null) {
 				String noSaveFileName = map.get("saveFilename");
@@ -230,7 +220,58 @@ public class NoticeServlet extends MyUploadServlet{
 	}
 	
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//글보기
+		NoticeDTO dto;
+		NoticeDAO dao= new NoticeDAOImpl();
+		String cp=req.getContextPath();
+		
+		String page=req.getParameter("page");
+		String rows=req.getParameter("rows");
+		String query="page="+page+"&rows="+rows;
+		
+		try {
+			int noNum=Integer.parseInt(req.getParameter("noNum"));
+			
+			String condition=req.getParameter("condition");
+			String keyword=req.getParameter("keyword");
+			if(condition==null) {
+				condition="all";
+				keyword="";
+			}
+			keyword=URLDecoder.decode(keyword, "utf-8");
+			
+			if(keyword.length()!=0) {
+				query+="&condition="+condition+"&keyword="+keyword;
+			}
+			
+			dao.updateHitCount(noNum);
+			
+			dto=dao.readNotice(noNum);
+			if(dto==null) {
+				resp.sendRedirect(cp+"/notice/list.do?"+query);
+				return;
+			}
+			
+			//엔터 바꾸는거
+			dto.setNoContent(dto.getNoContent().replaceAll("\n", "<br>"));
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("query", query);
+			req.setAttribute("page", page);
+			req.setAttribute("rows", rows);
+			
+			forward(req, resp, "/WEB-INF/views/notice/article.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		
+		resp.sendRedirect(cp+"/notice/list.do?"+query);
 	}
+	
 	
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}

@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/oneday.css">
+<script type="text/javascript">
+<c:if test="${sessionScope.member.userId=='admin'}">
+function deleteNotice(num) {
+	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
+		var url="${pageContext.request.contextPath}/notice/delete.do?num="+num+"&${query}";
+		location.href=url;
+	}
+}
+</c:if>
+</script>
 </head>
 <body>
 
@@ -37,7 +47,7 @@
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 : ${dto.userName}
+			       이름 : 관리자
 			    </td>
 			    <td width="50%" align="right" style="padding-right: 5px;">
 			        ${dto.noCreated}
@@ -51,22 +61,31 @@
 			
 			<tr style="border-bottom: 1px solid #cccccc;">
 			  <td colspan="2" align="center" style="padding: 10px 5px;" valign="top" height="30">
-			      ${dto.classContent}
+			      ${dto.noContent}
 			   </td>
+			</tr>
+			
+			<tr height="35" style="border-bottom: 1px solid #cccccc;">
+			    <td colspan="2" align="left" style="padding-left: 5px;">
+			       첨&nbsp;&nbsp;부 :
+		           <c:if test="${not empty dto.noSaveFileName}">
+		                   <a href="${pageContext.request.contextPath}/notice/download.do?noNum=${dto.noNum}">${dto.noOrginalFileName}</a>
+		           </c:if>
+			    </td>
 			</tr>
 			
 			<tr height="45">
 			    <td>
 			    	 <%--관리자랑 강사만 클래스 등록 가능하니까 굳이 userEnabled로  조건 걸지 않음--%>
-			    	 <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==dto.userId}">
-			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/update.do?num=${dto.classNum}&page=${page}';">수정</button>
-			          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.classNum}');">삭제</button>
+			    	 <c:if test="${sessionScope.member.userId=='admin'}">
+			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/update.do?num=${dto.noNum}&page=${page}';">수정</button>
+			          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.noNum}');">삭제</button>
 			         </c:if>
 			          
 			    </td>
 			
 			    <td align="right">
-			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/list.do?page=${page}';">리스트</button>
+			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?page=${page}';">리스트</button>
 			    </td>
 			</tr>
 			</table>

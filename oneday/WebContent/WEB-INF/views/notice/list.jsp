@@ -16,6 +16,20 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/notice.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+<style type="text/css">
+#delbut button {
+	width: 70px;
+	height: 30px;
+	background: #f1f1f1;
+	border-radius: 9px;
+	border: 1px solid #ccc;
+}
+</style>
+<script type="text/javascript">
+function searchList() {
+	
+}
+</script>
 
 </head>
 <body>
@@ -38,7 +52,7 @@
 			
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 			   <tr height="35">
-			      <td align="left" width="50%">
+			      <td align="left" width="50%" id="delbut">
 			      	  <c:if test="${sessionScope.member.userId=='admin'}">
 			          	<button type="button" class="btn" id="btnDeleteList">삭제</button>
 			          </c:if>
@@ -53,6 +67,8 @@
 			         <ul class="article-table">
 			            <li class="item title">
 			    	        <span class="checkdel">
+			    	        
+			    	        
 				    	        <c:if test="${sessionScope.member.userId=='admin'}">
 					    	        	<input type="checkbox" name="chkAll" id="chkAll" style="margin-top: 3px;">
 				            	</c:if>				  	      	 	
@@ -64,6 +80,27 @@
 			               <span class="no_file">파일첨부</span>
 			            </li>
 				
+				
+					<!-- 공지딱지 붙는거 -->
+					<c:forEach var="dto" items="${listNotice}">
+			            <li class="item">
+		    	        	<span class="checkdel">
+				            	<c:if test="${sessionScope.member.userId=='admin'}">
+				   	  					<input type="checkbox" name="nums" value="${dto.noNum}" style="margin-top: 3px;" data-filename="${dto.noSaveFileName}">
+				            	</c:if>		
+		    	        	</span>
+			               <span class="number"> <span  style="background-color: red; display: inline-block; padding:1px 3px; color: white;">공지</span></span>
+			               <span class="subject"><a href="${articleUrl}&noNum=${dto.noNum}">${dto.noSubject }</a></span>
+			               <span class="date">${dto.noCreated} </span>
+			               <span class="hit">${dto.noHitCount }</span>
+			               <span class="no_file"> 
+         					<c:if test="${not empty dto.noSaveFileName}">
+						      <a href="${pageContext.request.contextPath}/notice/download.do?noNum="${dto.noNum }><i class="fas fa-save"></i></a>
+							</c:if> 
+			               </span>
+			            </li>
+					</c:forEach>
+					
 					<!-- 그냥공지 -->
 					<c:forEach var="dto" items="${list}">
 			            <li class="item">
@@ -73,7 +110,7 @@
 				            	</c:if>		
 		    	        	</span>
 			               <span class="number">${dto.listNum }</span>
-			               <span class="subject"><a href="${articleUrl}&num=">${dto.noSubject }</a></span>
+			               <span class="subject"><a href="${articleUrl}&noNum=${dto.noNum }">${dto.noSubject }</a></span>
 			               <span class="date">${dto.noCreated} </span>
 			               <span class="hit">${dto.noHitCount }</span>
 			               <span class="no_file"> 

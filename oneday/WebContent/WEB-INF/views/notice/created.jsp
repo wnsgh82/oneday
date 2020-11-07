@@ -110,7 +110,7 @@ function deleteFile(num) {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">제목</td>
 			      <td style="padding-left:10px;"> 
-			          <input type="text" name="noSubject" maxlength="100" class="boxTF" style="width: 95%;">
+			          <input type="text" name="noSubject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.noSubject }"> 
 			      </td>
 			  </tr>
 
@@ -139,13 +139,13 @@ function deleteFile(num) {
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부파일</td>
 			      <td style="padding-left:10px;"> 
 			      	   <!-- file 객체는 value 속성으로 초기화가 불가능하다 -->
-			          <input type="file" name="selectFile" class="boxTF" size="53" style="height: 25px;">
+			          <input type="file" name="upload" class="boxTF" size="53" style="height: 25px;">
 			       </td>
 			  </tr> 
 			  
 			  <c:if test="${mode=='update'}">
 				  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
-				      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부파일</td>
+				      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부된파일</td>
 				      <td style="padding-left:10px;"> 
 				      	<c:if test="${not empty dto.noSaveFileName}">
 				             ${dto.noOrginalFileName}
@@ -171,7 +171,7 @@ function deleteFile(num) {
 			        <button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="btn">다시입력</button>
 			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?rows${rows }';">${mode=='update'?'수정취소':'등록취소'}</button>
-
+					<input type="hidden" name="rows" value="${rows}">
 				  </td>
 			    </tr>
 			  </table>
