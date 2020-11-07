@@ -175,10 +175,11 @@ public class EventServlet extends MyUploadServlet {
 		try {
 			int eNum = Integer.parseInt(req.getParameter("eNum"));
 			EventDTO dto = dao.readEvent(eNum);
-			if(dto==null || ! info.getUserId().equals(dto.getUserId())) {
+			if(dto==null || ! info.getUserId().equals("admin")) {
 				resp.sendRedirect(cp+"/event/list.do?page="+page);
 				return;
 			}
+	
 			
 			req.setAttribute("page", page);
 			req.setAttribute("dto", dto);
@@ -233,7 +234,7 @@ public class EventServlet extends MyUploadServlet {
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"event/list.do?page="+page);
+		resp.sendRedirect(cp+"/event/list.do?page="+page);
 	}
 
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

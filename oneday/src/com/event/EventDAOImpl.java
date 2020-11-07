@@ -153,7 +153,7 @@ public class EventDAOImpl implements EventDAO {
 		
 		try {
 			sql="SELECT eNum, eSubject, eIFN, eHitCount, "
-					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated, eStart, eEnd, eEnabled "
+					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated, TO_CHAR(eStart, 'YYYY-MM-DD') eStart, TO_CHAR(eEnd, 'YYYY-MM-DD') eEnd, eEnabled "
 					+ " FROM EVENT ORDER BY eEnabled DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 			

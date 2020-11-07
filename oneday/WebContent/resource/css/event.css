@@ -65,7 +65,7 @@ body {
 }
 
 .event-term {
-	width: 250px;
+	width: 270px;
 	height: 25px;
 	line-height: 25px;
 	margin: 1px auto;
@@ -76,18 +76,31 @@ body {
 	cursor: pointer; 
 	font-size: 14px;
 	font-weight: 600;
-}
-
-.event-start {
 	text-align: left;
 }
 
-.event-end {
-	text-align: right;
-}
-/* 이벤트에서 쓰는 버튼들*/
+/* 반짝이 */
 
-/*이벤트 등록 버튼*/
+.blinking{
+	-webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate;
+    animation:blink 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+
+
 .eBtn{
 	width: 300px;
     background: #FC3C55;
