@@ -32,7 +32,7 @@
 	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</h3>
 			</div>
 			
-			<form action="">
+			<form action="noticeListForm" method="post">
 			      <div class="board-notice">
 			         <ul class="article-table">
 			            <li class="item title">

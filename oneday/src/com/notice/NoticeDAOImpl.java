@@ -17,11 +17,11 @@ public class NoticeDAOImpl implements NoticeDAO {
 		String sql;
 		
 		try {
-			sql="INSERT INTO notice(notice, noNum, noName, noSubject, noContent,"
-					+ "  noCreated, noSFN, noOFN, noHitCount)"
+			sql="INSERT INTO notice(notice, noNum, noName, noSubject, noContent, noCreated, noSFN, noOFN, noHitCount)"
 					+ "  VALUES(?, notice_seq.NEXTVAL, ?, ?, ?, SYSDATE, ?, ?, 0)";
 			
 			pstmt=conn.prepareStatement(sql);
+			
 			pstmt.setInt(1, dto.getNotice());
 			pstmt.setString(2, dto.getNoName());
 			pstmt.setString(3, dto.getNoSubject());

@@ -74,8 +74,8 @@ function sendOk() {
     }
 
 		f.action="${pageContext.request.contextPath}/notice/${mode}_ok.do";
-
-    f.submit();
+	
+    	f.submit();
 }
 
 <c:if test="${mode=='update'}">
@@ -110,7 +110,7 @@ function deleteFile(num) {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">제목</td>
 			      <td style="padding-left:10px;"> 
-			          <input type="text" name="noSubject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.noSubject}">
+			          <input type="text" name="noSubject" maxlength="100" class="boxTF" style="width: 95%;">
 			      </td>
 			  </tr>
 
@@ -145,7 +145,7 @@ function deleteFile(num) {
 			  
 			  <c:if test="${mode=='update'}">
 				  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
-				      <td width="100" bgcolor="#eeeeee" style="text-align: center;">등록이미지</td>
+				      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부파일</td>
 				      <td style="padding-left:10px;"> 
 				      	<c:if test="${not empty dto.noSaveFileName}">
 				             ${dto.noOrginalFileName}

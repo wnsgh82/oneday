@@ -1,9 +1,11 @@
 package com.notice;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,19 +15,24 @@ import javax.servlet.http.Part;
 import com.member.SessionInfo;
 import com.util.MyUploadServlet;
 
+@MultipartConfig
 @WebServlet("/notice/*")
 public class NoticeServlet extends MyUploadServlet{
 	private static final long serialVersionUID = 1L;
 
-	
 	private String pathname;
-
 	
 	@Override
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		String cp=req.getContextPath();
 		String uri=req.getRequestURI();
+
+		HttpSession session = req.getSession();
+		
+		String root=session.getServletContext().getRealPath("/");
+		pathname = root+"uploads"+File.separator+"notice";
+		
 		
 		if(uri.indexOf("list.do")!=-1) {
 			list(req, resp);
@@ -63,10 +70,10 @@ public class NoticeServlet extends MyUploadServlet{
 		HttpSession session=req.getSession();
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		String cp=req.getContextPath();
-		String rows=req.getParameter("rows");
+		String rows=req.getParameter("rows"); //rows 받아옴
 		
 		// admin만 글을 등록
-		if(! info.getUserId().equals("admin")) {
+		if(! info.getUserId().equals("admin")) { //admin아니면 리스트로
 			resp.sendRedirect(cp+"/notice/list.do?rows="+rows);
 			return;
 		}
@@ -83,28 +90,31 @@ public class NoticeServlet extends MyUploadServlet{
 		
 		NoticeDAO dao = new NoticeDAOImpl();
 		String cp=req.getContextPath();
-		
 		String rows=req.getParameter("rows");
 		
 		try {
-			NoticeDTO dto=new NoticeDTO();
-			if(req.getParameter("notice")!=null) {
-				dto.setNotice(Integer.parseInt("notice"));
-			}
+			NoticeDTO dto = new NoticeDTO();
+			
+			if(req.getParameter("notice")!=null) { //공지면
+				dto.setNotice(Integer.parseInt(req.getParameter("notice")));
+			} 
+			
 			dto.setNoName(info.getUserName());
 			dto.setNoSubject(req.getParameter("noSubject"));
 			dto.setNoContent(req.getParameter("noContent"));
 			
 			Part p=req.getPart("selectFile");
-			Map<String, String> map=doFileUpload(p, pathname);
+			Map<String, String> map = doFileUpload(p, pathname);
 			if(map!=null) {
-				String noSaveFileName=map.get("noSaveFileName");
-				String noOrginalFileName=map.get("noOrginalFileName");
+				String noSaveFileName = map.get("saveFilename");
+				String noOrginalFileName = map.get("originalFilename");
+				
 				dto.setNoSaveFileName(noSaveFileName);
 				dto.setNoOrginalFileName(noOrginalFileName);
 			}
 			
 			dao.insertNotice(dto);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
