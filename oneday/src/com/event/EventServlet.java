@@ -32,12 +32,15 @@ public class EventServlet extends MyUploadServlet {
 		String uri=req.getRequestURI();
 		String cp=req.getContextPath();
 		
+		
 		HttpSession session=req.getSession();
+		/*
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		if(info==null) {
 			resp.sendRedirect(cp+"/member/login.do");
 			return;
 		}
+		*/
 		String root = session.getServletContext().getRealPath("/");
 		pathname = root + "uploads" + File.separator + "photo";
 		
@@ -136,14 +139,69 @@ public class EventServlet extends MyUploadServlet {
 	}
 
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		EventDAO dao = new EventDAOImpl();
+		String page = req.getParameter("page");
 		
+		try {
+			int eNum = Integer.parseInt(req.getParameter("eNum"));
+			EventDTO dto = dao.readEvent(eNum);
+			
+			if(dto==null) {
+				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				return;			
+			}
+			
+			dto.seteContent(dto.geteContent().replaceAll("\n", "<br>"));
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			
+			forward(req, resp, "/WEB-INF/views/event/article.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/event/list.do?page="+page);
 	}
 
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		EventDAO dao = new EventDAOImpl();
+		String page = req.getParameter("page");
+		
+		try {
+			int eNum = Integer.parseInt(req.getParameter("eNum"));
+			EventDTO dto = dao.readEvent(eNum);
+			if(dto==null || ! info.getUserId().equals(dto.getUserId())) {
+				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				return;
+			}
+			
+			req.setAttribute("page", page);
+			req.setAttribute("dto", dto);
+			req.setAttribute("mode", "update");
+			
+			forward(req, resp, "/WEB-INF/views/event/created.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		forward(req, resp, "/WEB-INF/views/event/created.jsp");
 		
 	}
 
 	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		EventDAO dao = new EventDAOImpl();
+		EventDTO dto = new EventDTO();
 		
 	}
 

@@ -10,6 +10,8 @@ public class EventDTO {
 	private String eFIN;
 	private int eHitCount;
 	private int userPoint;
+	private String eCreated;
+	
 	
 	public int geteNum() {
 		return eNum;
@@ -73,6 +75,12 @@ public class EventDTO {
 		this.eHitCount = eHitCount;
 	}
 	
+	public String geteCreated() {
+		return eCreated;
+	}
+	public void seteCreated(String eCreated) {
+		this.eCreated = eCreated;
+	}
 	
 	
 }
