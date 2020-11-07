@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+/*원데이 클래스 리스트 */
+
+.imgLayout {
+	width: 290px;
+	height: 330px;
+	padding: 1px 1px 10px;
+	margin: 5px;
+	border: 1px solid #999;
+	cursor: pointer;
+}
+
+.imgLayout img:hover {
+	opacity: 80%;
+}
+/*이미지레이아웃 내 텍스트들*/
+.addr{
+	width: 270px;
+	height: 25px;
+	line-height: 25px;
+	margin: 1px auto;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer; 
+	text-align: left;
+	font-size: 12px;
+	color: #999;
+}
+.name{
+	width: 270px;
+	height: 25px;
+	line-height: 25px;
+	margin: 1px auto;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer; 
+	text-align: left;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.price{
+	width: 270px;
+	height: 25px;
+	line-height: 25px;
+	margin: 30px 2px auto;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer; 
+	text-align: left;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+/*원데이클래스에서 쓰는 버튼들*/
+
+/*클래스 등록 버튼*/
+.classBtn{
+	width: 300px;
+    background: #FC3C55;
+    margin: 30px 0 0;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+    border: 0;
+    text-align: center;
+    color: #fff;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: normal;
+    height: 50px;
+	 
+}
+
+.classBtn:hover{
+	background: #FC4B62;
+}
+
+/*클래스 내 빨간 버튼*/
+.classBtn2{
+    background: #FC3C55;
+    margin: 30px 0 0;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px 5px;
+    border: 1px solid #999;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal; 
+}
+/*클래스 내 기본 어두운 버튼*/
+.classBtn3{
+    background: #000000;
+    margin: 30px 0 0;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px 5px;
+    border: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal; 
+}
+
+.classBtn3:hover{
+	background: #40434A;
+}
+
+/*원데이 클래스 등록 CSS*/
+.boxTF {
+    border:1px solid #999999;
+    padding:3px 5px 5px;
+    border-radius:4px;
+    background-color:#ffffff;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+}
+
+.boxTA {
+    border:1px solid #999999;
+    height:150px;
+    padding:3px 5px;
+    border-radius:4px;
+    background-color:#ffffff;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+}
+
+/*원데이 클래스 스티커*/
+.sticker {
+    font-size: 11px;
+    display: inline-block;
+    padding: 0 5px;
+    color: #FC3C55;
+    margin: 10px 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #FC3C55;
+    font-weight: 600;
+    float: left;
+}

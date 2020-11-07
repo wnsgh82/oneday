@@ -202,7 +202,7 @@ public class EventServlet extends MyUploadServlet {
 		String cp = req.getContextPath();
 		EventDAO dao = new EventDAOImpl();
 		EventDTO dto = new EventDTO();
-		
+		// 
 	}
 
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

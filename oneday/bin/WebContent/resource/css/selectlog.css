@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+        .signbox{
+            
+            margin: 30px auto;
+            width: 1008px;
+            height: 500px;
+            text-align: center;
+            
+        }
+
+        .userbox {
+        	magin: 25px auto;
+            width: 465px;
+            height: 300px;
+            border: 2px solid #000000;
+            display: inline-block;
+            border-radius: 25px;
+            
+        }
+        
+        .userbox1 {
+            
+            height: 120px;
+            
+            
+        }
+
+        .trbox {
+        	magin: 25px auto;
+        	
+            width: 465px;
+            height: 300px;
+            border: 2px solid #000000;
+            display: inline-block;
+            
+            border-radius: 25px;
+           
+            
+        }
+
+        .signimg{
+            height: 100px;
+            
+            width: 300px;
+            margin: 0px auto;
+            margin-top: 30px;
+        }
+        
+        .signimg img{
+        	width: 80px;
+        	height : 80px;
+        }
+
+        .signbt{
+            width: 400px;
+            height: 50px;
+            margin: 0px 25px;
+            background-color: #222222;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            
+        }
+        .signtext{
+            margin-left: 25px;
+            margin-top: 15px;
+        }
