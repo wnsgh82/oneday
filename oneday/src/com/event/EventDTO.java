@@ -7,7 +7,7 @@ public class EventDTO {
 	private String eSubject;
 	private String eContent;
 	private String eDate;
-	private String eFIN;
+	private String eIFN;
 	private int eHitCount;
 	private int userPoint;
 	private String eCreated;
@@ -55,11 +55,11 @@ public class EventDTO {
 	public void seteDate(String eDate) {
 		this.eDate = eDate;
 	}
-	public String geteFIN() {
-		return eFIN;
+	public String geteIFN() {
+		return eIFN;
 	}
-	public void seteFIN(String eFIN) {
-		this.eFIN = eFIN;
+	public void seteIFN(String eIFN) {
+		this.eIFN = eIFN;
 	}
 	public int getUserPoint() {
 		return userPoint;

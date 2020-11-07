@@ -25,7 +25,7 @@ public class EventDAOImpl implements EventDAO {
 			pstmt.setString(1, dto.getUserName());
 			pstmt.setString(2, dto.geteSubject());
 			pstmt.setString(3, dto.geteContent());
-			pstmt.setString(4, dto.geteFIN());
+			pstmt.setString(4, dto.geteIFN());
 			pstmt.setInt(5, dto.geteHitCount());
 			
 			result = pstmt.executeUpdate();
@@ -56,7 +56,7 @@ public class EventDAOImpl implements EventDAO {
 			
 			pstmt.setString(1, dto.geteSubject());
 			pstmt.setString(2, dto.geteContent());
-			pstmt.setString(3, dto.geteFIN());
+			pstmt.setString(3, dto.geteIFN());
 			pstmt.setInt(4,  dto.geteNum());
 			
 			result=pstmt.executeUpdate();
@@ -64,7 +64,7 @@ public class EventDAOImpl implements EventDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
-		}finally {
+		} finally {
 			if(pstmt!=null) {
 				try {
 					pstmt.close();
@@ -166,7 +166,7 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteNum(rs.getInt("eNum"));
 				dto.seteName(rs.getString("eName"));
 				dto.seteSubject(rs.getString("eSubject"));
-				dto.seteFIN(rs.getString("eIFN"));
+				dto.seteIFN(rs.getString("eIFN"));
 				dto.seteHitCount(rs.getInt("eHitCount"));
 				dto.seteCreated(rs.getString("eCreated"));
 				
@@ -219,7 +219,7 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteSubject(rs.getString("eSubject"));
 				dto.seteContent(rs.getString("eContent"));
 				dto.seteHitCount(rs.getInt("eHitCount"));
-				dto.seteFIN(rs.getString("eIFN"));
+				dto.seteIFN(rs.getString("eIFN"));
 				dto.seteCreated(rs.getString("eCreated"));
 			
 			}

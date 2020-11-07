@@ -14,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.member.SessionInfo;
-import com.oneday.OnedayDAO;
-import com.oneday.OnedayDTO;
-import com.oneday.OnedayImpl;
+import com.util.FileManager;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
 
@@ -30,7 +28,7 @@ public class EventServlet extends MyUploadServlet {
 		req.setCharacterEncoding("utf-8");
 		
 		String uri=req.getRequestURI();
-		String cp=req.getContextPath();
+		// String cp=req.getContextPath();
 		
 		
 		HttpSession session=req.getSession();
@@ -125,7 +123,7 @@ public class EventServlet extends MyUploadServlet {
 			Map<String, String> map=doFileUpload(p, pathname);
 			if(map!=null) {
 				filename=map.get("saveFilename");
-				dto.seteFIN(filename);
+				dto.seteIFN(filename);
 				
 				dao.insertEvent(dto);
 				
@@ -202,16 +200,72 @@ public class EventServlet extends MyUploadServlet {
 		String cp = req.getContextPath();
 		EventDAO dao = new EventDAOImpl();
 		EventDTO dto = new EventDTO();
-		// 
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp+"/event/list.do");
+			return;
+		}
+		
+		String page = req.getParameter("page");
+		
+		try {
+			String eIFN = req.getParameter("eIFN");
+			
+			dto.seteNum(Integer.parseInt(req.getParameter("eNum")));
+			dto.seteSubject(req.getParameter("eSubject"));
+			dto.seteContent(req.getParameter("eContent"));
+			
+			Part p = req.getPart("selectFile");
+			Map<String, String> map = doFileUpload(p, pathname);
+			if(map!=null) {
+				String filename = map.get("saveFilename");
+				dto.seteIFN(filename);
+				
+				FileManager.doFiledelete(pathname, eIFN);
+			} else {
+				dto.seteIFN(eIFN);
+			}
+			
+			dao.updateEvent(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"event/list.do?page="+page);
 	}
 
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		EventDAO dao = new EventDAOImpl();
+		String page = req.getParameter("page");
 		
+		try {
+			int eNum = Integer.parseInt(req.getParameter("eNum"));
+			EventDTO dto = dao.readEvent(eNum);
+			if(dto==null) {
+				resp.sendRedirect(cp+"event/list.do?page="+page);
+				return;
+				
+			}
+			
+			// 관리자가 아니면
+			if(! dto.getUserId().equals(info.getUserId()) && ! info.getUserId().equals("admin")) {
+				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				return;
+			}
+			
+			// 파일 삭제
+			FileManager.doFiledelete(pathname, dto.geteIFN());
+			
+			dao.deleteEvent(eNum);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		resp.sendRedirect(cp+"/event/list.do?page="+page);
 	}
 
-	
-	
-	
-	
-	
 }
