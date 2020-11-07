@@ -68,7 +68,7 @@ function sendOk() {
     
     str = f.classCount.value;
     if(!str) {
-        alert("클래스 가격을 입력하세요. ");
+        alert("클래스 정원을 입력하세요. ");
         f.classCount.focus();
         return;
     }
@@ -112,7 +112,7 @@ function sendOk() {
 <div class="body_tem">
 	<div class="content_tem">
 		<div class="title-area">
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;게시판이름</h3>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;원데이클래스 등록</h3>
 		</div>
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
