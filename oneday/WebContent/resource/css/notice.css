@@ -89,4 +89,24 @@ body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGo
 	height: 30px;
 	
 }
-
+.qna {
+	height: 40px;
+	width: 400px;
+	margin: 0 auto;
+}
+.qna li {
+	height: 40px;
+}
+.qna li span {
+	display: inline-block;
+	height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+/* 	border-radius: 7px; */
+}
+.qna li span a {
+	display: inline-block;
+	width : 100%;
+	font-size: 15px;
+	line-height: 40px;
+}

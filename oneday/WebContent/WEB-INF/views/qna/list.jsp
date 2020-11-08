@@ -28,9 +28,12 @@
 		<!-- 여기부터 내용 -->
 		<section class="notice">
 			<div class="inner">
-			<div class="title-area">
-	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;QnA</h3>
-			</div>
+			 <ul class="qna">
+			 	<li class="qna1">
+			 		<span style="width: 45%; border-bottom: 3px solid; 	font-weight: 600;"><a>질문과 답변</a></span>
+			 		<span style="width: 45%; float: right;"><a>자주하는 질문</a></span>
+			 	</li>
+			 </ul>
 			
 			<form name="QnaForm" method="post">
 			
@@ -92,7 +95,9 @@
 				            <button type="button" class="btn" onclick="searchList()">검색</button>
 				      </td>
 				      <td align="right" width="100">
-				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/Qna/created.do?rows=${rows}';">글올리기</button>
+				      	<c:if test="${not empty sessionScope.member.userId}">
+				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/created.do?';">글올리기</button>
+				      	</c:if> 
 				      </td>
 				   </tr>
 				</table>

@@ -22,11 +22,6 @@ public class QnaServlet extends MyUploadServlet {
 		req.setCharacterEncoding("utf-8");
 		
 		String uri=req.getRequestURI();
-		
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		
-		String cp=req.getContextPath();
 
 		if(uri.indexOf("list.do")!=-1) {
 			list(req, resp);
@@ -50,11 +45,32 @@ public class QnaServlet extends MyUploadServlet {
 		
 	}
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		forward(req, resp, "/WEB-INF/views/qna/list.jsp");
 	}
 	
 	protected void createdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("mode", "created");
+		forward(req, resp, "/WEB-INF/views/qna/created.jsp");
 	}
 	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String cp=req.getContextPath();
+		
+		QnaDAO dao= new QnaDAOImpl();
+		try {
+			QnaDTO dto=new QnaDTO();
+			dto.setUserId(info.getUserId());
+			dto.setbSubject(req.getParameter("bSubject"));
+			dto.setbContent(req.getParameter("bContent"));
+			dao.insertQna(dto, "created");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/qna/list.do");
 	}
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
