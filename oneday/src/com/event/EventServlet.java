@@ -3,7 +3,7 @@ package com.event;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +25,19 @@ import com.util.MyUtil;
 public class EventServlet extends MyUploadServlet {
 	private static final long serialVersionUID = 1L;
 	private String pathname;
+	
+	
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		process(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		process(req, resp);
+	}
+
 
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -65,12 +78,14 @@ public class EventServlet extends MyUploadServlet {
 		EventDAO dao = new EventDAOImpl();
 		MyUtil util = new MyUtil();
 		String cp = req.getContextPath();
-		
+		EventDTO dto = new EventDTO();
 		String page = req.getParameter("page");
 		int current_page = 1;
+
 		if(page!=null) {
 			current_page = Integer.parseInt(page);
 		}
+		
 
 		int dataCount = dao.dataCount();
 		
@@ -83,7 +98,23 @@ public class EventServlet extends MyUploadServlet {
 		int offset = (current_page - 1) * rows;
 		if(offset < 0) offset = 0;
 		
-		List<EventDTO> list = dao.listEvevnt(offset, rows);
+		List<EventDTO> list = dao.listEvent(offset, rows);
+		
+		long eEnabled;
+		Date curDate = new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+
+		System.out.println(sdf);
+		try {
+			Date date=sdf.parse(dto.geteEnd());
+			
+			eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+			// eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60); // 시간 
+			
+			dto.seteEnabled(eEnabled);
+			System.out.println(eEnabled);
+		}catch (Exception e) {
+		}
 		
 		String listUrl=cp+"/event/list.do";
 		String articleUrl=cp+"/event/article.do?page="+current_page;
@@ -95,7 +126,7 @@ public class EventServlet extends MyUploadServlet {
 		req.setAttribute("dataCount", dataCount);
 		req.setAttribute("total_page", total_page);
 		req.setAttribute("articleUrl", articleUrl);
-		
+
 		forward(req, resp, "/WEB-INF/views/event/list.jsp");
 	}
 
@@ -164,6 +195,8 @@ public class EventServlet extends MyUploadServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		resp.sendRedirect(cp+"/event/list.do?page="+page);
 	}

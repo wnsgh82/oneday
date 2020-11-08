@@ -48,10 +48,10 @@ function article(eNum){
 			  		<span class="event-term">${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}</span>
 			  		<span class="eSubject">${dto.eSubject}</span>
 			  		<div class="article-bottom-wrap">
-				  		<c:if test="${dto.eEnabled==1}">
+				  		<c:if test="${dto.eEnabled>=0}">
 				  			<span class="sticker blinking">진행 중</span>
 				  		</c:if>
-					  	<c:if test="${dto.eEnabled==2}">
+					  	<c:if test="${dto.eEnabled<0}">
 					  		<span class="sticker-end">종료</span>
 					  	</c:if>
 					  	

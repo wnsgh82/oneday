@@ -102,10 +102,8 @@ function eventApply(){
 			      	<input type="hidden" name="eSubject" value="${dto.eSubject}">
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="eStart" value="${dto.eStart}">
-			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
-			      	<c:if test="${dto.eEnabled==1}">
+			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">	  
 			      		<button type="button" class="eBtn" onclick="eventApply();">이벤트 참가</button>
-			      	</c:if>
 			      </span>
 			      </form>
 			   </td>
@@ -128,14 +126,14 @@ function eventApply(){
 			</tr>
 			</table>
 			
-			<%--일대일 댓글문의 해볼 것  --%>
+			<%-- 댓글 --%>
 			<div align="center">
 		<form name="commentForm" method="post">
 			<table style="width: 930px; margin-top: 20px; border-spacing: 0; border-collapse: collapse;">
 				<tr height="40" style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc;">
 					<td style="width: 100px; " align= "center" bgcolor="#eee">작성자</td>
 					<td style="padding-left: 10px;" >
-						관리자
+						${dto.userId}
 					</td>
 				</tr>
 				<tr style="border-bottom: 1px solid #ccc;">

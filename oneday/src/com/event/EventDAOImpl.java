@@ -19,7 +19,7 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO event(eNum, eSubject, eContent, eHitCount, eIFN, eCreated, eStart, eEnd, eEnabled) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, 0, ?, SYSDATE, ?, ?, 1)";
+			sql = "INSERT INTO event(eNum, eSubject, eContent, eHitCount, eIFN, eCreated, eStart, eEnd) VALUES (EVENT_SEQ.NEXTVAL, ?, ?, 0, ?, SYSDATE, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.geteSubject());
 			pstmt.setString(2, dto.geteContent());
@@ -146,16 +146,16 @@ public class EventDAOImpl implements EventDAO {
 
 
 	@Override
-	public List<EventDTO> listEvevnt(int offset, int rows) {
+	public List<EventDTO> listEvent(int offset, int rows) {
 		List<EventDTO> list = new ArrayList<EventDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
 		String sql;
 		
-		try {
+		try {			
 			sql="SELECT eNum, eSubject, eIFN, eHitCount, "
-					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated, TO_CHAR(eStart, 'YYYY-MM-DD') eStart, TO_CHAR(eEnd, 'YYYY-MM-DD') eEnd, eEnabled "
-					+ " FROM EVENT ORDER BY eEnabled DESC "
+					+ " TO_CHAR(eCreated, 'YYYY-MM-DD') eCreated, TO_CHAR(eStart, 'YYYY-MM-DD') eStart, TO_CHAR(eEnd, 'YYYY-MM-DD') eEnd "
+					+ " FROM EVENT ORDER BY eEnd DESC "
 					+ " OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -174,7 +174,6 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteCreated(rs.getString("eCreated"));
 				dto.seteStart(rs.getString("eStart"));
 				dto.seteEnd(rs.getString("eEnd"));
-				dto.seteEnabled(rs.getInt("eEnabled"));
 				
 				list.add(dto);
 			}			
@@ -211,7 +210,7 @@ public class EventDAOImpl implements EventDAO {
 		
 		try {
 			sql = "SELECT eNum, eSubject, eContent, eHitCount, eIFN, eCreated, "
-					+ " TO_CHAR(eStart, 'YYYY-MM-DD') eStart, TO_CHAR(eEnd, 'YYYY-MM-DD') eEnd, eEnabled "
+					+ " TO_CHAR(eStart, 'YYYY-MM-DD') eStart, TO_CHAR(eEnd, 'YYYY-MM-DD') eEnd "
 					+ " FROM EVENT WHERE eNum=?";
 			
 			pstmt=conn.prepareStatement(sql);
@@ -228,7 +227,6 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteCreated(rs.getString("eCreated"));
 				dto.seteStart(rs.getString("eStart"));
 				dto.seteEnd(rs.getString("eEnd"));
-				dto.seteEnabled(rs.getInt("eEnabled"));
 			
 			}
 			
@@ -280,5 +278,6 @@ public class EventDAOImpl implements EventDAO {
 		
 		return result;
 	}
+
 
 }

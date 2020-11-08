@@ -9,7 +9,7 @@ public interface EventDAO {
 	public int deleteEvent(int eNum) throws SQLException;
 	public int updateHitCount(int eNum) throws SQLException;
 	public int dataCount();
-	public List<EventDTO> listEvevnt(int offset, int rows);
+	public List<EventDTO> listEvent(int offset, int rows);
 	public EventDTO readEvent(int eNum);
 	
 }

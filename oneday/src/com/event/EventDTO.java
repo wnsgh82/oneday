@@ -11,7 +11,7 @@ public class EventDTO {
 	private String eCreated;
 	
 	private String eStart, eEnd;
-	private int eEnabled;
+	private long eEnabled;
 
 
 	public int geteNum() {
@@ -82,11 +82,11 @@ public class EventDTO {
 	public void seteEnd(String eEnd) {
 		this.eEnd = eEnd;
 	}
-	public int geteEnabled() {
+	public long geteEnabled() {
 		return eEnabled;
 	}
-	public void seteEnabled(int eEnabled) {
+	public void seteEnabled(long eEnabled) {
 		this.eEnabled = eEnabled;
 	}
-	
+
 }
