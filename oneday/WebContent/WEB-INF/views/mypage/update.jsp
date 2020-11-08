@@ -135,11 +135,10 @@ function update(){
             	
             	<c:if test="${dto.userEnabled==100}">  <%--강사일 때 왼쪽 메뉴--%>
             		<li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의 클래스</a></li>
-	                <li><a href=""> 수강생 관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/mypage/classList.do"> 수강생 관리</a></li>
 	                <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
-	                <li><a href=""> 별로 알아서  </a></li>
+	                <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
 	                <li><a href=""> 넣으세요 </a></li>
-            	
             	</c:if>
             	
             	<c:if test="${dto.userEnabled==200}">  <%--관리자일 때 왼쪽 메뉴--%>

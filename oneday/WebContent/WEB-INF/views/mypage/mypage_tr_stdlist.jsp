@@ -76,7 +76,7 @@ function send(){
             	<li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의 클래스</a></li>
             	<li><a href="${pageContext.request.contextPath}/mypage/stdlist.do"> 수강생 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
-                <li><a href=""> 별로 알아서  </a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
                 <li><a href=""> 넣으세요 </a></li>
             </ul>
         </div>
@@ -100,19 +100,19 @@ function send(){
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
                         <li style="width: 25%;"><p>아이디</p></li>
-                        <li style="width: 25%; text-align: left; padding-left: 10px;"><p>이름</p></li>
-                        <li style="width: 35%;"><p>이메일</p></li>
-                        <li style="width: 15%;"><p>수강상태</p></li>
+                        <li style="width: 25%;"><p>이름</p></li>
+                        <li style="width: 25%;"><p>이메일</p></li>
+                        <li style="width: 25%;"><p>수강상태</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
                       <!-- 여기 포문돌려서 값 불러왕 -->
-                      <c:forEach var="dto" items="${list}">
+                      <c:forEach var="dto" items="${stdList}">
                         <ul style="background: white; border-bottom: 1px solid #e0e0e0;">
                             <li style="width: 25%;"><p>${dto.stdId}</p></li>
-                            <li style="width: 25%; text-align: left; padding-left: 10px;"><p>${dto.stdName}</p></li>
-                            <li style="width: 35%;"><p>${dto.stdEmail}</p></li>
-                            <li style="width: 15%; color: tomato;"><p>${dto.stdEnabled}</p></li>
+                            <li style="width: 25%;"><p>${dto.stdName}</p></li>
+                            <li style="width: 25%;"><p>${dto.stdEmail}</p></li>
+                            <li style="width: 25%; color: tomato;"><p>${dto.stdEnabled}</p></li>
                         </ul>
                         
                       <form name="sendForm" method="post">

@@ -62,7 +62,7 @@ function send(){
             	<li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의 클래스</a></li>
             	<li><a href="${pageContext.request.contextPath}/mypage/stdlist.do"> 수강생 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
-                <li><a href=""> 별로 알아서  </a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
                 <li><a href=""> 넣으세요 </a></li>
             </ul>
         </div>

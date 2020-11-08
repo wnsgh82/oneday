@@ -135,8 +135,31 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public int deleteMember(String userId, String userPwd) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="delete from member1 where userId=? and userPwd=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return result;
 	}
 
 	@Override

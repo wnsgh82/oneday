@@ -64,6 +64,10 @@ public class MypageServlet extends MyUploadServlet{
 	    	  trclassList(req, resp);
 	      }else if(uri.indexOf("stdlist.do")!=-1) {
 	    	  trstdList(req, resp);
+	      }else if(uri.indexOf("pwd.do")!=-1) {
+	    	  pwdForm(req, resp);
+	      }else if(uri.indexOf("memberDelete.do")!=-1) {
+	    	  delete(req, resp);
 	      }
 
 	      
@@ -187,7 +191,7 @@ public class MypageServlet extends MyUploadServlet{
 			TrmyDTO dto=dao.readDTO(info.getUserId());
 			
 			req.setAttribute("dto", dto);
-			req.setAttribute("list", stdList);
+			req.setAttribute("stdList", stdList);
 			
 			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_stdlist.jsp");
 			return;
@@ -196,5 +200,63 @@ public class MypageServlet extends MyUploadServlet{
 		}
 		
 	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+	}
+	
+	protected void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//패스워드 확인 폼
+		MemberDAO dao=new MemberDAOImpl();
+		String cp=req.getContextPath();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+	    try {
+			MemberDTO dto=dao.readMember(info.getUserId());
+			if(dto==null || ! info.getUserId().equals(dto.getUserId())) {
+				resp.sendRedirect(cp+"/mypage/mypageMain.do");
+				return;
+			}
+			
+			req.setAttribute("dto", dto);
+			
+			forward(req, resp, "/WEB-INF/views/mypage/pwd.jsp");
+			return;
+			
+		} catch (Exception e) {
+			req.setAttribute("message", "비밀번호가 틀렸습니다.");
+		}
+	    
+	    //입력이 제대로 안됐으면 다시 마이페이지 창으로
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+		
+	}
+	
+	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//회원 탈퇴
+		String cp=req.getContextPath();
+		MemberDAO dao=new MemberDAOImpl();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			//GET방식으로 접근한 경우
+			resp.sendRedirect(cp+"/mypage/mypageMain.do");
+			return;
+		}
+		
+		try {
+			String userPwd=req.getParameter("userPwd");
+			
+			dao.deleteMember(info.getUserId(), userPwd);
+			session.invalidate();
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp);
 	}
 }

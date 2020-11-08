@@ -126,3 +126,23 @@
     line-height: 40px;
 	
 }
+
+/* 버튼 CSS*/
+/*기본 버튼*/
+.btn{
+    background: #000000;
+    margin: 20px 0 10px;
+    width: 100px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px 5px;
+    border: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal; 
+}
+
+.btn:hover{
+	background: #40434A;
+}
