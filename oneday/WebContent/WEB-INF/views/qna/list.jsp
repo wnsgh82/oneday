@@ -29,36 +29,50 @@
 		<section class="notice">
 			<div class="inner">
 			<div class="title-area">
-	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;게시판이름</h3>
+	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;QnA</h3>
 			</div>
 			
-			<form action="">
+			<form name="QnaForm" method="post">
+			
+			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
+			   <tr height="35">
+			      <td align="left" width="50%" id="delbut">
+			          	${dataCount}개(${page}/${total_page} 페이지)
+			      </td>
+			   </tr>
+			</table>
+			
 			      <div class="board-notice">
 			         <ul class="article-table">
 			            <li class="item title">
 			               <span style="width: 11%; float: left;">번호</span>
 			               <span style="width: 55%; float: left;">제목</span>
+			               <span style="width: 9%; float: left;">작성자</span>
 			               <span style="width: 15%; float: left;">작성일</span>
 			               <span style="width: 9%; float: left;">조회수</span>
-			               <span style="width: 9%; float: left;">파일첨부</span>
 			            </li>
 			
+						<c:forEach var="dto" items="${list}">
 			            <li class="item">
-			               <span class="number">1</span>
-			               <span class="subject"><a href="./notice-view.html?&Boardid=15">제목샘플1</a></span>
-			               <span class="date">2020-11-03</span>
-			               <span class="hit">조회수</span>
-			               <span class="no_file"> <img alt="" src=""> </span>
+			               <span style="width: 11%; float: left;">${dto.listNum }</span>
+			               <span style="width: 55%; float: left;"><a href="${articleUrl}&bNum=${dto.bNum}">${dto.bSubject}</a></span>
+			               <span style="width: 9%; float: left;">${dto.userName }</span>
+			               <span style="width: 15%; float: left;">${dto.bCreated }</span>
+			               <span style="width: 9%; float: left;">${dto.bHitCount }</span>
 			            </li>
-			            
+						</c:forEach>
 			          </ul>
 			      </div>
 			   
 			
-			  <div class="pagenation">
-			       <ul><li class="number select"><a href="?&cCurrent=1">1 2 3</a></li></ul>
-			   </div>
-			   
+				 <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+				   <tr height="35">
+					<td align="center">
+						${dataCount!=0?paging:"등록된 게시물이 없습니다."}
+					</td>
+				   </tr>
+				</table>
+				
 			   <div id="list2">
 			   <table id="listfooter">
 				   <tr height="40" style="width: 100%">
@@ -78,9 +92,7 @@
 				            <button type="button" class="btn" onclick="searchList()">검색</button>
 				      </td>
 				      <td align="right" width="100">
-				          <c:if test="${sessionScope.member.userId=='admin'}">
-				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/created.do?rows=${rows}';">글올리기</button>
-				          </c:if>
+				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/Qna/created.do?rows=${rows}';">글올리기</button>
 				      </td>
 				   </tr>
 				</table>

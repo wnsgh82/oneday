@@ -37,7 +37,7 @@
                 <li><a href="${pageContext.request.contextPath}/review/list.do">수강후기</a></li>
                 <li><a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a></li>
                 <li>
-                    <a href="${pageContext.request.contextPath}">문의하기</a>
+                    <a href="${pageContext.request.contextPath}/qna/list.do">문의하기</a>
                 </li>
             </ul>
         </div>
