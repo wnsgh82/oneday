@@ -8,6 +8,11 @@ public class TrmyDTO {
 	private String userId;
 	private String userName;
 	
+	private String stdId;
+	private String stdName;
+	private String stdEmail;
+	private String stdEnabled;
+	
 	public int getClassNum() {
 		return classNum;
 	}
@@ -43,6 +48,30 @@ public class TrmyDTO {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getStdId() {
+		return stdId;
+	}
+	public void setStdId(String stdId) {
+		this.stdId = stdId;
+	}
+	public String getStdName() {
+		return stdName;
+	}
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+	public String getStdEmail() {
+		return stdEmail;
+	}
+	public void setStdEmail(String stdEmail) {
+		this.stdEmail = stdEmail;
+	}
+	public String getStdEnabled() {
+		return stdEnabled;
+	}
+	public void setStdEnabled(String stdEnabled) {
+		this.stdEnabled = stdEnabled;
 	}
 	
 	

@@ -56,10 +56,14 @@ public class MypageServlet extends MyUploadServlet{
 		      }else if(info.getUserEnabled()==200) {	//관리자일 때 
 		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
 		      }
-	      }else if(uri.indexOf("memberUpdate.do")!=-1) {
+	      }else if(uri.indexOf("memberUpdate.do")!=-1) {  //회원 정보 수정
 	    	  updateForm(req, resp);
 	      }else if(uri.indexOf("memberUpdate_ok.do")!=-1) {
 	    	  updateSubmit(req, resp);
+	      }else if(uri.indexOf("classList.do")!=-1) {
+	    	  trclassList(req, resp);
+	      }else if(uri.indexOf("stdlist.do")!=-1) {
+	    	  trstdList(req, resp);
 	      }
 
 	      
@@ -142,5 +146,55 @@ public class MypageServlet extends MyUploadServlet{
 		
 		resp.sendRedirect(cp+"/mypage/mypageMain.do");
 
+	}
+	
+	protected void trclassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//강사 마이페이지 - 내 수강생 리스트
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+	    try {
+	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
+			List<TrmyDTO> list=dao.readClass(info.getUserId());	
+			
+			req.setAttribute("list", list);
+			
+			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_classList.jsp");
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+	}
+	
+	protected void trstdList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//강사 마이페이지 - 내 수강생 리스트
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+	    try {
+	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
+			int classNum=Integer.parseInt(req.getParameter("classNum"));
+			List<TrmyDTO> stdList=dao.stdList(info.getUserName(), classNum); //trName, classNum
+			
+			TrmyDTO dto=dao.readDTO(info.getUserId());
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("list", stdList);
+			
+			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_stdlist.jsp");
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
 	}
 }

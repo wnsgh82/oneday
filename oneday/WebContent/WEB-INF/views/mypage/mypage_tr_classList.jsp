@@ -22,9 +22,23 @@ a{
 a:hover{
 	text-decoration: none;
 	color: tomato;
+	cursor: pointer;
 }
 
+
 </style>
+
+<script type="text/javascript">
+
+function send(){
+	var f=document.forms[0];
+	
+	f.action="${pageContext.request.contextPath}/mypage/stdlist.do";
+	f.submit();
+	
+}
+
+</script>
 
 </head>
 <body>
@@ -46,7 +60,7 @@ a:hover{
             </div>
             <ul id="myl_list">
             	<li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의 클래스</a></li>
-            	<li><a href="${pageContext.request.contextPath}/mypage/classList.do"> 수강생 관리</a></li>
+            	<li><a href="${pageContext.request.contextPath}/mypage/stdlist.do"> 수강생 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
                 <li><a href=""> 별로 알아서  </a></li>
                 <li><a href=""> 넣으세요 </a></li>
@@ -55,22 +69,11 @@ a:hover{
 
 
         <div id="my_right">
-            <div id="myr_profile">
-                <div id="profile_box">
-                    <div id="imageee">
-                        <img src="${pageContext.request.contextPath}/resource/images/mypage.png" alt="">
-                    </div>
-                    <div id="informantion">
-                        <p style="font-size: 13px;"> 강사 </p>
-                        <p style="font-size: 20px; font-weight: 600;">${sessionScope.member.userName} (${sessionScope.member.userId})</p>
-                    </div>
-
-                </div>
-            </div>
-            <div id="myr_title">
-                <h3>나의 클래스</h3>
-            </div>
-            <div id="myr_table">
+        	 <div class="title-area"  style="width: 850px;" >
+            	<h3>&nbsp;&nbsp;&nbsp;&nbsp;수강생 관리</h3>
+			</div>	
+			
+			<div id="myr_table">
                 <div id=table_title>
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
@@ -86,7 +89,11 @@ a:hover{
                         <ul style="background: white; border-bottom: 1px solid #e0e0e0;">
                             <li style="width: 10%;"><p>&nbsp;</p></li>
                             <li style="width: 50%; text-align: left; padding-left: 10px;">
-                            		<a href="${pageContext.request.contextPath}/oneday/article.do?classNum=${dto.classNum}">${dto.className}</a>
+                            	<form name="sendForm" method="post">
+                            		<input type="hidden" name="classNum" value="${dto.classNum}">
+                            		<input type="hidden" name="trName" value="${dto.userName}">
+                            		<a onclick="send();">${dto.className}</a>
+                            	</form>	
                             </li>
                             <li style="width: 20%;"><p>${dto.classDate}</p></li>
                             <li style="width: 20%; color: tomato;"><p>${dto.classEnabled}</p></li>
@@ -94,11 +101,14 @@ a:hover{
                       </c:forEach>
                 </div>
             </div>
+         </div>
+            
+            
 
         </div>
     </div>
  </div>
-</div>
+
 
 <!-- footer -->
 <div class="footer_tem">
