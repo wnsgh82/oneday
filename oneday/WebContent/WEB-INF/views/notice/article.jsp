@@ -13,9 +13,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/oneday.css">
 <script type="text/javascript">
 <c:if test="${sessionScope.member.userId=='admin'}">
-function deleteNotice(num) {
+function deleteBoard(num) {
 	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
-		var url="${pageContext.request.contextPath}/notice/delete.do?num="+num+"&${query}";
+		var url="${pageContext.request.contextPath}/notice/delete.do?noNum="+num+"&${query}";
 		location.href=url;
 	}
 }
@@ -78,14 +78,14 @@ function deleteNotice(num) {
 			    <td>
 			    	 <%--관리자랑 강사만 클래스 등록 가능하니까 굳이 userEnabled로  조건 걸지 않음--%>
 			    	 <c:if test="${sessionScope.member.userId=='admin'}">
-			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/update.do?num=${dto.noNum}&page=${page}';">수정</button>
+			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/update.do?page=${page}&rows=${rows}&noNum=${dto.noNum}';">수정</button>
 			          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.noNum}');">삭제</button>
 			         </c:if>
 			          
 			    </td>
 			
 			    <td align="right">
-			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?page=${page}';">리스트</button>
+			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
 			    </td>
 			</tr>
 			</table>

@@ -77,10 +77,16 @@ function sendOk() {
 	
     	f.submit();
 }
-
 <c:if test="${mode=='update'}">
 function deleteFile(num) {
 	  var url="${pageContext.request.contextPath}/notice/deleteFile.do?num="+num+"&page=${page}&rows=${rows}";
+	  location.href=url;
+}
+</c:if>
+
+<c:if test="${mode=='update'}">
+function deleteFile(num) {
+	  var url="${pageContext.request.contextPath}/notice/deleteFile.do?noNum="+num+"&page=${page}&rows=${rows}";
 	  location.href=url;
 }
 </c:if>
@@ -170,7 +176,7 @@ function deleteFile(num) {
 			      	</c:if>
 			        <button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?rows${rows }';">${mode=='update'?'수정취소':'등록취소'}</button>
+			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?rows${rows}';">${mode=='update'?'수정취소':'등록취소'}</button>
 					<input type="hidden" name="rows" value="${rows}">
 				  </td>
 			    </tr>

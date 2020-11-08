@@ -49,21 +49,100 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public int updateNotice(NoticeDTO dto) throws SQLException {
 		//글수정
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql;
 		
-		return 0;
+		try {
+			sql="UPDATE notice SET notice=?, noSubject=?, noContent=?, noSFN=?, noOFN=? "
+					+ "   WHERE noNum=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getNotice());
+			pstmt.setString(2, dto.getNoSubject());
+			pstmt.setString(3, dto.getNoContent());
+			pstmt.setString(4, dto.getNoSaveFileName());
+			pstmt.setString(5, dto.getNoOrginalFileName());
+			pstmt.setInt(6, dto.getNoNum());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteNotice(int num) throws SQLException {
 		//글삭제 (게시글안에서)
+		int result=0;
+		PreparedStatement pstmt = null;
+		String sql;
 		
-		return 0;
+		try {
+			sql="DELETE FROM notice WHERE noNum = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteList(int[] nums) throws SQLException {
 		//게시글삭제(리스트에서 체크로 )
-		return 0;
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql = "DELETE FROM notice WHERE noNum IN (";
+			for(int i=0; i<nums.length; i++) {
+				sql += "?,";
+			}
+			sql = sql.substring(0, sql.length()-1) + ")";
+			
+			pstmt=conn.prepareStatement(sql);
+			for(int i=0; i<nums.length; i++) {
+				pstmt.setInt(i+1, nums[i]);
+			}
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e2) {
+				}
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -111,17 +190,23 @@ public class NoticeDAOImpl implements NoticeDAO {
 		String sql;
 		
 		try {
+			sql="SELECT NVL(COUNT(*), 0) FROM notice";
 			if(condition.equalsIgnoreCase("created")) {
 				//날짜로 검색했으면 형시 바꿔주기
 				keyword=keyword.replaceAll("(\\-||\\/||\\.)", "");
-        		sql="SELECT NVL(COUNT(*), 0) FROM notice WHERE TO_CHAR(noCreated, 'YYYYMMDD') = ?  ";
+        		sql+="   WHERE TO_CHAR(noCreated, 'YYYYMMDD') = ?  ";
+        	} else if(condition.equals("all")) {
+        		sql+="   WHERE INSTR(noSubject, ?) >= 1 OR INSTR(noContent, ?) >= 1 ";
         	} else {
-        		sql="SELECT NVL(COUNT(*), 0) FROM notice WHERE INSTR(" + condition + ", ?) >= 1 ";
+        		sql+="   WHERE INSTR(" + condition + ", ?) >= 1 ";
         	}
 			
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, keyword);
-			
+            if(condition.equals("all")) {
+                pstmt.setString(2, keyword);
+            }
+            
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				result=rs.getInt(1);
@@ -211,30 +296,38 @@ public class NoticeDAOImpl implements NoticeDAO {
 		ResultSet rs=null;
 		
 		try {
-			sb.append("SELECT noNum, noName, noSubject, noSFN, noHitCount, noCreated");
+			sb.append("SELECT noNum, noSubject, noSFN, noHitCount, noCreated");
 			sb.append("   FROM notice");
 			if(condition.equalsIgnoreCase("created")) {
-				keyword=keyword.replaceAll("(\\-||\\/||\\.)", "");
-				sb.append("   WHERE TO_CHAR(created, 'YYYYMMDD')=?");
+				keyword=keyword.replaceAll("(\\-|\\/|\\.)", "");
+				sb.append("   WHERE TO_CHAR(noCreated, 'YYYYMMDD') = ?");
+			} else if(condition.equals("all")) {
+				sb.append(" WHERE INSTR(noSubject, ?) >= 1 OR INSTR(noContent, ?) >= 1 ");
 			} else {
-				sb.append("   WHERE INSTR(" +condition+ ", ?)>=1");
+				sb.append("   WHERE INSTR(" +condition+ ", ?) > =1");
 			}
 			sb.append("	  ORDER BY noNum DESC");
 			sb.append("   OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
 			
 			pstmt=conn.prepareStatement(sb.toString());
-			pstmt.setString(1, keyword);
-			pstmt.setInt(2, offset);
-			pstmt.setInt(3, rows);
+            if(condition.equals("all")) {
+    			pstmt.setString(1, keyword);
+    			pstmt.setString(2, keyword);
+    			pstmt.setInt(3, offset);
+    			pstmt.setInt(4, rows);
+            } else {
+    			pstmt.setString(1, keyword);
+    			pstmt.setInt(2, offset);
+    			pstmt.setInt(3, rows);
+            }
+            
 			
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				NoticeDTO dto=new NoticeDTO();
 				dto.setNoNum(rs.getInt("noNum"));
-				dto.setNoName(rs.getString("noName"));
 				dto.setNoSubject(rs.getString("noSubject"));
-				dto.setNoContent(rs.getString("noContent"));
 				dto.setNoSaveFileName(rs.getString("noSFN"));
 				dto.setNoHitCount(rs.getInt("noHitCount"));
 				dto.setNoCreated(rs.getString("noCreated"));
