@@ -15,6 +15,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/notice.css">
+<script type="text/javascript">
+
+function searchList() {
+ var f = document.reviewf;
+ 
+ f.action="${pageContext.request.contextPath}/review/list.do"
+}
+
+</script>
 </head>
 <body>
 
@@ -32,31 +41,31 @@
 	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</h3>
 			</div>
 			
-			<form action="">
+			<form action="" name="reviewf">
 			      <div class="board-notice">
 			         <ul class="article-table">
 			            <li class="item title">
 			               <span class="number">번호</span>
-			               <span class="subject">제목</span>
+			               <span class="subject">클래스 이름</span>
 			               <span class="date">작성일</span>
 			               <span class="hit">조회수</span>
-			               <span class="no_file">파일첨부</span>
+			               <span class="number">점수</span>
 			            </li>
-			
+						<c:forEach var="dto" items="${list}">
 			            <li class="item">
-			               <span class="number">1</span>
-			               <span class="subject"><a href="./notice-view.html?&Boardid=15">제목샘플1</a></span>
-			               <span class="date">2020-11-03</span>
-			               <span class="hit">조회수</span>
-			               <span class="no_file"> <img alt="" src=""> </span>
+			               <span class="number">${dto.listNum}</span>
+			               <span class="subject"><a href="${articleUrl}&rvNum=${dto.rvNum}">${dto.rvClassName}</a></span>
+			               <span class="date">${dto.rvCreated }</span>
+			               <span class="hit">${dto.rvHitcount }</span>
+			               <span class="number">${dto.rvScore}</span>
 			            </li>
-			            
+			            </c:forEach>
 			          </ul>
 			      </div>
 			   
 			
 			  <div class="pagenation">
-			       <ul><li class="number select"><a href="?&cCurrent=1">1 2 3</a></li></ul>
+			       <ul><li class="number select">${dataCount==0?"등록된 게시물이 없습니다.":paging}</a></li></ul>
 			   </div>
 			   
 			   <div id="list2">
@@ -67,10 +76,10 @@
 				      </td>
 				      <td id="selectsearch" align="center">
 				              <select name="condition" class="selectField">
-				                  <option value="subject"     ${condition=="subject"?"selected='selected'":"" }>제목</option>
-				                  <option value="userName" ${condition=="userName"?"selected='selected'":"" }>작성자</option>
-				                  <option value="content"     ${condition=="content"?"selected='selected'":"" }>내용</option>
-				                  <option value="created"     ${condition=="created"?"selected='selected'":"" }>등록일</option>
+				                  <option value="rvclassname"     ${condition=="rvclassname"?"selected='selected'":"" }>제목</option>
+				                  <option value="userId" ${condition=="userId"?"selected='selected'":"" }>작성자</option>
+				                  <option value="rvContent"     ${condition=="rvContent"?"selected='selected'":"" }>내용</option>
+				     
 				            </select>
 				            <input type="text" name="keyword" class="boxTF" value="${keyword}">
 				            <input type="hidden" name="rows" value="${rows}">

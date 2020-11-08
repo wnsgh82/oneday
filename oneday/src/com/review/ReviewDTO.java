@@ -2,12 +2,16 @@ package com.review;
 
 public class ReviewDTO {
 	private int rvNum;
+	private int listNum;
 	private String rvSubject;
 	private String rvContent;
 	private String rvClassName;
 	private String rvScore;
 	private int classNum;
 	private String userId;
+	private String rvCreated;
+	private int rvHitcount;
+	
 	
 	public int getRvNum() {
 		return rvNum;
@@ -50,5 +54,23 @@ public class ReviewDTO {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+	public String getRvCreated() {
+		return rvCreated;
+	}
+	public void setRvCreated(String rvCreated) {
+		this.rvCreated = rvCreated;
+	}
+	public int getRvHitcount() {
+		return rvHitcount;
+	}
+	public void setRvHitcount(int rvHitcount) {
+		this.rvHitcount = rvHitcount;
 	}
 }
