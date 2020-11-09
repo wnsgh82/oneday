@@ -117,7 +117,9 @@ function apply(){
 			      	<input type="hidden" name="classPrice" value="${dto.classPrice}">
 			      	<input type="hidden" name="classCount" value="${dto.classCount}">
 			      	
+			      	<c:if test="${not empty sessionScope.member.userId}">
 			      	<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
+			      	</c:if>
 			      </span>
 			      </form>
 			   </td>
