@@ -13,6 +13,10 @@ public interface ReviewDAO {
 	public int updateReview(ReviewDTO dto) throws SQLException;
 	public int deleteReview(int num) throws SQLException;
 	public ReviewDTO readReview(int num);
+	public ReviewDTO readReview(String userId , int classNum);
+	public ReviewDTO readReview(String userId);
+	
+	public int reviewcount(String userId);
 	
 	public int updateHitCount(int num) throws SQLException;
 	public int dataCount();

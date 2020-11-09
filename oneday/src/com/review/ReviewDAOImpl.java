@@ -20,8 +20,8 @@ public class ReviewDAOImpl implements ReviewDAO{
 		PreparedStatement pstmt=null;
 		
 		try {
-			sql="INSERT INTO review (rvNum, rvContent, rvClassname, rvScore, classNum , userId, rvhitcount , rvcreated) "
-					+ "  VALUES (REVIEW_SEQ.NEXTVAL, ? ,? , ? , ? , ?,0 ,SYSDATE)";
+			sql="INSERT INTO review (rvNum, rvContent, rvClassname, rvScore, classNum , userId, rvhitcount , rvcreated ) "
+					+ "  VALUES (REVIEW_SEQ.NEXTVAL, ? ,? , ? , ? , ?,0 ,SYSDATE )";
 	
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getRvContent());
@@ -442,6 +442,149 @@ public class ReviewDAOImpl implements ReviewDAO{
     
         return dto;
     }
+
+	@Override
+	public ReviewDTO readReview(String userId, int classNum) {
+		ReviewDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		sql = "SELECT rvNum , rvContent , rvclassname , rvscore , classNum , userId , rvhitcount , rvcreated ";
+		sql+= "  FROM review WHERE userId = ? AND classNum = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, classNum);
+			
+			rs = pstmt.executeQuery();
+			
+			if( rs.next()) {
+				dto = new ReviewDTO();
+				
+				dto.setRvNum(rs.getInt("rvNum"));
+				dto.setRvContent(rs.getString("rvContent"));
+				dto.setRvClassName(rs.getString("rvclassname"));
+				dto.setRvScore(rs.getString("rvscore"));
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setRvHitcount(rs.getInt("rvhitcount"));
+				dto.setRvCreated(rs.getString("rvcreated"));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+				
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public ReviewDTO readReview(String userId) {
+		ReviewDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		sql = "SELECT rvNum , rvContent , rvclassname , rvscore , classNum , userId , rvhitcount , rvcreated ";
+		sql+= "  FROM review WHERE userId = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			if( rs.next()) {
+				dto = new ReviewDTO();
+				
+				dto.setRvNum(rs.getInt("rvNum"));
+				dto.setRvContent(rs.getString("rvContent"));
+				dto.setRvClassName(rs.getString("rvclassname"));
+				dto.setRvScore(rs.getString("rvscore"));
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setRvHitcount(rs.getInt("rvhitcount"));
+				dto.setRvCreated(rs.getString("rvcreated"));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+				
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public int reviewcount(String userId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="SELECT COUNT(*) FROM review WHERE userId= ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		
+		return result;
+		
+	}
 
 
 }

@@ -45,19 +45,19 @@ function searchList() {
 			      <div class="board-notice">
 			         <ul class="article-table">
 			            <li class="item title">
-			               <span class="number">번호</span>
-			               <span class="subject">클래스 이름</span>
-			               <span class="date">작성일</span>
-			               <span class="hit">조회수</span>
-			               <span class="number">점수</span>
+			               <span class="number" style="width:10%">번호</span>
+			               <span class="subject" style="width:50%">클래스 이름</span>
+			               <span class="date" style="width:20%">작성일</span>
+			               <span class="hit" style="width:10%">조회수</span>
+			               <span class="number" style="width:10%">점수</span>
 			            </li>
 						<c:forEach var="dto" items="${list}">
 			            <li class="item">
-			               <span class="number">${dto.listNum}</span>
-			               <span class="subject"><a href="${articleUrl}&rvNum=${dto.rvNum}">${dto.rvClassName}</a></span>
-			               <span class="date">${dto.rvCreated }</span>
-			               <span class="hit">${dto.rvHitcount }</span>
-			               <span class="number">${dto.rvScore}</span>
+			               <span class="number" style="width:10%">${dto.listNum}</span>
+			               <span class="subject" style="width:50%"><a href="${articleUrl}&rvNum=${dto.rvNum}">${dto.rvClassName}</a></span>
+			               <span class="date" style="width:20%">${dto.rvCreated }</span>
+			               <span class="hit" style="width:10%">${dto.rvHitcount }</span>
+			               <span class="number" style="width:10%">${dto.rvScore}</span>
 			            </li>
 			            </c:forEach>
 			          </ul>
@@ -86,7 +86,9 @@ function searchList() {
 				            <button type="button" class="btn" onclick="searchList()">검색</button>
 				      </td>
 				      <td align="right" width="100">
-				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/review/mycrt.do';">글올리기</button>
+				      		<c:if test="${not empty sessionScope.member.userId}">
+				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/review/mycrt.do';">리뷰작성</button>
+				            </c:if>
 				      </td>
 				   </tr>
 				</table>

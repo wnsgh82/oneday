@@ -12,5 +12,6 @@ public interface StdDAO {
 	public int dataCount();
 	public List<StdDTO> listStd(int offset,int rows);
 	public List<StdDTO> listStd(String userId);
+	public List<StdDTO> listStd2(String userId);
 	public StdDTO readStd(String userId , int classNum);
 }

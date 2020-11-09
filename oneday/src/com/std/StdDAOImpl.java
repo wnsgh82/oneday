@@ -190,7 +190,7 @@ public class StdDAOImpl implements StdDAO{
 			pstmt.setString(1, userId);
 			rs=pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				StdDTO dto=new StdDTO();
 				
 				dto.setClassNum(rs.getInt("classNum"));
@@ -198,6 +198,66 @@ public class StdDAOImpl implements StdDAO{
 				dto.setClassName(rs.getString("className"));
 				dto.setClassDate(rs.getString("classDate"));
 				dto.setTrName(rs.getString("trName"));
+				
+
+				
+				list.add(dto);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<StdDTO> listStd2(String userId) {
+		List<StdDTO> list=new ArrayList<StdDTO>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="SELECT * FROM( " + 
+					"  SELECT  std.classNum, std.className,std.userId,trName,classDate, NVL(rvnum, 0) rvnum " + 
+					"  FROM std " + 
+					"  LEFT OUTER JOIN review ON std.classNum=review.classNum " + 
+					"  WHERE  std.userId= ?) " + 
+					"  WHERE rvnum=0 ";
+				
+			
+					//order by userEnable(수강생, 강사)로 할지말지 고민중~
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				StdDTO dto=new StdDTO();
+				
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setClassName(rs.getString("className"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setTrName(rs.getString("trName"));
+				dto.setClassDate(rs.getString("classDate"));
 				
 
 				

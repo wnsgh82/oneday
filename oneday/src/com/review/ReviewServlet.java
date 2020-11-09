@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.ha.backend.Sender;
+
 import com.member.SessionInfo;
 import com.notice.NoticeDAO;
 import com.notice.NoticeDAOImpl;
@@ -196,15 +198,24 @@ public class ReviewServlet extends MyUploadServlet{
 	}
 	protected void MycreateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		
 		HttpSession session=req.getSession();
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
-		
 		StdDAO dao = new StdDAOImpl();
 		String userId = info.getUserId();
+		ReviewDAO rao = new ReviewDAOImpl();
 		
-		List<StdDTO> list= dao.listStd(userId);
-			
+		List<StdDTO> list;
+		
+		int count = rao.reviewcount(userId);
+		
+		if(count > 0) {
+			list= dao.listStd2(userId);
+		}else{
+			list= dao.listStd(userId);
+		}
+		
 			
 		req.setAttribute("list", list);
 		req.setAttribute("info", info);
