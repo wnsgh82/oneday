@@ -60,25 +60,28 @@ public class MypageServlet extends MyUploadServlet{
 		      }else if(info.getUserEnabled()==100) {	//강사일 때 
 		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_tr.jsp");
 		      }else if(info.getUserEnabled()==200) {	//관리자일 때 
-		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
+		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_admin.jsp");
 		      }
-	      }else if(uri.indexOf("memberUpdate.do")!=-1) {  //회원 정보 수정
+	      }else if(uri.indexOf("memberUpdate.do")!=-1) { //공통(정보수정 , 탈퇴)
 	    	  updateForm(req, resp);
 	      }else if(uri.indexOf("memberUpdate_ok.do")!=-1) {
 	    	  updateSubmit(req, resp);
-	      }else if(uri.indexOf("classList.do")!=-1) {
-	    	  trclassList(req, resp);
-	      }else if(uri.indexOf("stdlist.do")!=-1) {
-	    	  trstdList(req, resp);
 	      }else if(uri.indexOf("pwd.do")!=-1) {
 	    	  pwdForm(req, resp);
 	      }else if(uri.indexOf("memberDelete.do")!=-1) {
 	    	  delete(req, resp);
+	      }else if(uri.indexOf("classList.do")!=-1) { //강사(상명)
+	    	  trclassList(req, resp);
+	      }else if(uri.indexOf("stdlist.do")!=-1) {
+	    	  trstdList(req, resp);
 	      }
 
 	      
 	}
 	
+	/**
+	 *  강사, 수강생 공용 (정보수정, 탈퇴)
+	 */
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//회원 정보 수정 폼
 		MemberDAO dao=new MemberDAOImpl();
@@ -157,59 +160,6 @@ public class MypageServlet extends MyUploadServlet{
 		resp.sendRedirect(cp+"/mypage/mypageMain.do");
 
 	}
-	
-	protected void trclassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//강사 마이페이지 - 내 수강생 리스트
-		String cp=req.getContextPath();
-		TrmyDAO dao=new TrmyDAO();
-		
-		HttpSession session=req.getSession();
-	    SessionInfo info=(SessionInfo)session.getAttribute("member");
-	    
-	    try {
-	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
-			List<TrmyDTO> list=dao.readClass(info.getUserId());	
-			
-			req.setAttribute("list", list);
-			
-			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_classList.jsp");
-			return;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
-	}
-	
-	protected void trstdList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//강사 마이페이지 - 내 수강생 리스트
-		String cp=req.getContextPath();
-		TrmyDAO dao=new TrmyDAO();
-		
-		HttpSession session=req.getSession();
-	    SessionInfo info=(SessionInfo)session.getAttribute("member");
-	    
-	    try {
-	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
-			int classNum=Integer.parseInt(req.getParameter("classNum"));
-
-			List<TrmyDTO> stdList=dao.stdList(info.getUserName(), classNum); //trName, classNum
-			
-			List<TrmyDTO> list=dao.listDTO(info.getUserId());
-			
-			req.setAttribute("classNum", classNum);
-			req.setAttribute("list", list);
-			req.setAttribute("stdList", stdList);
-			
-			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_stdlist.jsp");
-			return;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
-	}
-	
 	protected void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//패스워드 확인 폼
 		MemberDAO dao=new MemberDAOImpl();
@@ -268,6 +218,65 @@ public class MypageServlet extends MyUploadServlet{
 		resp.sendRedirect(cp);
 	}
 	
+	/**
+	 *  강사(상명)
+	 */
+	protected void trclassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//강사 마이페이지 - 내 수강생 리스트
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+	    try {
+	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
+			List<TrmyDTO> list=dao.readClass(info.getUserId());	
+			
+			req.setAttribute("list", list);
+			
+			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_classList.jsp");
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+	}
+	
+	protected void trstdList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//강사 마이페이지 - 내 수강생 리스트
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+	    try {
+	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
+			int classNum=Integer.parseInt(req.getParameter("classNum"));
+
+			List<TrmyDTO> stdList=dao.stdList(info.getUserName(), classNum); //trName, classNum
+			
+			List<TrmyDTO> list=dao.listDTO(info.getUserId());
+			
+			req.setAttribute("classNum", classNum);
+			req.setAttribute("list", list);
+			req.setAttribute("stdList", stdList);
+			
+			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_stdlist.jsp");
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+	}
+	
+	/**
+	 *  수강생(선성)
+	 */
+	
 	protected void stdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session=req.getSession();
@@ -324,4 +333,5 @@ public class MypageServlet extends MyUploadServlet{
 	
 		forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
 	}
+
 }

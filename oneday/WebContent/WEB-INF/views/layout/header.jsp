@@ -17,7 +17,15 @@
                     &nbsp;&nbsp;&nbsp;| </li>
                     <li class="login2" style="color: #fff;"><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
                     &nbsp;&nbsp;&nbsp;| </li>
-                    <li class="login2"><a href="${pageContext.request.contextPath}/mypage/mypageMain.do">마이페이지</a></li>
+                    <!-- 강사나 수강생일때 -->
+                    <c:if test="${sessionScope.member.userId!='admin'}">  
+                  	  <li class="login2"><a href="${pageContext.request.contextPath}/mypage/mypageMain.do">마이페이지</a></li>
+                    </c:if>
+                    <!-- 관리자일때 -->
+                    <c:if test="${sessionScope.member.userId=='admin'}">  
+                    <li class="login2"><a href="${pageContext.request.contextPath}/mypage/mypageMain.do">관리자페이지</a></li>
+                    </c:if>
+                    
                   </c:if>
                 </ul>
             </div>

@@ -267,9 +267,9 @@ public class QnaDAOImpl implements QnaDAO {
         	sql="SELECT COUNT(*) FROM board2 b JOIN member1 m ON b.userId=m.userId ";
         	if(condition.equals("created")) {
         		keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-        		sql+="  WHERE TO_CHAR(created, 'YYYYMMDD') = ? ";
+        		sql+="  WHERE TO_CHAR(bCreated, 'YYYYMMDD') = ? ";
         	} else if(condition.equals("all")) {
-        		sql+="  WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
+        		sql+="  WHERE INSTR(bSubject, ?) >= 1 OR INSTR(bContent, ?) >= 1 ";
         	} else {
         		sql+="  WHERE INSTR(" + condition + ", ?) >= 1 ";
         	}
@@ -374,10 +374,10 @@ public class QnaDAOImpl implements QnaDAO {
 		
 		try {
 			sb.append(" SELECT bNum, b.userId, userName, bSubject, ");
-			sb.append("    groupNum, orderNo, depth, bHitCount, ");
+			sb.append("    groupNum, orderNo, depth, bHitCount, bEnabled,");
 			sb.append("    TO_CHAR(bCreated, 'YYYY-MM-DD') bCreated ");
-			sb.append(" FROM board2 b ");
-			sb.append(" JOIN member1 m ON b.userId = m.userId ");
+			sb.append("	  FROM board2 b ");
+			sb.append("   JOIN member1 m ON b.userId = m.userId ");
 			if(condition.equals("created")) {
 				keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
 				sb.append(" WHERE TO_CHAR(bCreated, 'YYYYMMDD') = ?  ");
@@ -412,6 +412,7 @@ public class QnaDAOImpl implements QnaDAO {
 				dto.setDepth(rs.getInt("depth"));
 				dto.setbHitCount(rs.getInt("bHitCount"));
 				dto.setbCreated(rs.getString("bCreated"));
+				dto.setbEnabled(rs.getInt("bEnabled"));
 
 				list.add(dto);
 			}

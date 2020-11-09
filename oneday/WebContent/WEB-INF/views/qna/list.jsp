@@ -15,6 +15,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/notice.css">
+<script type="text/javascript">
+function searchList() {
+	var f=document.QnaForm;
+	f.submit();
+}
+</script>
 </head>
 <body>
 
@@ -96,11 +102,11 @@
 			   <table id="listfooter">
 				   <tr height="40" style="width: 100%">
 				      <td id="resetbutton" align="left">
-				          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do';">새로고침</button>
+				          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/list.do';">새로고침</button>
 				      </td>
 				      <td id="selectsearch" align="center">
 				              <select name="condition" class="selectField">
-				                  <option value="all"     ${condition=="all"?"selected='selected'":"" }>제목</option>
+				                  <option value="all"     ${condition=="all"?"selected='selected'":"" }>제목+내용</option>
 				                  <option value="subject"     ${condition=="subject"?"selected='selected'":"" }>제목</option>
 				                  <option value="userName" 	  ${condition=="userName"?"selected='selected'":"" }>작성자</option>
 				                  <option value="content"     ${condition=="content"?"selected='selected'":"" }>내용</option>
