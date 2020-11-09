@@ -9,10 +9,10 @@ public class OnedayDTO {
 	private String classPrice;
 	private String classContent;
 	private int classHitCount;
-	private int classEnabled;
 	private String classIFN;
 	private String userId, userName;
 	
+	private long classEnabled;
 	private String classStart, classEnd;
 	private String classCreated;
 	
@@ -58,10 +58,11 @@ public class OnedayDTO {
 	public void setClassHitCount(int classHitCount) {
 		this.classHitCount = classHitCount;
 	}
-	public int getClassEnabled() {
+	
+	public long getClassEnabled() {
 		return classEnabled;
 	}
-	public void setClassEnabled(int classEnabled) {
+	public void setClassEnabled(long classEnabled) {
 		this.classEnabled = classEnabled;
 	}
 	public String getClassIFN() {

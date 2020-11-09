@@ -27,16 +27,24 @@ function deleteBoard(classNum) {
 }
 
 function apply(){
-/* 	<c:if test="${memberScope.member.userId==null}">
-		alert("로그인 후 이용하실 수 있습니다.");
-		location.href="${pageContext.request.contextPath}/member/login.do";
-	</c:if>
-	 */
-	//여기서부터 ~ 신청~ 짜시면 됩니다~
 	var f= document.stdsendf;
 	
 	f.action="${pageContext.request.contextPath}/std/created.do";
 	f.submit();
+}
+
+function noapply(){
+	var f= document.stdsendf;
+	
+	alert("종료된 클래스입니다.");
+	f.action="${pageContext.request.contextPath}/oneday/list.do?page=${page}";
+	f.submit();
+}
+
+function send(){
+	alert("로그인 후 이용하실 수 있습니다.");
+	location.href="${pageContext.request.contextPath}/member/login.do";
+	
 }
 </script>
 
@@ -117,8 +125,20 @@ function apply(){
 			      	<input type="hidden" name="classPrice" value="${dto.classPrice}">
 			      	<input type="hidden" name="classCount" value="${dto.classCount}">
 			      	
-			      	<c:if test="${not empty sessionScope.member.userId}">
-			      	<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
+			      	<%-- 로그인 된 상태 & 수강 가능 상태  --%> 
+			      	<c:if test="${not empty sessionScope.member.userId && dto.classEnabled<=0}">  
+			      		<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
+			      	</c:if>
+
+			      	<%-- 로그인 안 된 상태 & 수강 가능 상태 --%> 
+			      	<c:if test="${empty sessionScope.member.userId  && dto.classEnabled<=0}">  
+			      		<button type="button" class="classBtn" onclick="send();">클래스 등록 신청</button>
+			      	</c:if>
+			      	
+			      	<%-- 수강 불가능 상태  --%> 
+			      	<c:if test="${dto.classEnabled>0}">  
+			      		<input type="hidden" name="page" value="${page}">
+			      		<button type="button" class="classBtn" onclick="noapply();">클래스 기간 종료</button>
 			      	</c:if>
 			      </span>
 			      </form>

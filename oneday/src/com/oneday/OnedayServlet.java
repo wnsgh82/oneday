@@ -2,6 +2,8 @@ package com.oneday;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -162,6 +164,20 @@ public class OnedayServlet extends MyUploadServlet{
 			}
 			
 			dto.setClassContent(dto.getClassContent().replaceAll("\n", "<br>"));
+			
+			//클래스 종료 & 진행중
+			long enabled;
+			Date curDate=new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			
+			try {
+				Date date=sdf.parse(dto.getClassEnd());
+				enabled= (curDate.getTime() - date.getTime()) /(1000*60*60*24);
+				dto.setClassEnabled(enabled);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
