@@ -70,6 +70,65 @@ public class TrmyDAO {
 		
 		return dto;
 	}
+	public List<TrmyDTO> listDTO(String userId) {
+		List<TrmyDTO> list=new ArrayList<TrmyDTO>();
+		TrmyDTO dto=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="select classNum, className, c.userId, c.userName, "
+					+ " to_char(classStart,'yyyy-mm-dd') classStart,"
+					+ " to_char(classEnd,'yyyy-mm-dd') classEnd, classEnabled "
+					+ " from classtb c"
+					+ " join member1 m on m.userId=c.userId"
+					+ " where c.userId=?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				dto=new TrmyDTO();
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setClassName(rs.getString("className"));
+				
+				String classEnabled = rs.getInt("classEnabled")==1 ? "진행중": "종료";
+				dto.setClassEnabled(classEnabled);
+				
+				String classDate= rs.getString("classStart")+" ~ "+rs.getString("classEnd");
+				dto.setClassDate(classDate);
+				
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserName(rs.getString("userName"));	
+				
+				list.add(dto);
+
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		
+		return list;
+	}
 	
 	public List<TrmyDTO> readClass(String userId) { //나의 클래스 
 		List<TrmyDTO> list=new ArrayList<TrmyDTO>();	
@@ -144,6 +203,7 @@ public class TrmyDAO {
 			pstmt.setString(1, trName);
 			pstmt.setInt(2, classNum);
 			rs=pstmt.executeQuery();
+			System.out.println(":"+trName+":"+classNum+":");
 			
 			while(rs.next()) {
 				TrmyDTO dto=new TrmyDTO();
@@ -162,6 +222,7 @@ public class TrmyDAO {
 				dto.setUserName(trName);
 				dto.setClassNum(classNum);
 				
+				System.out.println(rs.getString("userName"));
 				list.add(dto);
 			}
 			
@@ -187,22 +248,4 @@ public class TrmyDAO {
 		return list;
 	}
 	
-	/*
-	public long classState(String endDate) {
-		
-		Date curDate=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		long gap=0;
-		
-		try {
-			Date date=sdf.parse(endDate);
-			gap=( date.getTime() -curDate.getTime()) /(1000*60*60*24);
-			return gap;
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		return gap;
-	}*/
 }

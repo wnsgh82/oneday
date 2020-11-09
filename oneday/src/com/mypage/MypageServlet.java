@@ -31,7 +31,7 @@ public class MypageServlet extends MyUploadServlet{
 
 	@Override
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
+		  req.setCharacterEncoding("utf-8");
 	      String uri=req.getRequestURI();
 	      
 	      HttpSession session=req.getSession();
@@ -186,11 +186,13 @@ public class MypageServlet extends MyUploadServlet{
 	    try {
 	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
 			int classNum=Integer.parseInt(req.getParameter("classNum"));
+
 			List<TrmyDTO> stdList=dao.stdList(info.getUserName(), classNum); //trName, classNum
 			
-			TrmyDTO dto=dao.readDTO(info.getUserId());
+			List<TrmyDTO> list=dao.listDTO(info.getUserId());
 			
-			req.setAttribute("dto", dto);
+			req.setAttribute("classNum", classNum);
+			req.setAttribute("list", list);
 			req.setAttribute("stdList", stdList);
 			
 			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_stdlist.jsp");

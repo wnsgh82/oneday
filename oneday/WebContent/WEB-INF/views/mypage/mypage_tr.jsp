@@ -39,7 +39,7 @@ a:hover{
 	<div class="content_tem">
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
-    <div id="mypage">
+    <div id="mypage" >
         <div id="my_left">
             <div id="myl_title">
                 <h3>마이페이지</h3>
@@ -49,7 +49,6 @@ a:hover{
             	<li><a href="${pageContext.request.contextPath}/mypage/classList.do"> 수강생 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
-                <li><a href=""> 넣으세요 </a></li>
             </ul>
         </div>
 

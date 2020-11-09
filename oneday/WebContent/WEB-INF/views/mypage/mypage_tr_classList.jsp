@@ -89,11 +89,7 @@ function send(){
                         <ul style="background: white; border-bottom: 1px solid #e0e0e0;">
                             <li style="width: 10%;"><p>&nbsp;</p></li>
                             <li style="width: 50%; text-align: left; padding-left: 10px;">
-                            	<form name="sendForm" method="post">
-                            		<input type="hidden" name="classNum" value="${dto.classNum}">
-                            		<input type="hidden" name="trName" value="${dto.userName}">
-                            		<a onclick="send();">${dto.className}</a>
-                            	</form>	
+								<a href="${pageContext.request.contextPath}/mypage/stdlist.do?classNum=${dto.classNum}">${dto.className}</a>
                             </li>
                             <li style="width: 20%;"><p>${dto.classDate}</p></li>
                             <li style="width: 20%; color: tomato;"><p>${dto.classEnabled}</p></li>
@@ -102,7 +98,6 @@ function send(){
                 </div>
             </div>
          </div>
-            
             
 
         </div>

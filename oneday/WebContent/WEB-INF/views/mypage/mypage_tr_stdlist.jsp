@@ -87,7 +87,12 @@ function send(){
                 <div id="profile_box">
                     <div id="informantion" style="padding-left: 50px;">
                         <p style="font-size: 13px;"> 강사  &nbsp;| &nbsp; ${sessionScope.member.userName}</p>
-                        <p style="font-size: 20px; font-weight: 600;"> ${dto.className}</p>
+                        <c:forEach var="dto" items="${list}">
+                        	<c:if test="${dto.classNum == classNum }">
+                        		<p style="font-size: 20px; font-weight: 600;"> ${dto.className}</p>
+                        	</c:if>
+                        </c:forEach>
+                        
                     </div>
 
                 </div>
@@ -114,15 +119,13 @@ function send(){
                             <li style="width: 25%;"><p>${dto.stdEmail}</p></li>
                             <li style="width: 25%; color: tomato;"><p>${dto.stdEnabled}</p></li>
                         </ul>
-                        
+                      </c:forEach>
                       <form name="sendForm" method="post">
                       	<input type="hidden" name="classNum" value="${dto.classNum}">
                       	<input type="hidden" name="trName" value="${sessionScope.member.userName}"> 
                       	
                       	<button onclick="send();" style="margin-top: 100px;" class="btn">돌아가기</button>
                 	  </form>
-                      </c:forEach>
-                      
                       
                 </div>
             </div>
