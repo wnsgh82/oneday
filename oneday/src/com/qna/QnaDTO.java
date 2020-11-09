@@ -11,6 +11,8 @@ public class QnaDTO {
 	private int parent;
 	private int bHitCount;
 	private String bCreated;
+	private int bEnabled;
+	
 	
 	public int getbNum() {
 		return bNum;
@@ -83,6 +85,12 @@ public class QnaDTO {
 	}
 	public void setbCreated(String bCreated) {
 		this.bCreated = bCreated;
+	}
+	public int getbEnabled() {
+		return bEnabled;
+	}
+	public void setbEnabled(int bEnabled) {
+		this.bEnabled = bEnabled;
 	}
 	
 }

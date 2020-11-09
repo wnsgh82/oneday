@@ -15,7 +15,7 @@
 <c:if test="${sessionScope.member.userId=='admin'}">
 function deleteBoard(num) {
 	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
-		var url="${pageContext.request.contextPath}/notice/delete.do?noNum="+num+"&${query}";
+		var url="${pageContext.request.contextPath}/qna/delete.do?bNum="+num+"&${query}";
 		location.href=url;
 	}
 }
@@ -40,52 +40,41 @@ function deleteBoard(num) {
 		<div>
 			<table style="width: 930px; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="center" style="font-weight: 700;">
-				   ${dto.noSubject}
+			    <td colspan="2" align="center" style="font-weight: 700; font-size: 15px;">
+				   ${dto.bSubject}
 			    </td>
 			</tr>
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 : 관리자
+			       이름 : ${dto.userName}
 			    </td>
-			    <td width="50%" align="right" style="padding-right: 5px;">
-			        ${dto.noCreated}
+			    <td align="right" style="padding-right: 5px;">
+			        ${dto.bCreated}
 			    </td>
-			</tr>
-			
-			<tr>
-				<td colspan="2" style="padding: 10px 5px" align="center">
-				</td>
 			</tr>
 			
 			<tr style="border-bottom: 1px solid #cccccc;">
-			  <td colspan="2" align="center" style="padding: 10px 5px;" valign="top" height="30">
-			      ${dto.noContent}
+			  <td colspan="2" align="center" style="padding: 30px 5px 10px;" valign="top" height="200">
+			      ${dto.bContent}
 			   </td>
-			</tr>
-			
-			<tr height="35" style="border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="left" style="padding-left: 5px;">
-			       첨&nbsp;&nbsp;부 :
-		           <c:if test="${not empty dto.noSaveFileName}">
-		                   <a href="${pageContext.request.contextPath}/notice/download.do?noNum=${dto.noNum}">${dto.noOrginalFileName}</a>
-		           </c:if>
-			    </td>
 			</tr>
 			
 			<tr height="45">
 			    <td>
-			    	 <%--관리자랑 강사만 클래스 등록 가능하니까 굳이 userEnabled로  조건 걸지 않음--%>
-			    	 <c:if test="${sessionScope.member.userId=='admin'}">
-			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/update.do?page=${page}&rows=${rows}&noNum=${dto.noNum}';">수정</button>
-			          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.noNum}');">삭제</button>
-			         </c:if>
+		    	 <c:if test="${sessionScope.member.userId=='admin'}">
+		          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/reply.do?bNum=${dto.bNum}&page=${page}';">답변</button>
+				</c:if>		    		
+		    	 <%--관리자랑 강사만 클래스 등록 가능하니까 굳이 userEnabled로  조건 걸지 않음--%>
+		    	 <c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
+		          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/update.do?page=${page}&rows=${rows}&bNum=${dto.bNum}';">수정</button>
+		          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.bNum}');">삭제</button>
+		         </c:if>
 			          
 			    </td>
 			
 			    <td align="right">
-			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/list.do?${query}';">리스트</button>
+			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/list.do?${query}';">리스트</button>
 			    </td>
 			</tr>
 			</table>

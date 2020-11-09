@@ -92,7 +92,7 @@ function sendOk() {
 <div class="body_tem">
 	<div class="content_tem">
 		<div class="title-area">
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;질문과 답변</h3>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;문의하기</h3>
 		</div>
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
@@ -138,7 +138,7 @@ function sendOk() {
 			      		<input type="hidden" name="groupNum" value="${dto.groupNum}">
 			      		<input type="hidden" name="orderNo" value="${dto.orderNo}">
 			      		<input type="hidden" name="depth" value="${dto.depth}">
-			      		<input type="hidden" name="parent" value="${dto.boardNum}">
+			      		<input type="hidden" name="parent" value="${dto.bNum}">
 			      		<input type="hidden" name="page" value="${page}">
 			      	</c:if>
 			      	

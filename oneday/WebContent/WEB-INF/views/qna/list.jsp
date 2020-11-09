@@ -30,8 +30,12 @@
 			<div class="inner">
 			 <ul class="qna">
 			 	<li class="qna1">
-			 		<span style="width: 45%; border-bottom: 3px solid; 	font-weight: 600;"><a>질문과 답변</a></span>
-			 		<span style="width: 45%; float: right;"><a>자주하는 질문</a></span>
+			 		<span style="width: 45%; border-bottom: 3px solid; 	font-weight: 600;">
+			 			<a href="${pageContext.request.contextPath}/qna/list.do">문의하기</a>
+			 		</span>
+			 		<span style="width: 45%; float: right;">
+			 			<a>자주하는 질문</a>
+			 		</span>
 			 	</li>
 			 </ul>
 			
@@ -58,7 +62,7 @@
 						<c:forEach var="dto" items="${list}">
 			            <li class="item">
 			               <span style="width: 11%; float: left;">${dto.listNum }</span>
-			               <span style="width: 55%; float: left;"><a href="${articleUrl}&bNum=${dto.bNum}">${dto.bSubject}</a></span>
+			               <span style="width: 55%; float: left; text-align:left;"><a href="${articleUrl}&bNum=${dto.bNum}">${dto.bSubject}</a></span>
 			               <span style="width: 9%; float: left;">${dto.userName }</span>
 			               <span style="width: 15%; float: left;">${dto.bCreated }</span>
 			               <span style="width: 9%; float: left;">${dto.bHitCount }</span>
