@@ -7,6 +7,8 @@ import java.util.List;
 public interface QnaDAO {
 	public int insertQna(QnaDTO dto, String mode) throws SQLException;
 	public int updateOrderNo(int groupNum, int orderNo) throws SQLException;
+	public int updateEnabled(int parent) throws SQLException;
+
 	public int updateQna(QnaDTO dto) throws SQLException;
 	public int deleteQna(int bNum) throws SQLException;
 	public int updateHitCount(int bNum) throws SQLException;

@@ -12,14 +12,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/oneday.css">
 <script type="text/javascript">
-<c:if test="${sessionScope.member.userId=='admin'}">
 function deleteBoard(num) {
 	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
 		var url="${pageContext.request.contextPath}/qna/delete.do?bNum="+num+"&${query}";
 		location.href=url;
 	}
 }
-</c:if>
 </script>
 </head>
 <body>
@@ -55,7 +53,7 @@ function deleteBoard(num) {
 			</tr>
 			
 			<tr style="border-bottom: 1px solid #cccccc;">
-			  <td colspan="2" align="center" style="padding: 30px 5px 10px;" valign="top" height="200">
+			  <td colspan="2" align="left" style="padding: 30px 5px 10px;" valign="top" height="200">
 			      ${dto.bContent}
 			   </td>
 			</tr>

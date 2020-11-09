@@ -37,8 +37,10 @@ public class QnaDAOImpl implements QnaDAO {
 				dto.setOrderNo(0);
 				dto.setDepth(0);
 				dto.setParent(0); //부모없음
+				dto.setbEnabled(1);
 			} else if(mode.equals("reply")) { //답글일때
 				updateOrderNo(dto.getGroupNum(), dto.getOrderNo());
+				updateEnabled(dto.getParent());
 				
 				dto.setDepth(dto.getDepth()+1); //하나 뒤로 들어가게
 				
@@ -47,7 +49,7 @@ public class QnaDAOImpl implements QnaDAO {
 			
 			sql="INSERT INTO board2(bNum, bSubject, bContent, bCreated, userId,"
 					+ "  groupNum, orderNo, depth, parent, bHitCount, bEnabled)"
-					+ "  VALUES (?,?,?,SYSDATE,?,?,?,?,?,0,1)";
+					+ "  VALUES (?,?,?,SYSDATE,?,?,?,?,?,0,?)";
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, dto.getbNum());
@@ -58,6 +60,8 @@ public class QnaDAOImpl implements QnaDAO {
 			pstmt.setInt(6, dto.getOrderNo());
 			pstmt.setInt(7, dto.getDepth());
 			pstmt.setInt(8, dto.getParent());
+			pstmt.setInt(9, dto.getbEnabled());
+			
 			
 			result=pstmt.executeUpdate();
 			
@@ -190,6 +194,32 @@ public class QnaDAOImpl implements QnaDAO {
 	}
 
 	@Override
+	public int updateEnabled(int parent) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql = "UPDATE board2 SET bEnabled=0 WHERE bNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, parent);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e2) {
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
 	public int dataCount() {
 		int result=0;
 		PreparedStatement pstmt=null;
@@ -197,7 +227,7 @@ public class QnaDAOImpl implements QnaDAO {
 		String sql;
 		
 		try {
-			sql="SELECT COUNT(*) FROM board2 WHERE bEnabled=1";
+			sql="SELECT COUNT(*) FROM board2";
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			
@@ -234,15 +264,14 @@ public class QnaDAOImpl implements QnaDAO {
         String sql;
 
         try {
-        	sql="SELECT COUNT(*) FROM board2 b JOIN member1 m ON b.userId=m.userId "
-        			+ "	 WHERE bEnabled=1";
+        	sql="SELECT COUNT(*) FROM board2 b JOIN member1 m ON b.userId=m.userId ";
         	if(condition.equals("created")) {
         		keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-        		sql+="  AND TO_CHAR(created, 'YYYYMMDD') = ? ";
+        		sql+="  WHERE TO_CHAR(created, 'YYYYMMDD') = ? ";
         	} else if(condition.equals("all")) {
-        		sql+="  AND INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
+        		sql+="  WHERE INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ";
         	} else {
-        		sql+="  AND INSTR(" + condition + ", ?) >= 1 ";
+        		sql+="  WHERE INSTR(" + condition + ", ?) >= 1 ";
         	}
         	
             pstmt=conn.prepareStatement(sql);
@@ -286,10 +315,9 @@ public class QnaDAOImpl implements QnaDAO {
 		try {
 			sb.append(" SELECT bNum, b.userId, userName, bSubject, ");
 			sb.append("    groupNum, orderNo, depth, bHitCount, ");
-			sb.append("    TO_CHAR(bCreated, 'YYYY-MM-DD') bCreated ");
+			sb.append("    TO_CHAR(bCreated, 'YYYY-MM-DD') bCreated, bEnabled ");
 			sb.append(" FROM board2 b ");
 			sb.append(" JOIN member1 m ON b.userId = m.userId ");
-			sb.append(" WHERE bEnabled=1 ");
 			sb.append(" ORDER BY groupNum DESC, orderNo ASC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 			
@@ -310,6 +338,8 @@ public class QnaDAOImpl implements QnaDAO {
 				dto.setDepth(rs.getInt("depth"));
 				dto.setbHitCount(rs.getInt("bHitCount"));
 				dto.setbCreated(rs.getString("bCreated"));
+				dto.setbEnabled(rs.getInt("bEnabled"));
+				
 
 				list.add(dto);
 			}
@@ -348,7 +378,6 @@ public class QnaDAOImpl implements QnaDAO {
 			sb.append("    TO_CHAR(bCreated, 'YYYY-MM-DD') bCreated ");
 			sb.append(" FROM board2 b ");
 			sb.append(" JOIN member1 m ON b.userId = m.userId ");
-			sb.append(" WHERE bEnabled=1 ");
 			if(condition.equals("created")) {
 				keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
 				sb.append(" WHERE TO_CHAR(bCreated, 'YYYYMMDD') = ?  ");
@@ -417,7 +446,7 @@ public class QnaDAOImpl implements QnaDAO {
 		
 		try {
 			sql="SELECT bNum, b.userId, userName, bSubject, bContent, bCreated, bHitCount,"
-					+ "  groupNum, orderNo, depth, parent"
+					+ "  groupNum, orderNo, depth, parent, bEnabled"
 					+ "  FROM board2 b JOIN member1 m ON b.userId=m.userId"
 					+ "  WHERE bNum=?";
 			pstmt=conn.prepareStatement(sql);
@@ -438,6 +467,7 @@ public class QnaDAOImpl implements QnaDAO {
 				dto.setOrderNo(rs.getInt("orderNo"));
 				dto.setDepth(rs.getInt("depth"));
 				dto.setParent(rs.getInt("parent"));
+				dto.setbEnabled(rs.getInt("bEnabled"));
 			}
 			
 		} catch (Exception e) {
@@ -470,5 +500,6 @@ public class QnaDAOImpl implements QnaDAO {
 		
 		return null;
 	}
+
 
 }

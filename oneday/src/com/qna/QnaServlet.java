@@ -143,6 +143,7 @@ public class QnaServlet extends MyUploadServlet {
 			dto.setUserId(info.getUserId());
 			dto.setbSubject(req.getParameter("bSubject"));
 			dto.setbContent(req.getParameter("bContent"));
+
 			dao.insertQna(dto, "created");
 			
 		} catch (Exception e) {
@@ -285,9 +286,11 @@ public class QnaServlet extends MyUploadServlet {
 				resp.sendRedirect(cp+"/qna/list.do?page="+page);
 				return;
 			}
-			String s=dto.getbContent()+"\n"
-					+ "-------------------------------------------------------------------------------\n";
-			dto.setbContent(s);
+			String s= "\r\n\r\n------------------------------------------------\r\n\r\n";
+			s+="[답변]\r\n";
+			
+			dto.setbSubject("[답변] "+dto.getbSubject());
+			dto.setbContent(dto.getbContent()+s);
 			
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);

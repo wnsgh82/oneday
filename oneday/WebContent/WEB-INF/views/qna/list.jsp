@@ -64,6 +64,14 @@
 			               <span style="width: 11%; float: left;">${dto.listNum }</span>
 			               <span style="width: 55%; float: left; text-align:left;">
 				               	<c:forEach var="n" begin="1" end="${dto.depth}">&nbsp;&nbsp;</c:forEach>
+				      			<c:if test="${dto.depth==0}">
+				      				<c:if test="${dto.bEnabled==1}">
+				      					<span  style="border : 1px solid; display: inline-block; padding:1px 3px;">답변대기</span>
+				      				</c:if>
+				      				<c:if test="${dto.bEnabled==0}">
+				      					<span  style="background-color:black; display: inline-block; padding:1px 3px; color: white;">답변완료</span>
+				      				</c:if>
+				      			</c:if>
 				      			${dto.depth!=0?"└&nbsp;":""}
 								<a href="${articleUrl}&bNum=${dto.bNum}">${dto.bSubject}</a>
 			               </span>
