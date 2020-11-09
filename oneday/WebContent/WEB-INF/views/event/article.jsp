@@ -27,17 +27,22 @@ function deleteBoard(eNum) {
 	</c:if>
 }
 
-function eventApply(){
-/* 	<c:if test="${memberScope.member.userId==null}">
-		alert("로그인 후 이용하실 수 있습니다.");
-		location.href="${pageContext.request.contextPath}/member/login.do";
-	</c:if>
-	 */
-	var f= document.stdsendf;
-	
-	f.action="${pageContext.request.contextPath}/event_apply/created.do";
-	f.submit();
+/*
+function eventApply(eNum) {
+	if(confirm("참여 하시겠습니까?")) {
+		var f = document.applyform;
+		f.action="javascript:location.href=${pageContext.request.contextPath}/event/apply.do?eNum="+eNum"&page=${page}";
+		f.submit();
+	}
+*/
+function eventApply(eNum) {
+	if(confirm("참여 하시겠습니까?")) {
+		var url="${pageContext.request.contextPath}/event/apply.do?eNum="+eNum+"&page=${page}";
+		location.href=url
+	}
+
 }
+
 </script>
 </head>
 <body>
@@ -97,13 +102,16 @@ function eventApply(){
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="page" value="${page}">
 			      </c:if>
-			      <form name="stdsendf" method="post">
+			      <form name="applyform" method="post">
 			      <span>
 			      	<input type="hidden" name="eSubject" value="${dto.eSubject}">
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="eStart" value="${dto.eStart}">
-			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">	  
-			      		<button type="button" class="eBtn" onclick="eventApply();">이벤트 참가</button>
+			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
+			      	<c:if test="${dto.eEnabled<=0}">
+				      		<button type="button" class="eBtn" onclick="eventApply('${dto.eNum}');">이벤트 참가</button>
+			      	</c:if>
+			      	
 			      </span>
 			      </form>
 			   </td>

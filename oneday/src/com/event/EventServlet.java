@@ -71,14 +71,16 @@ public class EventServlet extends MyUploadServlet {
 			updateSubmit(req, resp);
 		} else if(uri.indexOf("delete.do")!=-1) {
 			delete(req, resp);
-		} 
+		} else if(uri.indexOf("apply.do")!=-1) {
+			apply(req, resp);
+		}
 	}
 	
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		EventDAO dao = new EventDAOImpl();
 		MyUtil util = new MyUtil();
 		String cp = req.getContextPath();
-		EventDTO dto = new EventDTO();
+
 		String page = req.getParameter("page");
 		int current_page = 1;
 
@@ -100,21 +102,27 @@ public class EventServlet extends MyUploadServlet {
 		
 		List<EventDTO> list = dao.listEvent(offset, rows);
 		
+		// 이벤트 진행중 or 종료 관련
 		long eEnabled;
 		Date curDate = new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-
-		System.out.println(sdf);
-		try {
-			Date date=sdf.parse(dto.geteEnd());
+		
+		for(EventDTO dto:list) {
+			try {
+				Date date=sdf.parse(dto.geteEnd());
+				System.out.println(date);
+				System.out.println(curDate.getTime());
+				eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+				// eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60); // 시간 
+				
+				dto.seteEnabled(eEnabled);
+				System.out.println(eEnabled);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
-			// eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60); // 시간 
-			
-			dto.seteEnabled(eEnabled);
-			System.out.println(eEnabled);
-		}catch (Exception e) {
 		}
+	
 		
 		String listUrl=cp+"/event/list.do";
 		String articleUrl=cp+"/event/article.do?page="+current_page;
@@ -306,5 +314,26 @@ public class EventServlet extends MyUploadServlet {
 		}
 		resp.sendRedirect(cp+"/event/list.do?page="+page);
 	}
+	
+	protected void apply(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		EventDAO dao = new EventDAOImpl();
+	
+		try {
+			if(info==null) { // 로그인이 되어 있지 않으면
+				resp.sendRedirect(cp+"/member/login.do");
+				return;
+			}
+			int eNum = Integer.parseInt(req.getParameter("eNum"));
+		
+			dao.applyEvent(eNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }
+

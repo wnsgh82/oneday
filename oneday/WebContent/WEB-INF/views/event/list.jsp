@@ -41,17 +41,18 @@ function article(eNum){
 			  </c:if>
 			  <c:if test="${status.index!=0 && status.index%4==0}">  <%--처음이 아니고, 3으로 나눠떨어지면 줄바꿈 --%>
 			  	<c:out value="</tr><tr>" escapeXml="false"/>
-			  </c:if> 	
+			  </c:if> 
+			  	
 			  <td width="300" align="center">
 			  	<div class="imgLayout" onclick="article('${dto.eNum}')">
 			  		<img src="${pageContext.request.contextPath}/uploads/photo/${dto.eIFN}" width="290" height="180" border="0">
 			  		<span class="event-term">${dto.eStart}&nbsp;~&nbsp;${dto.eEnd}</span>
 			  		<span class="eSubject">${dto.eSubject}</span>
 			  		<div class="article-bottom-wrap">
-				  		<c:if test="${dto.eEnabled>=0}">
+				  		<c:if test="${dto.eEnabled<=0}">
 				  			<span class="sticker blinking">진행 중</span>
 				  		</c:if>
-					  	<c:if test="${dto.eEnabled<0}">
+					  	<c:if test="${dto.eEnabled>0}">
 					  		<span class="sticker-end">종료</span>
 					  	</c:if>
 					  	

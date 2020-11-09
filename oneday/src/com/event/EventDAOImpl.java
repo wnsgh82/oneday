@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +123,7 @@ public class EventDAOImpl implements EventDAO {
 				result = rs.getInt(1);
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			if(rs!=null) {
@@ -178,7 +179,7 @@ public class EventDAOImpl implements EventDAO {
 				list.add(dto);
 			}			
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			if(rs!=null) {
@@ -207,6 +208,7 @@ public class EventDAOImpl implements EventDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
+		dto = new EventDTO();
 		
 		try {
 			sql = "SELECT eNum, eSubject, eContent, eHitCount, eIFN, eCreated, "
@@ -216,9 +218,9 @@ public class EventDAOImpl implements EventDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, eNum);
 			rs=pstmt.executeQuery();
-			
+//			pstmt.close();
+//			rs.close();
 			if(rs.next()) {
-				dto = new EventDTO();
 				dto.seteNum(rs.getInt("eNum"));
 				dto.seteSubject(rs.getString("eSubject"));
 				dto.seteContent(rs.getString("eContent"));
@@ -227,10 +229,18 @@ public class EventDAOImpl implements EventDAO {
 				dto.seteCreated(rs.getString("eCreated"));
 				dto.seteStart(rs.getString("eStart"));
 				dto.seteEnd(rs.getString("eEnd"));
-			
 			}
-			
-		} catch (Exception e) {
+/*			
+			sql = "SELECT eventApplyEnabled, userId FROM EVENTAPPLY WHERE eNum = ?";
+			if(rs.next()) {
+				dto.setEventApplyEnabled(rs.getInt("setEventApplyEnabled"));
+				dto.setUserId(rs.getString("userId"));
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, eNum);
+			rs = pstmt.executeQuery();
+*/			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			if(rs!=null) {
@@ -279,5 +289,38 @@ public class EventDAOImpl implements EventDAO {
 		return result;
 	}
 
+	@Override
+	public int applyEvent(int eNum) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			EventDTO dto = new EventDTO();
+			sql = "INSERT INTO EVENTAPPLY (userId, eNum) VALUES (?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getUserId());
+			pstmt.setInt(2, dto.geteNum());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		
+		return result;
+	}
 
 }
