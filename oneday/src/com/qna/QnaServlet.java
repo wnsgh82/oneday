@@ -3,9 +3,7 @@ package com.qna;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.CodingErrorAction;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -276,10 +274,66 @@ public class QnaServlet extends MyUploadServlet {
 		
 	}
 	protected void replyForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("mode", "created");
-		forward(req, resp, "/WEB-INF/views/qna/created.jsp");
+		QnaDAO dao=new QnaDAOImpl();
+		
+		String cp=req.getContextPath();
+		String page=req.getParameter("page");
+		try {
+			int bNum=Integer.parseInt(req.getParameter("bNum"));
+			QnaDTO dto=dao.readQna(bNum);
+			if(dto==null) {
+				resp.sendRedirect(cp+"/qna/list.do?page="+page);
+				return;
+			}
+			String s=dto.getbContent()+"\n"
+					+ "-------------------------------------------------------------------------------\n";
+			dto.setbContent(s);
+			
+			req.setAttribute("dto", dto);
+			req.setAttribute("page", page);
+			req.setAttribute("mode", "reply");
+			
+			forward(req, resp, "/WEB-INF/views/qna/created.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resp.sendRedirect(cp+"/qna/list.do?page="+page);
 	}
+	
 	protected void replySubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp=req.getContextPath();
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			resp.sendRedirect(cp+"/board/list.do");
+			return;
+		}
+		
+		String page=req.getParameter("page");
+		QnaDAO dao=new QnaDAOImpl();
+		
+		try {
+			QnaDTO dto=new QnaDTO();
+			dto.setUserId(info.getUserId());
+			dto.setbSubject(req.getParameter("bSubject"));
+			dto.setbContent(req.getParameter("bContent"));
+			dto.setGroupNum(Integer.parseInt(req.getParameter("groupNum")));
+			dto.setOrderNo(Integer.parseInt(req.getParameter("orderNo")));
+			dto.setDepth(Integer.parseInt(req.getParameter("depth")));
+			dto.setParent(Integer.parseInt(req.getParameter("parent")));
+			
+			dao.insertQna(dto, "reply");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/qna/list.do?page="+page);
+		
 	}
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		QnaDAO dao=new QnaDAOImpl();

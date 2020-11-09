@@ -62,7 +62,11 @@
 						<c:forEach var="dto" items="${list}">
 			            <li class="item">
 			               <span style="width: 11%; float: left;">${dto.listNum }</span>
-			               <span style="width: 55%; float: left; text-align:left;"><a href="${articleUrl}&bNum=${dto.bNum}">${dto.bSubject}</a></span>
+			               <span style="width: 55%; float: left; text-align:left;">
+				               	<c:forEach var="n" begin="1" end="${dto.depth}">&nbsp;&nbsp;</c:forEach>
+				      			${dto.depth!=0?"└&nbsp;":""}
+								<a href="${articleUrl}&bNum=${dto.bNum}">${dto.bSubject}</a>
+			               </span>
 			               <span style="width: 9%; float: left;">${dto.userName }</span>
 			               <span style="width: 15%; float: left;">${dto.bCreated }</span>
 			               <span style="width: 9%; float: left;">${dto.bHitCount }</span>
