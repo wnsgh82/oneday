@@ -290,13 +290,13 @@ public class MypageServlet extends MyUploadServlet{
 				Date date=sdf.parse(dto.getClassDate().substring(0,10));
 								
 				// gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
-				gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 현재시간 - 수강 시작날자 
+				gap = (curDate.getTime() - date.getTime()) /(1000*60*60); // 현재시간 - 수강 시작날자 
 				dto.setStartgap(gap);
 				
 				date=sdf.parse(dto.getClassDate().substring(13));
 				
 				// gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
-				gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 현재시간 - 수강 마지막날자 
+				gap = (curDate.getTime() - date.getTime()) /(1000*60*60); // 현재시간 - 수강 마지막날자 
 				dto.setEndgap(gap);
 				
 				if(dto.getStartgap() < 0) {
