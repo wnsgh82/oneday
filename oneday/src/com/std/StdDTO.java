@@ -10,6 +10,29 @@ public class StdDTO {
 	public String userEmail;
 	public String classDate;
 	public int stdEnable;
+	public long startgap;
+	public long endgap;
+	public String stdstate;
+	
+
+	public String getStdstate() {
+		return stdstate;
+	}
+	public void setStdstate(String stdstate) {
+		this.stdstate = stdstate;
+	}
+	public long getStartgap() {
+		return startgap;
+	}
+	public void setStartgap(long startgap) {
+		this.startgap = startgap;
+	}
+	public long getEndgap() {
+		return endgap;
+	}
+	public void setEndgap(long endgap) {
+		this.endgap = endgap;
+	}
 	public int getClassNum() {
 		return classNum;
 	}

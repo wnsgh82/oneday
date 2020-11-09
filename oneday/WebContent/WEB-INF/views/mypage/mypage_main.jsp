@@ -53,26 +53,28 @@
                 </div>
             </div>
             <div id="myr_title">
-                <h3>타이틀 적으삼</h3>
+                <h3>나의 클래스</h3>
             </div>
             <div id="myr_table">
                 <div id=table_title>
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
                         <li style="width: 10%;"><p>&nbsp;</p></li>
-                        <li style="width: 50%; text-align: left; padding-left: 10px;"><p>클래스정보</p></li>
+                        <li style="width: 50%; text-align: left; padding-left: 10px;"><p>클래스이름</p></li>
                         <li style="width: 20%;"><p>수강기간</p></li>
                         <li style="width: 20%;"><p>진행상태</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
                       <!-- 여기 포문돌려서 값 불러왕 -->
+                      <c:forEach var="dto" items="${list2}">
                         <ul>
                             <li style="width: 10%;"><p>&nbsp;</p></li>
-                            <li style="width: 50%; text-align: left; padding-left: 10px;"><p>솰라솰라</p></li>
-                            <li style="width: 20%;"><p>솰라솰라</p></li>
-                            <li style="width: 20%;"><p>솰라솰라</p></li>
+                            <li style="width: 50%; text-align: left; padding-left: 10px;"><p>${dto.className}</p></li>
+                            <li style="width: 20%;"><p>${dto.classDate}</p></li>
+                            <li style="width: 20%;"><p>${dto.stdstate}</p></li>
                         </ul>
+                      </c:forEach>
                 </div>
             </div>
 

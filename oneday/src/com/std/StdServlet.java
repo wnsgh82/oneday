@@ -1,6 +1,8 @@
 package com.std;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +36,8 @@ public class StdServlet extends MyUploadServlet{
 			createSubmit(req, resp);
 		}else if(uri.indexOf("created2.do")!=-1) {
 			tt(req, resp);
+		}else if(uri.indexOf("created3.do")!=-1) {
+			pp(req, resp);
 		}
 		
 		
@@ -87,7 +91,9 @@ public class StdServlet extends MyUploadServlet{
 			
 			dao.insertStd(dto);
 			
-
+		} catch (SQLIntegrityConstraintViolationException e) {
+			resp.sendRedirect(cp+"/std/created3.do");
+			return;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,6 +104,14 @@ public class StdServlet extends MyUploadServlet{
 		
 		
 		String path="/WEB-INF/views/std/created2.jsp";
+		forward(req, resp, path);
+		
+	}
+	
+	protected void pp(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		String path="/WEB-INF/views/std/created3.jsp";
 		forward(req, resp, path);
 		
 	}

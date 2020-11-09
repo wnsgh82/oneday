@@ -2,6 +2,9 @@ package com.mypage;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +23,9 @@ import com.member.SessionInfo;
 import com.oneday.OnedayDAO;
 import com.oneday.OnedayDTO;
 import com.oneday.OnedayImpl;
+import com.std.StdDAO;
+import com.std.StdDAOImpl;
+import com.std.StdDTO;
 import com.util.FileManager;
 import com.util.MyUploadServlet;
 
@@ -50,7 +56,7 @@ public class MypageServlet extends MyUploadServlet{
 	      
 	      if(uri.indexOf("mypageMain.do")!= -1) {
 	    	  if(info.getUserEnabled()==1) {	//수강생일 때 
-		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
+	    	 	stdForm(req, resp);
 		      }else if(info.getUserEnabled()==100) {	//강사일 때 
 		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_tr.jsp");
 		      }else if(info.getUserEnabled()==200) {	//관리자일 때 
@@ -260,5 +266,62 @@ public class MypageServlet extends MyUploadServlet{
 		}
 		
 		resp.sendRedirect(cp);
+	}
+	
+	protected void stdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		long gap;
+		Date curDate = new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		
+		String userId = info.getUserId();
+		
+		
+		StdDAO dao = new StdDAOImpl();
+		List<StdDTO> list = dao.listStd(userId);
+		List<StdDTO> list2 = new ArrayList<StdDTO>();
+		
+		for (StdDTO dto : list) {
+			
+			try {
+				Date date=sdf.parse(dto.getClassDate().substring(0,10));
+								
+				// gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+				gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 현재시간 - 수강 시작날자 
+				dto.setStartgap(gap);
+				
+				date=sdf.parse(dto.getClassDate().substring(13));
+				
+				// gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+				gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 현재시간 - 수강 마지막날자 
+				dto.setEndgap(gap);
+				
+				if(dto.getStartgap() < 0) {
+					dto.setStdstate("수강전");
+				}else if(dto.getStartgap() > 0 && dto.getEndgap() < 0) {
+					dto.setStdstate("진행중");
+				}else {
+					dto.setStdstate("수강완료");
+				}
+				
+				dto.setClassName(dto.getClassName());
+				dto.setClassDate(dto.getClassDate());
+				
+				list2.add(dto);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			req.setAttribute("list2", list2);
+			
+		}
+		
+	
+	
+		forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
 	}
 }
