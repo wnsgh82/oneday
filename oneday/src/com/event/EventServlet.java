@@ -110,13 +110,10 @@ public class EventServlet extends MyUploadServlet {
 		for(EventDTO dto:list) {
 			try {
 				Date date=sdf.parse(dto.geteEnd());
-				System.out.println(date);
-				System.out.println(curDate.getTime());
 				eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
 				// eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60); // 시간 
 				
-				dto.seteEnabled(eEnabled);
-				System.out.println(eEnabled);
+				dto.seteEnabled(eEnabled); 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -322,13 +319,17 @@ public class EventServlet extends MyUploadServlet {
 		EventDAO dao = new EventDAOImpl();
 	
 		try {
+			EventDTO dto = new EventDTO();
 			if(info==null) { // 로그인이 되어 있지 않으면
 				resp.sendRedirect(cp+"/member/login.do");
 				return;
 			}
-			int eNum = Integer.parseInt(req.getParameter("eNum"));
+			dto.setUserId(info.getUserId());
+			
 		
-			dao.applyEvent(eNum);
+			dao.applyEvent(dto);
+			
+			resp.sendRedirect(cp+"/event/article.do");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

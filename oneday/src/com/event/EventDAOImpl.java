@@ -290,17 +290,15 @@ public class EventDAOImpl implements EventDAO {
 	}
 
 	@Override
-	public int applyEvent(int eNum) throws SQLException {
+	public int applyEvent(EventDTO dto) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			EventDTO dto = new EventDTO();
-			sql = "INSERT INTO EVENTAPPLY (userId, eNum) VALUES (?, ?)";
+			sql = "INSERT INTO EVENTAPPLY (userId, eNum) VALUES (?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getUserId());
-			pstmt.setInt(2, dto.geteNum());
 			
 			result = pstmt.executeUpdate();
 			

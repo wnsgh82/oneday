@@ -27,20 +27,20 @@ function deleteBoard(eNum) {
 	</c:if>
 }
 
-/*
+
 function eventApply(eNum) {
 	if(confirm("참여 하시겠습니까?")) {
 		var f = document.applyform;
-		f.action="javascript:location.href=${pageContext.request.contextPath}/event/apply.do?eNum="+eNum"&page=${page}";
+		f.action="javascript:location.href='${pageContext.request.contextPath}/event/apply.do'";
 		f.submit();
 	}
-*/
+/*
 function eventApply(eNum) {
 	if(confirm("참여 하시겠습니까?")) {
 		var url="${pageContext.request.contextPath}/event/apply.do?eNum="+eNum+"&page=${page}";
 		location.href=url
 	}
-
+*/
 }
 
 </script>
