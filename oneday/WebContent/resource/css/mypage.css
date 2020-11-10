@@ -115,6 +115,8 @@
     background: white;
 }
 #table_content ul {
+	background: white;
+	border-bottom: 1px solid #e0e0e0;
     display: flex; 
     text-align : center; 
     float:left; 

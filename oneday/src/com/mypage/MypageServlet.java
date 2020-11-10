@@ -57,7 +57,7 @@ public class MypageServlet extends MyUploadServlet{
 		      }else if(info.getUserEnabled()==100) {	//강사일 때 
 		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_tr.jsp");
 		      }else if(info.getUserEnabled()==200) {	//관리자일 때 
-		    	  forward(req, resp, "/WEB-INF/views/mypage/mypage_admin.jsp");
+		    	  adminMemberList(req, resp);
 		      }
 	      }else if(uri.indexOf("memberUpdate.do")!=-1) { //공통(정보수정 , 탈퇴)
 	    	  updateForm(req, resp);
@@ -72,7 +72,6 @@ public class MypageServlet extends MyUploadServlet{
 	      }else if(uri.indexOf("stdlist.do")!=-1) {
 	    	  trstdList(req, resp);
 	      }
-
 	      
 	}
 	
@@ -325,10 +324,38 @@ public class MypageServlet extends MyUploadServlet{
 			req.setAttribute("list2", list2);
 			
 		}
-		
-	
-	
 		forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
 	}
+	
+	/**
+	 *  관리자(지엉)
+	 */
+	protected void adminMemberList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		List<TrmyDTO> list=null;
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
+		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+	    
+	    try {
+
+	    	int userEnabled=Integer.parseInt(req.getParameter("userEnabled"));
+			
+	    	list=dao.memberList(userEnabled);
+	    	
+			req.setAttribute("list", list);
+			
+			forward(req, resp, "/WEB-INF/views/mypage/mypage_admin.jsp");
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+	}
+
 
 }

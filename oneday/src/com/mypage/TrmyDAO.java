@@ -248,4 +248,54 @@ public class TrmyDAO {
 		return list;
 	}
 	
+	public List<TrmyDTO> memberList (int enabled) {
+		List<TrmyDTO> list=new ArrayList<TrmyDTO>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="SELECT userId, userName, userTel, userEmail"
+					+ "   FROM member1"
+					+ "   WHERE userEnabled=?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, enabled);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TrmyDTO dto=new TrmyDTO();
+				
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	
 }

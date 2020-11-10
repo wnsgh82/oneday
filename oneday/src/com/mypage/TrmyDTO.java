@@ -7,11 +7,16 @@ public class TrmyDTO {
 	private String classEnabled;
 	private String userId;
 	private String userName;
+
+	private String userTel;
+	private String userEmail;
+	private int userEnabled;
 	
 	private String stdId;
 	private String stdName;
 	private String stdEmail;
 	private String stdEnabled;
+	
 	
 	public int getClassNum() {
 		return classNum;
@@ -72,6 +77,24 @@ public class TrmyDTO {
 	}
 	public void setStdEnabled(String stdEnabled) {
 		this.stdEnabled = stdEnabled;
+	}
+	public String getUserTel() {
+		return userTel;
+	}
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public int getUserEnabled() {
+		return userEnabled;
+	}
+	public void setUserEnabled(int userEnabled) {
+		this.userEnabled = userEnabled;
 	}
 	
 	

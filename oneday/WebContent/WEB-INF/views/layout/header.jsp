@@ -23,7 +23,7 @@
                     </c:if>
                     <!-- 관리자일때 -->
                     <c:if test="${sessionScope.member.userId=='admin'}">  
-                    <li class="login2"><a href="${pageContext.request.contextPath}/mypage/mypageMain.do">관리자페이지</a></li>
+                    <li class="login2"><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=100">관리자페이지</a></li>
                     </c:if>
                     
                   </c:if>

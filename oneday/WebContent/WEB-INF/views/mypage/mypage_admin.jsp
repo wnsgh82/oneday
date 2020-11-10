@@ -23,14 +23,15 @@
 	<div class="content_tem">
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
+	<form name="adminmemberForm">
     <div id="mypage">
         <div id="my_left">
             <div id="myl_title">
                 <h3>관리자페이지</h3>
             </div>
             <ul id="myl_list">
-                <li><a href=""> 강사회원관리</a></li>
-                <li><a href=""> 수강생회원관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 강사회원관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=1"> 수강생회원관리</a></li>
                 <li><a href=""> 클래스승인</a></li>
                 <li><a href=""> 관리자정보수정</a></li>
             </ul>
@@ -58,26 +59,29 @@
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
                         <li style="width: 6%;"><p>&nbsp;</p></li>
-                        <li style="width: 13%; text-align: left; padding-left: 10px;"><p>아이디</p></li>
-                        <li style="width: 13%;"><p>이름</p></li>
-                        <li style="width: 34%;"><p>전화번호</p></li>
-                        <li style="width: 34%;"><p>이메일</p></li>
+                        <li style="width: 20%; text-align: left; padding-left: 10px;"><p>아이디</p></li>
+                        <li style="width: 20%;"><p>이름</p></li>
+                        <li style="width: 30%;"><p>전화번호</p></li>
+                        <li style="width: 30%;"><p>이메일</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
                       <!-- 여기 포문돌려서 값 불러왕 -->
-                        <ul>
+                      <c:forEach var="dto" items="${list}">
+                        <ul style="background: white; border-bottom: 1px solid #e0e0e0;"> 
                             <li style="width: 6%;"><p>&nbsp;</p></li>
-                            <li style="width: 13%; text-align: left; padding-left: 10px;"><p>솰라솰라</p></li>
-                            <li style="width: 13%;"><p>솰라솰라</p></li>
-                            <li style="width: 34%;"><p>솰라솰라</p></li>
-                            <li style="width: 34%;"><p>솰라솰라</p></li>
+                            <li style="width: 20%; text-align: left; padding-left: 10px;"><p>${dto.userId }</p></li>
+                            <li style="width: 20%;"><p>${dto.userName }</p></li>
+                            <li style="width: 30%;"><p>${dto.userTel }</p></li>
+                            <li style="width: 30%;"><p>${dto.userEmail }</p></li>
                         </ul>
+                      </c:forEach>
                 </div>
             </div>
 
         </div>
     </div>
+        </form>
  </div>
 </div>
 
