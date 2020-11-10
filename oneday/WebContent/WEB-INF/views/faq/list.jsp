@@ -22,7 +22,7 @@ function searchList() {
 }
 function deleteBoard(bNum) {
 	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
-		var url="${pageContext.request.contextPath}/faq/delete.do?bNum="+bNum+"&${query}";
+		var url="${pageContext.request.contextPath}/faq/delete.do?page=${page}&rows=${rows}&bNum="+bNum;
 		location.href=url;
 	}
 }
@@ -115,6 +115,7 @@ function deleteBoard(bNum) {
 					          </select>
 				            <input type="text" name="keyword" class="boxTF" value="${keyword}">
 				            <input type="hidden" name="rows" value="${rows}">
+				            <input type="hidden" name="page" value="${page}">
 				            <button type="button" class="btn" onclick="searchList()">검색</button>
 				      </td>
 				      <td align="right" width="100">

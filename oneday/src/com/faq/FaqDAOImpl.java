@@ -58,10 +58,10 @@ public class FaqDAOImpl implements FaqDAO {
 					+ "   WHERE bNum=?";
 			
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, dto.getbQ());
 			pstmt.setString(2, dto.getbA());
 			pstmt.setString(3, dto.getbGroup());
+			pstmt.setInt(4, dto.getbNum());
 			
 			result=pstmt.executeUpdate();
 			
@@ -253,9 +253,46 @@ public class FaqDAOImpl implements FaqDAO {
 	}
 
 	@Override
-	public FaqDTO readQna(int bNum) {
-		// TODO Auto-generated method stub
-		return null;
+	public FaqDTO readFaq(int bNum) {
+		FaqDTO dto=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="SELECT bNum, bQ, bA, bGroup"
+					+ "  FROM board1"
+					+ "  WHERE bNum=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bNum);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				dto=new FaqDTO();
+				dto.setbNum(rs.getInt("bNum"));
+				dto.setbQ(rs.getString("bQ"));
+				dto.setbA(rs.getString("bA"));
+				dto.setbGroup(rs.getString("bGroup"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return dto;
 	}
 
 

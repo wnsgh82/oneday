@@ -10,9 +10,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.member.SessionInfo;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
 
@@ -71,7 +69,7 @@ public class FaqServlet extends MyUploadServlet {
 			dataCount=dao.dataCount(condition, keyword);
 		}
 		
-		int rows=10;
+		int rows=5;
 		int total_page=util.pageCount(rows, dataCount);
 		if(current_page>total_page) {
 			current_page=total_page;
@@ -157,7 +155,7 @@ public class FaqServlet extends MyUploadServlet {
 			}
 			
 			int bNum=Integer.parseInt(req.getParameter("bNum"));
-			FaqDTO dto=dao.readQna(bNum);
+			FaqDTO dto=dao.readFaq(bNum);
 			if(dto==null) {
 				resp.sendRedirect(cp+"/faq/list.do?"+query);
 				return;
@@ -207,6 +205,7 @@ public class FaqServlet extends MyUploadServlet {
 			dto.setbNum(Integer.parseInt(req.getParameter("bNum")));
 			dto.setbQ(req.getParameter("bQ"));
 			dto.setbA(req.getParameter("bA"));
+			dto.setbGroup(req.getParameter("bGroup"));
 			
 			dao.updateFaq(dto);
 			
@@ -239,7 +238,7 @@ public class FaqServlet extends MyUploadServlet {
 			
 			int bNum=Integer.parseInt(req.getParameter("bNum"));
 			
-			FaqDTO dto=dao.readQna(bNum);
+			FaqDTO dto=dao.readFaq(bNum);
 			
 			if(dto==null) {
 				resp.sendRedirect(cp+"/faq/list.do?"+query);

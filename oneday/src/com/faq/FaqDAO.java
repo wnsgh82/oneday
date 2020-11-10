@@ -15,5 +15,5 @@ public interface FaqDAO {
 	public List<FaqDTO> listFaq(int offset, int rows);
 	public List<FaqDTO> listFaq(int offset, int rows, String condition, String keyword);
 	
-	public FaqDTO readQna(int bNum);
+	public FaqDTO readFaq(int bNum);
 }
