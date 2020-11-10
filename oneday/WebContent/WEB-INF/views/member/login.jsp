@@ -13,7 +13,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 
 <script type="text/javascript">
-function sendLogin() {
+
+
+function sendLogin() { //입력 검사 후 
     var f = document.loginForm;
 
 	var str = f.userId.value;
@@ -29,9 +31,10 @@ function sendLogin() {
         f.userPwd.focus();
         return;
     }
-
+    
     f.action = "${pageContext.request.contextPath}/member/login_ok.do";
     f.submit();
+    
 }
 
 </script>
@@ -70,7 +73,11 @@ function sendLogin() {
                             <li><a href="#">비밀번호 찾기</a></li>
                             <li><a href="#">회원가입</a></li>
                         </ul>
+                        
+                        <div style="font-size: 15px; font-weight: 700; color: red; width: 100%; margin-top: 50px;" align="center">${message}</div>
                     </div>
+                    
+                    
             </div>
         </form>
     	</div>

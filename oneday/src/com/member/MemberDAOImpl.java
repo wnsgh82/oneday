@@ -161,7 +161,7 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return result;
 	}
-
+	
 	@Override
 	public MemberDTO readMember(String userId) {
 		MemberDTO dto=null;
@@ -277,4 +277,8 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return list;
 	}
+
+
+
+	
 }

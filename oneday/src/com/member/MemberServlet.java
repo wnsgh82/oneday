@@ -62,17 +62,9 @@ public class MemberServlet extends MyUploadServlet{
 			memberForm(req, resp);
 		} else if(uri.indexOf("member_ok.do")!=-1) {
 			memberSubmit(req, resp);
-		} else if(uri.indexOf("pwd.do")!=-1) {
-			pwdForm(req, resp);
-		} else if(uri.indexOf("pwd_ok.do")!=-1) {
-			pwdSubmit(req, resp);
-		} else if(uri.indexOf("update.do")!=-1) {
-			updateForm(req, resp);
-		} else if(uri.indexOf("update_ok.do")!=-1) {
-			updateSubmit(req, resp);
 		} else if(uri.indexOf("userIdCheck.do")!=-1) {
 			userIdCheck(req, resp);
-		}  else if(uri.indexOf("selectlog.do")!=-1) {
+		} else if(uri.indexOf("selectlog.do")!=-1) {
 			selectlogin(req, resp);
 		}
 
@@ -91,12 +83,12 @@ public class MemberServlet extends MyUploadServlet{
 		//로그인 처리
 		MemberDAO dao=new MemberDAOImpl();
 		String cp=req.getContextPath();
-		
+
 		try {
 			String userId=req.getParameter("userId");
 			String userPwd=req.getParameter("userPwd");
 			MemberDTO dto= dao.readMember(userId);
-
+			
 			if(dto!=null) {
 				if(dto.getUserPwd().equals(userPwd)) {  // dto.getUserEnabled()==1 || 100 || 200 ? 해야되나 ? 굳이?
 					//로그인 성공
@@ -121,13 +113,15 @@ public class MemberServlet extends MyUploadServlet{
 					resp.sendRedirect(cp);
 					return;
 				}
+			
 			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		//로그인을 실패한 경우
+		//로그인을 실패한 경우	
 		req.setAttribute("message", "아이디 또는 패스워드가 일치하지 않습니다.");
 		forward(req, resp, "/WEB-INF/views/member/login.jsp");
 	}
@@ -213,23 +207,6 @@ public class MemberServlet extends MyUploadServlet{
 		req.setAttribute("title", "회원 가입");
 		String path="/WEB-INF/views/member/list.do";
 		forward(req, resp, path);
-	}
-	
-	protected void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//수정, 탈퇴 등에서 패스워드 폼 
-		
-	}
-	
-	protected void pwdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//패스워드 검사
-	}
-	
-	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//회원 정보 수정 폼
-	}
-	
-	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//회원 정보 수정 처리
 	}
 	
 	protected void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
