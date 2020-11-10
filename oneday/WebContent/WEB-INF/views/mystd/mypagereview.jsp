@@ -69,7 +69,7 @@
                       <!-- 여기 포문돌려서 값 불러왕 -->
                       <c:forEach var="dto" items="${list}">
                         <ul>
-                            <li style="width: 10%;"><p>${dto.rvScore}&nbsp;점</p></li>
+                            <li style="width: 10%;"><p>${dto.rvScore}&nbsp;/&nbsp;5</p></li>
                             <li style="width: 50%; text-align: left; padding-left: 10px;"><p>${dto.rvClassName}</p></li>
                             <li style="width: 20%;"><p>${dto.rvCreated}</p></li>
                             <li style="width: 20%;"><p>${dto.rvHitcount}</p></li>

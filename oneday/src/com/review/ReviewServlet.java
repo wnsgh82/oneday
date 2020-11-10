@@ -326,7 +326,7 @@ public class ReviewServlet extends MyUploadServlet{
 		}
 
 		
-		resp.sendRedirect(cp);
+		resp.sendRedirect(cp+"/review/list.do");
 		
 	}
 	protected void deleterew(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -346,6 +346,6 @@ public class ReviewServlet extends MyUploadServlet{
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp);
+		resp.sendRedirect(cp+"/review/list.do");
 	}
 }

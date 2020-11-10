@@ -57,7 +57,7 @@ function searchList() {
 			               <span class="subject" style="width:50%"><a href="${articleUrl}&rvNum=${dto.rvNum}">${dto.rvClassName}</a></span>
 			               <span class="date" style="width:20%">${dto.rvCreated }</span>
 			               <span class="hit" style="width:10%">${dto.rvHitcount }</span>
-			               <span class="number" style="width:10%">${dto.rvScore}</span>
+			               <span class="number" style="width:10%">${dto.rvScore}&nbsp;/&nbsp;5</span>
 			            </li>
 			            </c:forEach>
 			          </ul>
