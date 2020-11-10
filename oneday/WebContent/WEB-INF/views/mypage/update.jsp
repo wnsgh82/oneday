@@ -115,7 +115,7 @@ function update(){
 </div>
 
 <!--content  -->
-<div class="body_tem">
+<div class="body_tem" style="height: 1100px;">
 	<div class="content_tem">
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
