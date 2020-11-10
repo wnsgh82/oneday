@@ -35,15 +35,15 @@ function article(eNum){
 			<div class="inner">
 			 <ul class="event-sel">
 			 	<li class="event-sel-inner">
-			 		<span style="width: 45%; border-bottom: 3px solid; 	font-weight: 600;">
+			 		<span style="width: 45%;">
 			 			<a href="${pageContext.request.contextPath}/event/list.do">진행중인 이벤트</a>
 			 		</span>
-			 		<span style="width: 45%; float: right;">
+			 		<span style="width: 45%; float: right; border-bottom: 3px solid; 	font-weight: 600;">
 			 			<a href="${pageContext.request.contextPath}/event_end/list.do">종료된 이벤트</a>
 			 		</span>
 			 	</li>
 			 </ul>
-
+			
 				<table style="width: 930px; margin: 20px auto 0px; border-spacing: 0px;">
 			<c:forEach var="dto" items="${list}" varStatus="status"> <%--varStatus : forEach 구문이 몇번째 실행했는지 알 수 있는 변수명 --%>
 				  <c:if test="${status.index==0}">  <%--forEach구문 처음 시작했으면 --%>

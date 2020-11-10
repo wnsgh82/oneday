@@ -1,4 +1,4 @@
-package com.event;
+package com.event_end;
 
 public class EventDTO {
 	private int eNum;
@@ -12,9 +12,9 @@ public class EventDTO {
 	
 	private String eStart, eEnd;
 	private long eEnabled;
-	private int randomPoint;
 	
 	private int eventApplyEnabled;
+
 
 	public int geteNum() {
 		return eNum;
@@ -97,11 +97,5 @@ public class EventDTO {
 		this.eventApplyEnabled = eventApplyEnabled;
 	}
 
-	public int getRandomPoint() {
-		return randomPoint;
-	}
-	public void setRandomPoint(int randomPoint) {
-		this.randomPoint = randomPoint;
-	}
 	
 }

@@ -1,4 +1,4 @@
-package com.event;
+package com.event_end;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -330,23 +330,12 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT userPoint FROM member1 WHERE userId = ?"; // 기존 userPoint 가져오기
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getUserId());
-			rs = pstmt.executeQuery();
+			sql = "UPDATE MEMBER1 SET userPoint=? WHERE userId = ?";
 			
-			if(rs.next()) {
-				dto.setUserPoint(rs.getInt("userPoint"));
-			}
-			pstmt.close();
-
-			
-			sql = "UPDATE MEMBER1 SET userPoint=? WHERE userId = ?"; // 기존 userPoint + Math.random난수 더한 값을 userPoint에 다시 쓰기
-			
-			int randomPoint = (int)(Math.random()*1000);
-			dto.setRandomPoint(randomPoint);
-
-			int pointSum = dto.getUserPoint() + randomPoint;
+			int random = (int)(Math.random()*1000);
+			System.out.println(random);
+			int pointSum = dto.getUserPoint() + random;
+			System.out.println(pointSum);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, pointSum);
 			pstmt.setString(2, dto.getUserId());

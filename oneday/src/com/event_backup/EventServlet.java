@@ -1,4 +1,4 @@
-package com.event;
+package com.event_backup;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import com.util.MyUploadServlet;
 import com.util.MyUtil;
 
 @MultipartConfig
-@WebServlet("/event/*")
+// @WebServlet("/event/*")
 public class EventServlet extends MyUploadServlet {
 	private static final long serialVersionUID = 1L;
 	private String pathname;
@@ -364,6 +364,7 @@ public class EventServlet extends MyUploadServlet {
 	}
 	
 	protected void eventNo1(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		EventDAO dao = new EventDAOImpl();
@@ -371,9 +372,10 @@ public class EventServlet extends MyUploadServlet {
 			EventDTO dto = new EventDTO();
 			
 			dto.setUserId(info.getUserId());
+			dto.setUserPoint(info.getUserPoint());
 			
 			dao.eventNo1(dto);
-
+			
 			forward(req, resp, "/WEB-INF/views/event/eventNo1.jsp");
 			
 		} catch (Exception e) {

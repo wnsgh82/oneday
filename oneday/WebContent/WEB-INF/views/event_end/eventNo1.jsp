@@ -38,7 +38,7 @@
 
 			<tr>
 				<td colspan="2" style="padding: 10px 5px" align="center">
-					<img src="resource/images/event_ok.png" width="290" height="180" border="0"
+					<img src="${pageContext.request.contextPath}/uploads/photo/${dto.eIFN}"
 					 		style="max-width: 100%; height: auto; resize: both;">
 				</td> 
 			</tr>
@@ -47,8 +47,7 @@
 			  <td colspan="2" align="center" style="padding: 10px 5px;" valign="top" height="30">
 			  	<input type="hidden" name="userId" value="${dto.userId}">
 			  	<input type="hidden" name="userPoint" value="${dto.userPoint}">
-			  	${dto.randomPoint}당첨!!${dto.userId} 님의 현재 포인트는 ${dto.userPoint}입니다
-			      
+			      ${dto.userId} 님의 현재 포인트는 ${dto.userPoint}입니다
 			      <br>
 			      <c:if test="${sessionScope.member.userId==null}">
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
@@ -62,7 +61,7 @@
 			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
 			      	
 
-		      		<button type="button" class="eBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/list.do';">목록 돌아가기</button>
+		      		<button type="button" class="eBtn" onclick="('${pageContext.request.contextPath}/event/list.do?page=${page}');">목록 돌아가기</button>
 		      	
 			      </span>
 			      </form>

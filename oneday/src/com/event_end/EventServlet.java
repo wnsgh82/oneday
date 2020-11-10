@@ -1,4 +1,4 @@
-package com.event;
+package com.event_end;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import com.util.MyUploadServlet;
 import com.util.MyUtil;
 
 @MultipartConfig
-@WebServlet("/event/*")
+@WebServlet("/event_end/*")
 public class EventServlet extends MyUploadServlet {
 	private static final long serialVersionUID = 1L;
 	private String pathname;
@@ -123,8 +123,8 @@ public class EventServlet extends MyUploadServlet {
 		}
 	
 		
-		String listUrl=cp+"/event/list.do";
-		String articleUrl=cp+"/event/article.do?page="+current_page;
+		String listUrl=cp+"/event_end/list.do";
+		String articleUrl=cp+"/event_end/article.do?page="+current_page;
 		String paging=util.paging(current_page, total_page, listUrl);
 		
 		req.setAttribute("list", list);
@@ -134,12 +134,12 @@ public class EventServlet extends MyUploadServlet {
 		req.setAttribute("total_page", total_page);
 		req.setAttribute("articleUrl", articleUrl);
 
-		forward(req, resp, "/WEB-INF/views/event/list.jsp");
+		forward(req, resp, "/WEB-INF/views/event_end/list.jsp");
 	}
 
 	protected void createdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("mode", "created");
-		forward(req, resp, "/WEB-INF/views/event/created.jsp");
+		forward(req, resp, "/WEB-INF/views/event_end/created.jsp");
 	}
 
 	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -172,7 +172,7 @@ public class EventServlet extends MyUploadServlet {
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"/event/list.do");
+		resp.sendRedirect(cp+"/event_end/list.do");
 	}
 
 	protected void article(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -187,7 +187,7 @@ public class EventServlet extends MyUploadServlet {
 			dao.updateHitCount(eNum);
 			
 			if(dto==null) {
-				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 				return;			
 			}
 			
@@ -219,7 +219,7 @@ public class EventServlet extends MyUploadServlet {
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			
-			forward(req, resp, "/WEB-INF/views/event/article.jsp");
+			forward(req, resp, "/WEB-INF/views/event_end/article.jsp");
 			return;
 			
 		} catch (Exception e) {
@@ -228,7 +228,7 @@ public class EventServlet extends MyUploadServlet {
 		
 		
 		
-		resp.sendRedirect(cp+"/event/list.do?page="+page);
+		resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 	}
 
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -243,7 +243,7 @@ public class EventServlet extends MyUploadServlet {
 			int eNum = Integer.parseInt(req.getParameter("eNum"));
 			EventDTO dto = dao.readEvent(eNum);
 			if(dto==null || ! info.getUserId().equals("admin")) {
-				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 				return;
 			}
 	
@@ -252,14 +252,14 @@ public class EventServlet extends MyUploadServlet {
 			req.setAttribute("dto", dto);
 			req.setAttribute("mode", "update");
 			
-			forward(req, resp, "/WEB-INF/views/event/created.jsp");
+			forward(req, resp, "/WEB-INF/views/event_end/created.jsp");
 			return;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		forward(req, resp, "/WEB-INF/views/event/created.jsp");
+		forward(req, resp, "/WEB-INF/views/event_end/created.jsp");
 		
 	}
 
@@ -269,7 +269,7 @@ public class EventServlet extends MyUploadServlet {
 		EventDTO dto = new EventDTO();
 		
 		if(req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp+"/event/list.do");
+			resp.sendRedirect(cp+"/event_end/list.do");
 			return;
 		}
 		
@@ -301,7 +301,7 @@ public class EventServlet extends MyUploadServlet {
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"/event/list.do?page="+page);
+		resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 	}
 
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -315,14 +315,14 @@ public class EventServlet extends MyUploadServlet {
 			int eNum = Integer.parseInt(req.getParameter("eNum"));
 			EventDTO dto = dao.readEvent(eNum);
 			if(dto==null) {
-				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 				return;
 				
 			}
 			
 			// 관리자가 아니면
 			if(! info.getUserId().equals("admin")) {
-				resp.sendRedirect(cp+"/event/list.do?page="+page);
+				resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 				return;
 			}
 			
@@ -334,7 +334,7 @@ public class EventServlet extends MyUploadServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resp.sendRedirect(cp+"/event/list.do?page="+page);
+		resp.sendRedirect(cp+"/event_end/list.do?page="+page);
 	}
 	
 	protected void apply(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -356,7 +356,7 @@ public class EventServlet extends MyUploadServlet {
 		
 			dao.applyEvent(dto);
 			
-			resp.sendRedirect(cp+"/event/eventNo1.do?eNum="+eNum);
+			resp.sendRedirect(cp+"/event_end/eventNo1.do?eNum="+eNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -364,6 +364,7 @@ public class EventServlet extends MyUploadServlet {
 	}
 	
 	protected void eventNo1(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		EventDAO dao = new EventDAOImpl();
@@ -371,10 +372,11 @@ public class EventServlet extends MyUploadServlet {
 			EventDTO dto = new EventDTO();
 			
 			dto.setUserId(info.getUserId());
+			dto.setUserPoint(info.getUserPoint());
 			
 			dao.eventNo1(dto);
-
-			forward(req, resp, "/WEB-INF/views/event/eventNo1.jsp");
+			
+			forward(req, resp, "/WEB-INF/views/event_end/eventNo1.jsp");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

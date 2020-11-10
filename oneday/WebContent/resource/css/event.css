@@ -7,7 +7,34 @@ body {
 	font-size: 13px;
 	color: #000000;
 }
+.event-sec ul, li {
+	list-style: none;
+}
+.event-sec a {
+	text-decoration: none;
+}
 
+.inner { 
+	width:960px; 
+	margin:0 auto; 
+}
+
+.event-sel li {
+	height: 40px;
+}
+.event-sel li span {
+	display: inline-block;
+	height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+/* 	border-radius: 7px; */
+}
+.event-sel li span a {
+	display: inline-block;
+	width : 100%;
+	font-size: 15px;
+	line-height: 40px;
+}
 
 .btn {
     color:#333333;
