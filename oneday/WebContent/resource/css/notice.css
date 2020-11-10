@@ -2,6 +2,9 @@
 
 body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGothic, Sans-serif; font-weight:normal; }
 
+a {
+	text-decoration: none;
+}
 .notice ul, li {
 	list-style: none;
 }
@@ -109,4 +112,34 @@ body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGo
 	width : 100%;
 	font-size: 15px;
 	line-height: 40px;
+}
+
+/* 여기는 . . . faq*/
+#group {
+	height: 40px;
+	background: black;
+	color: white;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.Q {
+	height: 70px;
+}
+.Q span {
+	line-height: 40px;
+	display: inline-block;
+	margin: 15px auto;
+}
+.Q li{
+	line-height: 80px;
+	height: 70px;
+}
+.faqBtn {
+	float: right;
+	width: 50px;
+	height: 30px;
+	background: #f1f1f1;
+    border-radius: 9px;
+    border: 1px solid #ccc;
+	
 }

@@ -13,4 +13,5 @@ public interface EventDAO {
 	public EventDTO readEvent(int eNum);
 	public int applyEvent(EventDTO dto) throws SQLException;
 	public int eventNo1(EventDTO dto) throws SQLException;
+	public boolean eventEnabled(int eNum, String userId);
 }

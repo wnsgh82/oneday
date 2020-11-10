@@ -192,7 +192,30 @@ public class EventServlet extends MyUploadServlet {
 			}
 			
 			dto.seteContent(dto.geteContent().replaceAll("\n", "<br>"));
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
+			// 이벤트 진행중 or 종료 관련
+			long eEnabled;
+			Date curDate = new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			
+			try {
+				Date date=sdf.parse(dto.geteEnd());
+				eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+				// eEnabled = (curDate.getTime() - date.getTime()) /(1000*60*60); // 시간 
+				
+				dto.seteEnabled(eEnabled); 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+			
+			boolean eventEnabled = true;
+			if(info!=null) {
+				eventEnabled=dao.eventEnabled(eNum, info.getUserId());
+			}
+			req.setAttribute("eventEnabled", eventEnabled);
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			

@@ -39,6 +39,13 @@ function eventApply(eNum) {
 	}
 }
 
+function eventApplyNot() {
+	alert("욕심 그만 부리세요")
+}
+
+function eventEnd() {
+	alert("종료 된 이벤트 입니다")
+}
 </script>
 </head>
 <body>
@@ -104,10 +111,16 @@ function eventApply(eNum) {
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="eStart" value="${dto.eStart}">
 			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
-			      	<c:if test="${dto.eEnabled<=0}">
-				      		<button type="button" class="eBtn" onclick="eventApply('${dto.eNum}');">이벤트 참가</button>
-			      	</c:if>
 			      	
+			      	<c:if test="${eventEnabled==true && dto.eEnabled<=0}">
+				      	<button type="button" class="eBtn" onclick="eventApply('${dto.eNum}');">이벤트 참가</button>
+			      	</c:if>
+ 				    <c:if test="${eventEnabled==false && dto.eEnabled<=0}">
+				      	<button type="button" class="eBtn-aplyfin" onclick="eventApplyNot()">참여 완료</button>
+			      	</c:if>
+			      	<c:if test="${dto.eEnabled>0}">
+			      		<button type="button" class="eBtn-end" onclick="eventEnd()">이벤트 종료</button>
+			      	</c:if>
 			      </span>
 			      </form>
 			   </td>
@@ -129,34 +142,8 @@ function eventApply(eNum) {
 			    </td>
 			</tr>
 			</table>
-			
-			<%-- 댓글 --%>
-			<div align="center">
-		<form name="commentForm" method="post">
-			<table style="width: 930px; margin-top: 20px; border-spacing: 0; border-collapse: collapse;">
-				<tr height="40" style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc;">
-					<td style="width: 100px; " align= "center" bgcolor="#eee">작성자</td>
-					<td style="padding-left: 10px;" >
-						${dto.userId}
-					</td>
-				</tr>
-				<tr style="border-bottom: 1px solid #ccc;">
-					<td style="width: 100px;" align= "center" bgcolor="#eee" valign="top">내&nbsp;용</td>
-					<td valign="top" style="padding:5px 0px 5px 10px;"> 
-		        		<textarea name="content" cols="72" class="boxTA" style="width:97%; height: 70px;"></textarea>
-		     		 </td>
-				</tr>
-				<tr height="40">
-					<td colspan="2" align="right">
-						<button type="button" class="eBtn3" onclick="send();">등록하기</button>
-						<button type="reset" class="eBtn3">다시입력</button>
-					</td>
-				</tr>
-			</table>
-		</form>
-			</div>
-		</div>
-	    
+	
+	    </div>
 	</div>
 </div>
 

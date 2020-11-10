@@ -32,6 +32,7 @@
 			  <input type="radio" name="pos" id="pos1" checked>
 			  <input type="radio" name="pos" id="pos2">
 			  <input type="radio" name="pos" id="pos3">
+			  <input type="radio" name="pos" id="pos4">
 		   <ul>
 			    <li></li>
 			    <li></li>
@@ -42,6 +43,7 @@
 		    <label for="pos1"></label>
 		    <label for="pos2"></label>
 		    <label for="pos3"></label>
+		    <label for="pos4"></label>
 		  </p>
 		 </div>
 			

@@ -32,7 +32,7 @@
             <ul id="myl_list">
                 <li><a href="${pageContext.request.contextPath}/mystd/member.do"> 회원정보수정</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의  수강내역 </a></li>
-                <li><a href="${pageContext.request.contextPath}/mystd/mypagereview.do">나의 후기 리스트</a></li>
+                <li><a href="">나의 후기 리스트</a></li>
 
             </ul>
         </div>
@@ -52,26 +52,26 @@
                 </div>
             </div>
             <div id="myr_title">
-                <h3>나의 클래스</h3>
+                <h3>나의 후기 게시판</h3>
             </div>
             <div id="myr_table">
                 <div id=table_title>
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
-                        <li style="width: 10%;"><p>&nbsp;</p></li>
+                        <li style="width: 10%;"><p>별 점</p></li>
                         <li style="width: 50%; text-align: left; padding-left: 10px;"><p>클래스이름</p></li>
-                        <li style="width: 20%;"><p>수강기간</p></li>
-                        <li style="width: 20%;"><p>진행상태</p></li>
+                        <li style="width: 20%;"><p>작성일</p></li>
+                        <li style="width: 20%;"><p>조회수</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
                       <!-- 여기 포문돌려서 값 불러왕 -->
-                      <c:forEach var="dto" items="${list2}">
+                      <c:forEach var="dto" items="${list}">
                         <ul>
-                            <li style="width: 10%;"><p>&nbsp;</p></li>
-                            <li style="width: 50%; text-align: left; padding-left: 10px;"><p>${dto.className}</p></li>
-                            <li style="width: 20%;"><p>${dto.classDate}</p></li>
-                            <li style="width: 20%;"><p>${dto.stdstate}</p></li>
+                            <li style="width: 10%;"><p>${dto.rvScore}&nbsp;점</p></li>
+                            <li style="width: 50%; text-align: left; padding-left: 10px;"><p>${dto.rvClassName}</p></li>
+                            <li style="width: 20%;"><p>${dto.rvCreated}</p></li>
+                            <li style="width: 20%;"><p>${dto.rvHitcount}</p></li>
                         </ul>
                       </c:forEach>
                 </div>

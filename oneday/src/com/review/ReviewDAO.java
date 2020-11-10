@@ -16,6 +16,7 @@ public interface ReviewDAO {
 	public ReviewDTO readReview(String userId , int classNum);
 	public ReviewDTO readReview(String userId);
 	
+	
 	public int reviewcount(String userId);
 	
 	public int updateHitCount(int num) throws SQLException;
@@ -23,6 +24,9 @@ public interface ReviewDAO {
 	public int dataCount(String condition, String keyword);
 	public List<ReviewDTO> listReview(int offset, int rows);
 	public List<ReviewDTO> listReview(int offset, int rows, String condition, String keyword);
+	public List<ReviewDTO> readlist(String userId);
+	
+	
 	
 	public ReviewDTO preReadNotice(int num, String condition, String keyword);
 	public ReviewDTO nextReadNotice(int num, String condition, String keyword);

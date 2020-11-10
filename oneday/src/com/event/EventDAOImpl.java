@@ -305,6 +305,7 @@ public class EventDAOImpl implements EventDAO {
 			
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -332,8 +333,9 @@ public class EventDAOImpl implements EventDAO {
 			sql = "UPDATE MEMBER1 SET userPoint=? WHERE userId = ?";
 			
 			int random = (int)(Math.random()*1000);
+			System.out.println(random);
 			int pointSum = dto.getUserPoint() + random;
-			
+			System.out.println(pointSum);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, pointSum);
 			pstmt.setString(2, dto.getUserId());
@@ -358,6 +360,46 @@ public class EventDAOImpl implements EventDAO {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public boolean eventEnabled(int eNum, String userId) {
+		boolean b = true;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "SELECT * FROM EVENTAPPLY WHERE eNum =? AND userID = ?";
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, eNum);
+			pstmt.setString(2, userId);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				b=false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		return b;
 	}
 
 }
