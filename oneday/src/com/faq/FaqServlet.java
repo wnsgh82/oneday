@@ -3,6 +3,7 @@ package com.faq;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -44,6 +45,7 @@ public class FaqServlet extends MyUploadServlet {
 		FaqDAO dao=new FaqDAOImpl();
 		MyUtil util=new MyUtil();
 		String cp=req.getContextPath();
+		FaqDTO dto=new FaqDTO();
 		
 		String page=req.getParameter("page");
 		int current_page=1;
@@ -69,6 +71,7 @@ public class FaqServlet extends MyUploadServlet {
 			dataCount=dao.dataCount(condition, keyword);
 		}
 		
+		
 		int rows=5;
 		int total_page=util.pageCount(rows, dataCount);
 		if(current_page>total_page) {
@@ -86,6 +89,12 @@ public class FaqServlet extends MyUploadServlet {
 		} else {
 			list=dao.listFaq(offset, rows, condition, keyword);
 		}
+//		String s=null;
+//		List<String> ss = new ArrayList<String>();
+//		for(FaqDTO cc : list) {
+//			s=cc.getbA().replaceAll("\n", "<br>");
+//			ss.add(s);
+//		}
 		
 		String query="";
 		if(keyword.length()!=0) {
@@ -106,6 +115,7 @@ public class FaqServlet extends MyUploadServlet {
 		req.setAttribute("paging", paging);
 		req.setAttribute("condition", condition);
 		req.setAttribute("keyword", keyword);
+//		req.setAttribute("bA", ss);
 		
 		forward(req, resp, "/WEB-INF/views/faq/list.jsp");
 	}

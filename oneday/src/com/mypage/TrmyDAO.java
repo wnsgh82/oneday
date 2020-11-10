@@ -3,6 +3,7 @@ package com.mypage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -295,6 +296,33 @@ public class TrmyDAO {
 		}
 		
 		return list;
+	}
+	
+	public int deleteMemberA(String userId) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="delete from member1 where userId=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	

@@ -107,6 +107,7 @@ function sendOk() {
 				      <td style="padding-left:10px;"> 
 				          <select name="bGroup" class="selectField">
 				                  <option>기타</option>
+				                  <option>회원관련</option>
 				                  <option>결제</option>
 				                  <option>취소/환불</option>
 				                  <option>클래스신청</option>

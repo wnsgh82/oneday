@@ -66,11 +66,11 @@ function deleteBoard(bNum) {
 			            <c:forEach var="dto" items="${list}">
 			            <li class="item title Q" >
 			               <span id="group" style="width: 80px; float: left;">${dto.bGroup }</span>
-			               <span style="width: 800px; float: left; text-align: left">${dto.bQ }</span>
+			               <span style="width: 800px; float: left; text-align: left">${dto.bQ}</span>
 			            </li>
 			            <li class="item A">
 			               <span style="width: 10%; float: left; font-size: 20px; font-weight: 900">A</span>
-			               <span id="" style="width: 500px; float: left; text-align: left; margin: auto 0px;">${dto.bA }</span>
+			               <span id="" style="width: 550px; float: left; text-align: left; margin: auto 0px;">${dto.bA }</span>
 			               <c:if test="${sessionScope.member.userId=='admin'}">
 			               <span>
 			               		<button type="button" class="faqBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/update.do?page=${page}&rows=${rows}&bNum=${dto.bNum}';">수정</button>
@@ -108,6 +108,7 @@ function deleteBoard(bNum) {
 				            
 					          <select name="keyword" class="selectField">
 					                  <option>기타</option>
+					                  <option>회원관련</option>
 					                  <option>결제</option>
 					                  <option>취소/환불</option>
 					                  <option>클래스신청</option>

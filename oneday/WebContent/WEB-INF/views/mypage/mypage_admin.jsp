@@ -11,6 +11,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/mypage.css">
+<style type="text/css">
+.faqBtn {
+	float: right;
+	width: 80px;
+	height: 30px;
+	background: #f1f1f1;
+    border-radius: 9px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+</style>
+<script type="text/javascript">
+function deleteMemberA(userId) {
+	if(confirm("강제 탈퇴처리하시겠습니까?")) {
+		var url="${pageContext.request.contextPath}/mypage/deleteMemberA.do?userId="+userId+"&userEnabled="+${userEnabled};
+		location.href=url;
+	}
+}
+</script>
 </head>
 <body>
 
@@ -33,8 +53,7 @@
             <ul id="myl_list">
                 <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=100"> 강사회원관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=1"> 수강생회원관리</a></li>
-                <li><a href=""> 클래스승인</a></li>
-                <li><a href=""> 관리자정보수정</a></li>
+                <li><a href=""> 클래스삭제</a></li>
             </ul>
         </div>
 
@@ -60,10 +79,11 @@
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
                         <li style="width: 6%;"><p>&nbsp;</p></li>
-                        <li style="width: 20%; text-align: left; padding-left: 10px;"><p>아이디</p></li>
-                        <li style="width: 20%;"><p>이름</p></li>
+                        <li style="width: 13%; text-align: left; padding-left: 10px;"><p>아이디</p></li>
+                        <li style="width: 13%;"><p>이름</p></li>
                         <li style="width: 30%;"><p>전화번호</p></li>
                         <li style="width: 30%;"><p>이메일</p></li>
+                        <li style="width: 14%;"><p>&nbsp;</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
@@ -71,12 +91,14 @@
                       <c:forEach var="dto" items="${list}">
                         <ul style="background: white; border-bottom: 1px solid #e0e0e0;"> 
                             <li style="width: 6%;"><p>&nbsp;</p></li>
-                            <li style="width: 20%; text-align: left; padding-left: 10px;"><p>${dto.userId }</p></li>
-                            <li style="width: 20%;"><p>${dto.userName }</p></li>
+                            <li style="width: 13%; text-align: left; padding-left: 10px;"><p>${dto.userId }</p></li>
+                            <li style="width: 13%;"><p>${dto.userName }</p></li>
                             <li style="width: 30%;"><p>${dto.userTel }</p></li>
                             <li style="width: 30%;"><p>${dto.userEmail }</p></li>
+                            <li style="width: 14%;"><button type="button" class="faqBtn" onclick="deleteMemberA('${dto.userId}');">강제탈퇴</button></li>
                         </ul>
                       </c:forEach>
+                      
                 </div>
             </div>
 

@@ -71,6 +71,8 @@ public class MypageServlet extends MyUploadServlet{
 	    	  trclassList(req, resp);
 	      }else if(uri.indexOf("stdlist.do")!=-1) {
 	    	  trstdList(req, resp);
+	      }else if(uri.indexOf("deleteMemberA.do")!=-1) {
+	    	  deleteMemberA(req, resp);
 	      }
 	      
 	}
@@ -346,6 +348,7 @@ public class MypageServlet extends MyUploadServlet{
 	    	list=dao.memberList(userEnabled);
 	    	
 			req.setAttribute("list", list);
+			req.setAttribute("userEnabled", userEnabled);
 			
 			forward(req, resp, "/WEB-INF/views/mypage/mypage_admin.jsp");
 			return;
@@ -356,6 +359,21 @@ public class MypageServlet extends MyUploadServlet{
 		
 	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
 	}
+	
+	protected void deleteMemberA(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		TrmyDAO dao= new TrmyDAO();
+		String cp=req.getContextPath();
+		String userEnabled=req.getParameter("userEnabled");
+		
+		try {
+			String userId=req.getParameter("userId");
+			dao.deleteMemberA(userId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/mypage/mypageMain.do?userEnabled="+userEnabled);
 
-
+	}
 }
