@@ -633,5 +633,56 @@ public class ReviewDAOImpl implements ReviewDAO{
 		
 	}
 
+	@Override
+	public List<ReviewDTO> readlist(String userId) {
+		List<ReviewDTO> list = new ArrayList<>();
+		PreparedStatement pstmt=null;
+		String sql;
+		ResultSet rs=null;
+		
+		try {
+			sql="SELECT rvNum , rvContent , rvclassname , rvscore , classNum , userId , rvhitcount , rvcreated "
+					+ "   FROM review "
+					+ "   WHERE userId= ?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewDTO dto=new ReviewDTO();
+				dto.setRvNum(rs.getInt("rvNum"));
+				dto.setRvContent(rs.getString("rvContent"));
+				dto.setRvClassName(rs.getString("rvclassname"));
+				dto.setRvScore(rs.getString("rvscore"));
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setRvHitcount(rs.getInt("rvhitcount"));
+				dto.setRvCreated(rs.getString("rvcreated"));
+				
+				list.add(dto);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		
+		return list;
+	}
+
 
 }
