@@ -30,9 +30,10 @@
                 <h3>마이페이지</h3>
             </div>
             <ul id="myl_list">
-                <li><a href="${pageContext.request.contextPath}/mystd/member.do"> 회원정보수정</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의  수강내역 </a></li>
-                <li><a href="">나의 후기 리스트</a></li>
+                <li><a href="${pageContext.request.contextPath}/mystd/mypagereview.do">나의 후기 리스트</a></li>
 
             </ul>
         </div>

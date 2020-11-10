@@ -126,11 +126,10 @@ function update(){
             </div>
             <ul id="myl_list">
             	<c:if test="${dto.userEnabled==1}">  <%--수강생일 때 왼쪽 메뉴--%>
-            		<li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
-	                <li><a href=""> 여기  수강내역 이런거</a></li>
-	                <li><a href=""> 이런거 수강생강사</a></li>
-	                <li><a href=""> 별로 알아서  </a></li>
-	                <li><a href=""> 넣으세요 </a></li>
+ 				<li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 나의  수강내역 </a></li>
+                <li><a href="${pageContext.request.contextPath}/mystd/mypagereview.do">나의 후기 리스트</a></li>
             	</c:if>
             	
             	<c:if test="${dto.userEnabled==100}">  <%--강사일 때 왼쪽 메뉴--%>

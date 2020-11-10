@@ -154,11 +154,12 @@ function send(){
 			      	</c:if>
 			      	
 			      	<%-- 정원 초과되어 수강 불가능 상태  --%> 
-			      	<c:if test="${stdCount+1>dto.classCount}">  
+			      	<c:if test="${stdCount+1>dto.classCount || empty sessionScope.member.userId}">  
 			      		<input type="hidden" name="page" value="${page}">
 			      		<button type="button" class="classBtn" onclick="noapply();">클래스 등록 마감</button>
 			      	</c:if>
 			      	
+
 			      </span>
 			      </form>
 			   </td>
@@ -181,30 +182,6 @@ function send(){
 			</tr>
 			</table>
 			
-			<%--일대일 댓글문의 해볼 것  --%>
-			<div align="center">
-		<form name="commentForm" method="post">
-			<table style="width: 930px; margin-top: 20px; border-spacing: 0; border-collapse: collapse;">
-				<tr height="40" style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc;">
-					<td style="width: 100px; " align= "center" bgcolor="#eee">작성자</td>
-					<td style="padding-left: 10px;" >
-						${dto.userName}
-					</td>
-				</tr>
-				<tr style="border-bottom: 1px solid #ccc;">
-					<td style="width: 100px;" align= "center" bgcolor="#eee" valign="top">내&nbsp;용</td>
-					<td valign="top" style="padding:5px 0px 5px 10px;"> 
-		        		<textarea name="content" cols="72" class="boxTA" style="width:97%; height: 70px;"></textarea>
-		     		 </td>
-				</tr>
-				<tr height="40">
-					<td colspan="2" align="right">
-						<button type="button" class="classBtn3" onclick="send();">등록하기</button>
-						<button type="reset" class="classBtn3">다시입력</button>
-					</td>
-				</tr>
-			</table>
-		</form>
 			</div>
 		</div>
 	    
