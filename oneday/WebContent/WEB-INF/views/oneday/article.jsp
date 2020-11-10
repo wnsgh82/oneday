@@ -36,9 +36,21 @@ function apply(){
 function noapply(){
 	var f= document.stdsendf;
 	
-	alert("종료된 클래스입니다.");
-	f.action="${pageContext.request.contextPath}/oneday/list.do?page=${page}";
+	<%-- 기간 종료  --%> 
+	<c:if test="${dto.classEnabled>0}">
+		alert("종료된 클래스입니다.");
+		f.action="${pageContext.request.contextPath}/oneday/list.do?page=${page}";
+		
+	</c:if>
+	
+	<%-- 정원 초과  --%> 
+	<c:if test="${stdCount+1>dto.classCount}">
+		alert("이미 모집이 마감된 클래스입니다.");
+		f.action="${pageContext.request.contextPath}/oneday/list.do?page=${page}";
+		
+	</c:if>
 	f.submit();
+	
 }
 
 function send(){
@@ -125,21 +137,28 @@ function send(){
 			      	<input type="hidden" name="classPrice" value="${dto.classPrice}">
 			      	<input type="hidden" name="classCount" value="${dto.classCount}">
 			      	
-			      	<%-- 로그인 된 상태 & 수강 가능 상태  --%> 
-			      	<c:if test="${not empty sessionScope.member.userId && dto.classEnabled<=0}">  
+			      	<%-- 로그인 된 상태 & 정원 여유  = 수강 가능  --%> 
+			      	<c:if test="${not empty sessionScope.member.userId && dto.classEnabled<=0 && stdCount+1<=dto.classCount}">  
 			      		<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
 			      	</c:if>
 
 			      	<%-- 로그인 안 된 상태 & 수강 가능 상태 --%> 
-			      	<c:if test="${empty sessionScope.member.userId  && dto.classEnabled<=0}">  
+			      	<c:if test="${empty sessionScope.member.userId  && dto.classEnabled<=0 }">  
 			      		<button type="button" class="classBtn" onclick="send();">클래스 등록 신청</button>
 			      	</c:if>
 			      	
-			      	<%-- 수강 불가능 상태  --%> 
+			      	<%-- 기간이 종료되어 수강 불가능 상태  --%> 
 			      	<c:if test="${dto.classEnabled>0}">  
 			      		<input type="hidden" name="page" value="${page}">
-			      		<button type="button" class="classBtn" onclick="noapply();">클래스 기간 종료</button>
+			      		<button type="button" class="classBtn" onclick="noapply();">종료된 클래스</button>
 			      	</c:if>
+			      	
+			      	<%-- 정원 초과되어 수강 불가능 상태  --%> 
+			      	<c:if test="${stdCount+1>dto.classCount}">  
+			      		<input type="hidden" name="page" value="${page}">
+			      		<button type="button" class="classBtn" onclick="noapply();">클래스 등록 마감</button>
+			      	</c:if>
+			      	
 			      </span>
 			      </form>
 			   </td>

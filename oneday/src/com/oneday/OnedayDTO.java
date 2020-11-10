@@ -16,6 +16,8 @@ public class OnedayDTO {
 	private String classStart, classEnd;
 	private String classCreated;
 	
+	private int std; //학생 수 카운트하는 변수 
+	
 	public int getClassNum() {
 		return classNum;
 	}

@@ -179,7 +179,10 @@ public class OnedayServlet extends MyUploadServlet{
 				e.printStackTrace();
 			}
 			
+			int stdCount=dao.stdCount(classNum);
+			
 			req.setAttribute("dto", dto);
+			req.setAttribute("stdCount", stdCount);
 			req.setAttribute("page", page);
 			
 			forward(req, resp, "/WEB-INF/views/oneday/article.jsp");

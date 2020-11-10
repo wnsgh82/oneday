@@ -279,4 +279,43 @@ public class OnedayImpl implements OnedayDAO{
 		return dto;
 	}
 
+	@Override
+	public int stdCount(int classNum) { //클래스의 학생 수 반환
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="select count(*) from classtb where classNum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, classNum);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		return result;
+	}
+
 }

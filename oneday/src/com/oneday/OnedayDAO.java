@@ -9,6 +9,7 @@ public interface OnedayDAO {
 	public int deleteOneday(int classNum) throws SQLException;
 	
 	public int dataCount();
+	public int stdCount(int classNum); //학생 수 카운트
 	public List<OnedayDTO> listOneday(int offset,int rows);
 	public OnedayDTO readOneday(int num);
 
