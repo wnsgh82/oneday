@@ -12,5 +12,5 @@ public interface EventDAO {
 	public List<EventDTO> listEvent(int offset, int rows);
 	public EventDTO readEvent(int eNum);
 	public int applyEvent(EventDTO dto) throws SQLException;
-	
+	public int eventNo1(EventDTO dto) throws SQLException;
 }

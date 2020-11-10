@@ -28,7 +28,6 @@ public class EventDAOImpl implements EventDAO {
 			pstmt.setString(4, dto.geteStart());
 			pstmt.setString(5, dto.geteEnd());
 			
-			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -296,10 +295,11 @@ public class EventDAOImpl implements EventDAO {
 		String sql;
 		
 		try {
-			sql = "INSERT INTO EVENTAPPLY (userId, eNum) VALUES (?)";
+			sql = "INSERT INTO EVENTAPPLY (userId, eNum) VALUES (?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getUserId());
-			
+			pstmt.setInt(2, dto.geteNum());
+
 			result = pstmt.executeUpdate();
 			
 			
@@ -317,6 +317,45 @@ public class EventDAOImpl implements EventDAO {
 			}
 		}
 		
+		
+		return result;
+	}
+
+	@Override
+	public int eventNo1(EventDTO dto) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		String sql;
+		
+		try {
+			sql = "UPDATE MEMBER1 SET userPoint=? WHERE userId = ?";
+			
+			int random = (int)(Math.random()*1000);
+			int pointSum = dto.getUserPoint() + random;
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pointSum);
+			pstmt.setString(2, dto.getUserId());
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
 		
 		return result;
 	}

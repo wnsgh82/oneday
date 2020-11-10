@@ -8,7 +8,9 @@ public class SessionInfo {
 	private String email;
 	private String birth;
 	private String tel;
+	private int userPoint;
 	
+
 	public String getEmail() {
 		return email;
 	}
@@ -46,6 +48,11 @@ public class SessionInfo {
 		this.userEnabled = userEnabled;
 	}
 	
-	
+	public int getUserPoint() {
+		return userPoint;
+	}
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
 	
 }

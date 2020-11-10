@@ -73,6 +73,8 @@ public class EventServlet extends MyUploadServlet {
 			delete(req, resp);
 		} else if(uri.indexOf("apply.do")!=-1) {
 			apply(req, resp);
+		} else if(uri.indexOf("eventNo1.do")!=-1) {
+			eventNo1(req, resp);
 		}
 	}
 	
@@ -324,16 +326,40 @@ public class EventServlet extends MyUploadServlet {
 				resp.sendRedirect(cp+"/member/login.do");
 				return;
 			}
+			int eNum=Integer.parseInt(req.getParameter("eNum"));
 			dto.setUserId(info.getUserId());
-			
+			dto.seteNum(eNum);
+
 		
 			dao.applyEvent(dto);
 			
-			resp.sendRedirect(cp+"/event/article.do");
+			resp.sendRedirect(cp+"/event/eventNo1.do?eNum="+eNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	protected void eventNo1(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		EventDAO dao = new EventDAOImpl();
+		try {
+			EventDTO dto = new EventDTO();
+			
+			dto.setUserId(info.getUserId());
+			dto.setUserPoint(info.getUserPoint());
+			
+			dao.eventNo1(dto);
+			
+			forward(req, resp, "/WEB-INF/views/event/eventNo1.jsp");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	
 	}
 
 }
