@@ -32,7 +32,6 @@
 	            <h3>&nbsp;&nbsp;&nbsp;&nbsp;리뷰게시판</h3>
 			</div>
 			
-			<form action="${pageContext.request.contextPath}/review/created.do" method="post">
 			      <div class="board-notice">
 			         <ul class="article-table">
 			            <li class="item title">
@@ -42,8 +41,8 @@
 			               <span class="">날짜</span>
 			            </li>
 			<c:forEach var="dto" items="${list}">
-			            <li class="item">
-			           
+			<form action="${pageContext.request.contextPath}/review/created.do" method="post">
+			            <li class="item">	           
 			            	<input type="hidden" name="classNum" value="${dto.classNum}">
 			            	<input type="hidden" name="className" value="${dto.className}">
 			            	<input type="hidden" name="userId" value="${dto.userId}">
@@ -55,6 +54,7 @@
 			               <span class="">${dto.classDate}</span>
 	               
 			            </li>
+			</form>
 			</c:forEach>          
 			          </ul>
 			      </div>
@@ -69,7 +69,6 @@
 				</table>
 			   </div>
 			   
-			</form>
 			
 			</div>
 		</section> 

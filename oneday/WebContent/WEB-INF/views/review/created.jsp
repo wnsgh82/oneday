@@ -125,8 +125,9 @@ function sendOk() {
 			          <input type="hidden" name="classNum1" value="${sdto.classNum}">
 			          <input type="hidden" name="page" value="${page}">
 			          <input type="hidden" name="rows" value="${rows}">
+			          <c:if test="${mode=='update'}">
 			          <input type="hidden" name="rvNum" value="${sdto.rvNum}">
-			          
+			          </c:if>
 			         
 			      </td>
 			  </tr>
