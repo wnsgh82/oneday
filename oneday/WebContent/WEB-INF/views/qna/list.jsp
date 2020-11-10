@@ -40,7 +40,7 @@ function searchList() {
 			 			<a href="${pageContext.request.contextPath}/qna/list.do">문의하기</a>
 			 		</span>
 			 		<span style="width: 45%; float: right;">
-			 			<a>자주하는 질문</a>
+			 			<a href="${pageContext.request.contextPath}/faq/list.do">자주하는 질문</a>
 			 		</span>
 			 	</li>
 			 </ul>

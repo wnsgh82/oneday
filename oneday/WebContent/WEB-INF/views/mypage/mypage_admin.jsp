@@ -30,7 +30,7 @@
                 <h3>관리자페이지</h3>
             </div>
             <ul id="myl_list">
-                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do"> 강사회원관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=100"> 강사회원관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=1"> 수강생회원관리</a></li>
                 <li><a href=""> 클래스승인</a></li>
                 <li><a href=""> 관리자정보수정</a></li>
