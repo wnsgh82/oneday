@@ -10,6 +10,7 @@ ul,li{list-style:none;}
   #slide li:nth-child(1){background-image: url("images/1.png");}
   #slide li:nth-child(2){background-image: url("images/2.png");}
   #slide li:nth-child(3){background-image: url("images/3.png");}
+  #slide li:nth-child(4){background-image: url("images/4.png");}
   #slide input{display:none;}
   
   /*라디오 버튼 테두리 색(border)*/
@@ -18,8 +19,11 @@ ul,li{list-style:none;}
   #pos1:checked~ul{margin-left:0%;}
   #pos2:checked~ul{margin-left:-100%;}
   #pos3:checked~ul{margin-left:-200%;}
+  #pos4:checked~ul{margin-left:-300%;}
   
   /*라디오 버튼 안에 채워지는 색*/
   #pos1:checked~.pos>label:nth-child(1){background:#666;}
   #pos2:checked~.pos>label:nth-child(2){background:#666;}
   #pos3:checked~.pos>label:nth-child(3){background:#666;}
+  #pos4:checked~.pos>label:nth-child(4){background:#666;}
+  
