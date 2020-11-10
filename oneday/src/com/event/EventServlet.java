@@ -192,7 +192,14 @@ public class EventServlet extends MyUploadServlet {
 			}
 			
 			dto.seteContent(dto.geteContent().replaceAll("\n", "<br>"));
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
+			boolean eventEnabled = true;
+			if(info!=null) {
+				eventEnabled=dao.eventEnabled(eNum, info.getUserId());
+			}
+			req.setAttribute("eventEnabled", eventEnabled);
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
 			

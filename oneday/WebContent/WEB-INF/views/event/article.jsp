@@ -39,6 +39,24 @@ function eventApply(eNum) {
 	}
 }
 
+function eventApplyNot() {
+	alert("욕심 그만 부리세요")
+}
+
+function replyOk() {
+    var f = document.replyForm;
+
+	var str = f.comment.value;
+    if(!str) {
+        alert("내용을 입력하세요.");
+        f.content.focus();
+        return;
+    }
+
+		f.action="${pageContext.request.contextPath}/board/${mode}_ok.do";
+
+    f.submit();
+}
 </script>
 </head>
 <body>
@@ -104,8 +122,11 @@ function eventApply(eNum) {
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="eStart" value="${dto.eStart}">
 			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
-			      	<c:if test="${dto.eEnabled<=0}">
+			      	<c:if test="${eventEnabled==true}">
 				      		<button type="button" class="eBtn" onclick="eventApply('${dto.eNum}');">이벤트 참가</button>
+			      	</c:if>
+ 				    <c:if test="${eventEnabled==false}">
+				      		<button type="button" class="eBtn-aplyfin" onclick="eventApplyNot()">참여 완료</button>
 			      	</c:if>
 			      	
 			      </span>
@@ -148,7 +169,7 @@ function eventApply(eNum) {
 				</tr>
 				<tr height="40">
 					<td colspan="2" align="right">
-						<button type="button" class="eBtn3" onclick="send();">등록하기</button>
+						<button type="button" class="eBtn3" onclick="replyOk();">등록하기</button>
 						<button type="reset" class="eBtn3">다시입력</button>
 					</td>
 				</tr>
