@@ -21,6 +21,7 @@ public class MainServlet extends MyServlet {
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		String uri=req.getRequestURI();
+		String cp=req.getContextPath();
 		
 		OnedayDAO dao=new OnedayImpl();
 		String page=req.getParameter("page");
@@ -35,7 +36,10 @@ public class MainServlet extends MyServlet {
 		
 		List<OnedayDTO> list=dao.listOneday(offset, rows);
 		
+		String articleUrl=cp+"/oneday/article.do?";
+		
 		req.setAttribute("list", list);
+		req.setAttribute("articleUrl", articleUrl);
 		
 		if(uri.indexOf("main.do")!=-1) {
 			forward(req, resp, "/WEB-INF/views/main/main.jsp");

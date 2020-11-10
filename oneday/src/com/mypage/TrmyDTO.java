@@ -3,19 +3,24 @@ package com.mypage;
 public class TrmyDTO {
 	private int classNum;
 	private String className;
-	private String classDate;
-	private String classEnabled;
+	
+	private long sclassEnabled;
+	private long eclassEnabled;
+	
 	private String userId;
 	private String userName;
-
 	private String userTel;
 	private String userEmail;
-	private int userEnabled;
+	private long userEnabled;
+	private String classStart;
+	private String classEnd;
 	
 	private String stdId;
 	private String stdName;
 	private String stdEmail;
-	private String stdEnabled;
+	
+	private long sstdEnabled;
+	private long estdEnabled;
 	
 	
 	public int getClassNum() {
@@ -30,17 +35,31 @@ public class TrmyDTO {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	public String getClassDate() {
-		return classDate;
+	
+	public String getClassStart() {
+		return classStart;
 	}
-	public void setClassDate(String classDate) {
-		this.classDate = classDate;
+	public void setClassStart(String classStart) {
+		this.classStart = classStart;
 	}
-	public String getClassEnabled() {
-		return classEnabled;
+	public String getClassEnd() {
+		return classEnd;
 	}
-	public void setClassEnabled(String classEnabled) {
-		this.classEnabled = classEnabled;
+	public void setClassEnd(String classEnd) {
+		this.classEnd = classEnd;
+	}
+	
+	public long getSclassEnabled() {
+		return sclassEnabled;
+	}
+	public void setSclassEnabled(long sclassEnabled) {
+		this.sclassEnabled = sclassEnabled;
+	}
+	public long getEclassEnabled() {
+		return eclassEnabled;
+	}
+	public void setEclassEnabled(long eclassEnabled) {
+		this.eclassEnabled = eclassEnabled;
 	}
 	public String getUserId() {
 		return userId;
@@ -72,11 +91,18 @@ public class TrmyDTO {
 	public void setStdEmail(String stdEmail) {
 		this.stdEmail = stdEmail;
 	}
-	public String getStdEnabled() {
-		return stdEnabled;
+	
+	public long getSstdEnabled() {
+		return sstdEnabled;
 	}
-	public void setStdEnabled(String stdEnabled) {
-		this.stdEnabled = stdEnabled;
+	public void setSstdEnabled(long sstdEnabled) {
+		this.sstdEnabled = sstdEnabled;
+	}
+	public long getEstdEnabled() {
+		return estdEnabled;
+	}
+	public void setEstdEnabled(long estdEnabled) {
+		this.estdEnabled = estdEnabled;
 	}
 	public String getUserTel() {
 		return userTel;
@@ -90,10 +116,10 @@ public class TrmyDTO {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public int getUserEnabled() {
+	public long getUserEnabled() {
 		return userEnabled;
 	}
-	public void setUserEnabled(int userEnabled) {
+	public void setUserEnabled(long userEnabled) {
 		this.userEnabled = userEnabled;
 	}
 	

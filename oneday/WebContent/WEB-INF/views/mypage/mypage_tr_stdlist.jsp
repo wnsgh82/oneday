@@ -77,7 +77,6 @@ function send(){
             	<li><a href="${pageContext.request.contextPath}/mypage/stdlist.do"> 수강생 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
-                <li><a href=""> 넣으세요 </a></li>
             </ul>
         </div>
 
@@ -90,6 +89,7 @@ function send(){
                         <c:forEach var="dto" items="${list}">
                         	<c:if test="${dto.classNum == classNum }">
                         		<p style="font-size: 20px; font-weight: 600;"> ${dto.className}</p>
+                        		<p style="font-size: 15px; ">${dto.classStart}~${dto.classEnd}</p>
                         	</c:if>
                         </c:forEach>
                         
@@ -117,7 +117,17 @@ function send(){
                             <li style="width: 25%;"><p>${dto.stdId}</p></li>
                             <li style="width: 25%;"><p>${dto.stdName}</p></li>
                             <li style="width: 25%;"><p>${dto.stdEmail}</p></li>
-                            <li style="width: 25%; color: tomato;"><p>${dto.stdEnabled}</p></li>
+                            <li style="width: 25%; color: tomato;">
+                            	<c:if test="${dto.sstdEnabled<0 && dto.estdEnabled<0}">
+                            		<p>진행전</p>
+                            	</c:if>	
+                            	<c:if test="${dto.sstdEnabled>=0 && dto.estdEnabled<=0}">
+                            		<p>진행중</p>
+                            	</c:if>	
+                            	<c:if test="${dto.sstdEnabled>0 && dto.estdEnabled>0}">
+                            		<p>진행완료</p>
+                            	</c:if>
+                            </li>
                         </ul>
                       </c:forEach>
                       <form name="sendForm" method="post">

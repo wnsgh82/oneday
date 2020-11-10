@@ -63,7 +63,6 @@ function send(){
             	<li><a href="${pageContext.request.contextPath}/mypage/stdlist.do"> 수강생 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
-                <li><a href=""> 넣으세요 </a></li>
             </ul>
         </div>
 
@@ -91,8 +90,19 @@ function send(){
                             <li style="width: 50%; text-align: left; padding-left: 10px;">
 								<a href="${pageContext.request.contextPath}/mypage/stdlist.do?classNum=${dto.classNum}">${dto.className}</a>
                             </li>
-                            <li style="width: 20%;"><p>${dto.classDate}</p></li>
-                            <li style="width: 20%; color: tomato;"><p>${dto.classEnabled}</p></li>
+                            <li style="width: 20%;"><p>${dto.classStart}~${dto.classEnd}</p></li>
+                            <li style="width: 20%; color: tomato;">
+                            	<c:if test="${dto.sclassEnabled<0 && dto.eclassEnabled<0}">
+                            		<p>진행전</p>
+                            	</c:if>	
+                            	<c:if test="${dto.sclassEnabled>=0 && dto.eclassEnabled<=0}">
+                            		<p>진행중</p>
+                            	</c:if>	
+                            	<c:if test="${dto.sclassEnabled>0 && dto.eclassEnabled>0}">
+                            		<p>진행완료</p>
+                            	</c:if>
+                            	
+                            </li>
                         </ul>
                       </c:forEach>
                 </div>

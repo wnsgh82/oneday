@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>하루살이</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
@@ -29,7 +29,15 @@ function deleteBoard(classNum) {
 function apply(){
 	var f= document.stdsendf;
 	
-	f.action="${pageContext.request.contextPath}/std/created.do";
+	<c:if test="${empty sessionScope.member}">
+		alert("로그인 후 이용하실 수 있습니다.");
+		location.href="${pageContext.request.contextPath}/member/login.do";
+	</c:if>
+	
+	<c:if test="${not empty sessionScope.member}">
+		f.action="${pageContext.request.contextPath}/std/created.do";
+	</c:if>
+	
 	f.submit();
 }
 
@@ -38,7 +46,7 @@ function noapply(){
 	
 	<%-- 기간 종료  --%> 
 	<c:if test="${dto.classEnabled>0}">
-		alert("종료된 클래스입니다.");
+		alert("진행 중인 클래스는 신청하실 수 없습니다.");
 		f.action="${pageContext.request.contextPath}/oneday/list.do?page=${page}";
 		
 	</c:if>
@@ -137,24 +145,19 @@ function send(){
 			      	<input type="hidden" name="classPrice" value="${dto.classPrice}">
 			      	<input type="hidden" name="classCount" value="${dto.classCount}">
 			      	
-			      	<%-- 로그인 된 상태 & 정원 여유  = 수강 가능  --%> 
-			      	<c:if test="${not empty sessionScope.member.userId && dto.classEnabled<=0 && stdCount+1<=dto.classCount}">  
+			      	<%-- 정원 여유 & 시작날짜 전 = 등록 버튼  --%> 
+			      	<c:if test="${dto.classEnabled<0 && stdCount+1<=dto.classCount}">  
 			      		<button type="button" class="classBtn" onclick="apply();">클래스 등록 신청</button>
 			      	</c:if>
 
-			      	<%-- 로그인 안 된 상태 & 수강 가능 상태 --%> 
-			      	<c:if test="${empty sessionScope.member.userId  && dto.classEnabled<=0 }">  
-			      		<button type="button" class="classBtn" onclick="send();">클래스 등록 신청</button>
-			      	</c:if>
-			      	
-			      	<%-- 기간이 종료되어 수강 불가능 상태  --%> 
-			      	<c:if test="${dto.classEnabled>0}">  
+
+			      	<c:if test="${dto.classEnabled>=0 || stdCount+1>dto.classCount}">  
 			      		<input type="hidden" name="page" value="${page}">
-			      		<button type="button" class="classBtn" onclick="noapply();">종료된 클래스</button>
+			      		<button type="button" class="classBtn" onclick="noapply();" style="background-color: #999">진행 중인 클래스</button>
 			      	</c:if>
 			      	
-			      	<%-- 정원 초과되어 수강 불가능 상태  --%> 
-			      	<c:if test="${stdCount+1>dto.classCount || empty sessionScope.member.userId}">  
+			      	<%-- 정원 초과 = 마감버튼  --%> 
+			      	<c:if test="${stdCount+1>dto.classCount && dto.classEnabled<0 }">  
 			      		<input type="hidden" name="page" value="${page}">
 			      		<button type="button" class="classBtn" onclick="noapply();">클래스 등록 마감</button>
 			      	</c:if>

@@ -38,11 +38,10 @@ public class TrmyDAO {
 				dto.setClassNum(rs.getInt("classNum"));
 				dto.setClassName(rs.getString("className"));
 				
-				String classEnabled = rs.getInt("classEnabled")==1 ? "진행중": "종료";
-				dto.setClassEnabled(classEnabled);
+				//dto.setClassEnabled(classEnabled);
 				
-				String classDate= rs.getString("classStart")+" ~ "+rs.getString("classEnd");
-				dto.setClassDate(classDate);
+				dto.setClassStart(rs.getString("classStart"));
+				dto.setClassEnd(rs.getString("classEnd"));
 				
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));	
@@ -95,11 +94,10 @@ public class TrmyDAO {
 				dto.setClassNum(rs.getInt("classNum"));
 				dto.setClassName(rs.getString("className"));
 				
-				String classEnabled = rs.getInt("classEnabled")==1 ? "진행중": "종료";
-				dto.setClassEnabled(classEnabled);
+				//dto.setClassEnabled(classEnabled);
 				
-				String classDate= rs.getString("classStart")+" ~ "+rs.getString("classEnd");
-				dto.setClassDate(classDate);
+				dto.setClassStart(rs.getString("classStart"));
+				dto.setClassEnd(rs.getString("classEnd"));
 				
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));	
@@ -154,11 +152,10 @@ public class TrmyDAO {
 				dto.setClassNum(rs.getInt("classNum"));
 				dto.setClassName(rs.getString("className"));
 				
-				String classEnabled = rs.getInt("classEnabled")==1 ? "진행중": "종료";
-				dto.setClassEnabled(classEnabled);
+				//dto.setClassEnabled(classEnabled);
 				
-				String classDate= rs.getString("classStart")+" ~ "+rs.getString("classEnd");
-				dto.setClassDate(classDate);
+				dto.setClassStart(rs.getString("classStart"));
+				dto.setClassEnd(rs.getString("classEnd"));
 				
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));	
@@ -195,7 +192,8 @@ public class TrmyDAO {
 		String sql;
 		
 		try {
-			sql="select s.classNum, s.className, s.userName, s.userId, s.userEmail, s.classDate,s.stdEnabled"
+			sql="select s.classNum, s.className, s.userName, s.userId, s.userEmail, s.classDate,"
+					+ " to_char(classStart,'yyyy-mm-dd') classStart, to_char(classEnd,'yyyy-mm-dd') classEnd"
 					+" from std s" 
 					+" join classtb c on c.classNum=s.classNum" 
 					+" where s.trName=? and s.classNum=?";
@@ -204,7 +202,6 @@ public class TrmyDAO {
 			pstmt.setString(1, trName);
 			pstmt.setInt(2, classNum);
 			rs=pstmt.executeQuery();
-			System.out.println(":"+trName+":"+classNum+":");
 			
 			while(rs.next()) {
 				TrmyDTO dto=new TrmyDTO();
@@ -214,16 +211,13 @@ public class TrmyDAO {
 				dto.setStdName(rs.getString("userName"));
 				dto.setStdId(rs.getString("userId"));
 				dto.setStdEmail(rs.getString("userEmail"));
-				int enable=rs.getInt("stdEnabled"); 
-				String stdEnabled = enable==0 ? "수강중" : "수강완료";  //stdEnabled : 디폴트(수강중) 0, 수강완료 1, .. 
-				dto.setStdEnabled(stdEnabled);
 				
-				dto.setClassDate(rs.getString("classDate"));
+				dto.setClassStart(rs.getString("classStart"));
+				dto.setClassEnd(rs.getString("classEnd"));
 				
 				dto.setUserName(trName);
 				dto.setClassNum(classNum);
 				
-				System.out.println(rs.getString("userName"));
 				list.add(dto);
 			}
 			

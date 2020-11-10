@@ -32,7 +32,7 @@
         </div>
         </div>
         <div id="header">
-            <div id="logo">
+            <div id="logo" onclick="javascript:location.href='${pageContext.request.contextPath}' ">
                 <h1><%-- <img alt="" src="${pageContext.request.contextPath}/resource/css/images/haru2.png"> --%><a href="${pageContext.request.contextPath}/main/main.do"></a></h1>
             </div>
         </div>

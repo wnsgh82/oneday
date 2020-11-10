@@ -87,8 +87,19 @@ a:hover{
                             <li style="width: 50%; text-align: left; padding-left: 10px;">
                             		<a href="${pageContext.request.contextPath}/oneday/article.do?classNum=${dto.classNum}">${dto.className}</a>
                             </li>
-                            <li style="width: 20%;"><p>${dto.classDate}</p></li>
-                            <li style="width: 20%; color: tomato;"><p>${dto.classEnabled}</p></li>
+                            <li style="width: 20%;"><p>${dto.classStart}~${dto.classEnd}</p></li>
+                            <li style="width: 20%; color: tomato;">
+                            	<c:if test="${dto.sclassEnabled<0 && dto.eclassEnabled<0}">
+                            		<p>진행전</p>
+                            	</c:if>	
+                            	<c:if test="${dto.sclassEnabled>=0 && dto.eclassEnabled<=0}">
+                            		<p>진행중</p>
+                            	</c:if>	
+                            	<c:if test="${dto.sclassEnabled>0 && dto.eclassEnabled>0}">
+                            		<p>진행완료</p>
+                            	</c:if>
+                            	
+                            </li>
                         </ul>
                       </c:forEach>
                 </div>

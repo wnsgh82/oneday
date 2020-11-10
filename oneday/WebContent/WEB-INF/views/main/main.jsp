@@ -13,6 +13,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/oneday.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/slide.css">
+
+<script type="text/javascript">
+
+function article(classNum){
+	var url="${articleUrl}&classNum="+classNum;
+	location.href=url;
+}
+
+</script>
+
 </head>
 <body>
 
@@ -53,11 +63,11 @@
 				<div>
 					<table style="width: 930px; margin: 20px auto 0px; border-spacing: 0px;">
 					
-						<c:forEach var="dto" items="${list}" varStatus="status" end="5"> <%--varStatus : forEach 구문이 몇번째 실행했는지 알 수 있는 변수명 --%>
-							  <c:if test="${status.index==0}">  <%--forEach구문 처음 시작했으면 --%>
+						<c:forEach var="dto" items="${list}" varStatus="status" end="5"> 
+							  <c:if test="${status.index==0}"> 
 							  	<tr>
 							  </c:if>
-							  <c:if test="${status.index!=0 && status.index%3==0}">  <%--처음이 아니고, 3으로 나눠떨어지면 줄바꿈 --%>
+							  <c:if test="${status.index!=0 && status.index%3==0}"> 
 							  	<c:out value="</tr><tr>" escapeXml="false"/>
 							  </c:if> 	
 							  <td width="300" align="center">

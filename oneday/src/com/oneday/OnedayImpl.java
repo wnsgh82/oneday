@@ -189,7 +189,7 @@ public class OnedayImpl implements OnedayDAO{
 				dto.setClassAddr(rs.getString("classAddr"));
 				dto.setClassCount(rs.getInt("classCount"));
 				dto.setClassPrice(rs.getString("classPrice"));
-				dto.setClassEnabled(rs.getInt("classEnabled"));
+				
 				dto.setClassIFN(rs.getString("classIFN"));
 				dto.setClassStart(rs.getString("classStart"));
 				dto.setClassEnd(rs.getString("classEnd"));
@@ -248,7 +248,7 @@ public class OnedayImpl implements OnedayDAO{
 				dto.setClassPrice(rs.getString("classPrice"));
 				dto.setClassContent(rs.getString("classContent"));
 				dto.setClassHitCount(rs.getInt("classHitCount"));
-				dto.setClassEnabled(rs.getInt("classEnabled"));
+				
 				dto.setClassIFN(rs.getString("classIFN"));
 				dto.setClassCreated(rs.getString("classCreated"));
 				dto.setClassStart(rs.getString("classStart"));
@@ -287,7 +287,7 @@ public class OnedayImpl implements OnedayDAO{
 		String sql;
 		
 		try {
-			sql="select count(*) from classtb where classNum=?";
+			sql="select count(*) from STD where classNum=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, classNum);
 			

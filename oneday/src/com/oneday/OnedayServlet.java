@@ -171,7 +171,7 @@ public class OnedayServlet extends MyUploadServlet{
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 			
 			try {
-				Date date=sdf.parse(dto.getClassEnd());
+				Date date=sdf.parse(dto.getClassStart());
 				enabled= (curDate.getTime() - date.getTime()) /(1000*60*60*24);
 				dto.setClassEnabled(enabled);
 				

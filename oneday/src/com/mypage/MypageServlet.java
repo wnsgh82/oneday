@@ -47,6 +47,27 @@ public class MypageServlet extends MyUploadServlet{
 		  //강사 마이페이지 - 나의 클래스에 전달할 파라미터 값
 		  TrmyDAO dao=new TrmyDAO();
 		  List<TrmyDTO> list=dao.readClass(info.getUserId());
+
+		  long sEnabled, eEnabled;
+		  
+		  Date curDate=new Date();
+		  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		  
+		  for(TrmyDTO dto:list) {
+			  try {
+					Date edate=sdf.parse(dto.getClassEnd());
+					Date sdate=sdf.parse(dto.getClassStart());
+					
+					eEnabled= (curDate.getTime() - edate.getTime()) /(1000*60*60*24);
+					sEnabled= (curDate.getTime() - sdate.getTime()) /(1000*60*60*24);
+					
+					dto.setEclassEnabled(eEnabled);
+					dto.setSclassEnabled(sEnabled);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		  }		  
 		  
 		  req.setAttribute("list", list);
 		  
@@ -233,6 +254,27 @@ public class MypageServlet extends MyUploadServlet{
 	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
 			List<TrmyDTO> list=dao.readClass(info.getUserId());	
 			
+			 long sEnabled, eEnabled;
+			  
+			  Date curDate=new Date();
+			  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			  
+			  for(TrmyDTO dto:list) {
+				  try {
+						Date edate=sdf.parse(dto.getClassEnd());
+						Date sdate=sdf.parse(dto.getClassStart());
+						
+						eEnabled= (curDate.getTime() - edate.getTime()) /(1000*60*60*24);
+						sEnabled= (curDate.getTime() - sdate.getTime()) /(1000*60*60*24);
+						
+						dto.setEclassEnabled(eEnabled);
+						dto.setSclassEnabled(sEnabled);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			  }
+			
 			req.setAttribute("list", list);
 			
 			forward(req, resp, "/WEB-INF/views/mypage/mypage_tr_classList.jsp");
@@ -260,6 +302,27 @@ public class MypageServlet extends MyUploadServlet{
 			
 			List<TrmyDTO> list=dao.listDTO(info.getUserId());
 			
+			  long sEnabled, eEnabled;
+			  
+			  Date curDate=new Date();
+			  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			  
+			  for(TrmyDTO dto:stdList) {
+				  try {
+						Date edate=sdf.parse(dto.getClassEnd());
+						Date sdate=sdf.parse(dto.getClassStart());
+						
+						eEnabled= (curDate.getTime() - edate.getTime()) /(1000*60*60*24);
+						sEnabled= (curDate.getTime() - sdate.getTime()) /(1000*60*60*24);
+						
+						dto.setEstdEnabled(eEnabled);
+						dto.setSstdEnabled(sEnabled);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			  }
+				
 			req.setAttribute("classNum", classNum);
 			req.setAttribute("list", list);
 			req.setAttribute("stdList", stdList);
