@@ -73,6 +73,8 @@ public class MypageServlet extends MyUploadServlet{
 	    	  trstdList(req, resp);
 	      }else if(uri.indexOf("deleteMemberA.do")!=-1) {
 	    	  deleteMemberA(req, resp);
+	      }else if(uri.indexOf("classAdmin.do")!=-1) {
+	    	  classAdmin(req, resp);
 	      }
 	      
 	}
@@ -375,5 +377,9 @@ public class MypageServlet extends MyUploadServlet{
 		
 		resp.sendRedirect(cp+"/mypage/mypageMain.do?userEnabled="+userEnabled);
 
+	}
+	protected void classAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
 	}
 }
