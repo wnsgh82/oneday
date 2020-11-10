@@ -12,6 +12,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 
+<style type="text/css">
+
+.classBtn{
+    background: #000000;
+    margin: 30px 0 0;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px 5px;
+    border: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal; 
+}
+
+
+</style>
+
 <script type="text/javascript">
 
 
@@ -32,7 +50,7 @@ function sendLogin() { //입력 검사 후
         return;
     }
     
-    f.action = "${pageContext.request.contextPath}/member/login_ok.do";
+    f.action = "${pageContext.request.contextPath}/member/pwdForm_ok.do";
     f.submit();
     
 }
@@ -56,23 +74,19 @@ function sendLogin() { //입력 검사 후
 		<!--login -->
        <div class="login">
         <div id="login_text">
-            <h3>로그인</h3>
+            <h3>비밀번호 찾기</h3>
         </div>
         <form name="loginForm" method="post">
             <div class="login-box">
-                <input type="text" class="id" placeholder="아이디를 입력해주세요." id="loginID" name="userId">
-                <input type="password" class="pw" placeholder="비밀번호를 입력해주세요." id="loginPW" name="userPwd">
-
+            	<div style="height: 100px; line-height: 100px;" align="center">
+               	 	<p> ${dto.userName} 님의 패스워드는 ${userPwd}입니다.</p>
+                 </div>
                     <div class="btn-submit">
-                        <a onclick="sendLogin();">로그인</a>
+                        <a href="${pageContext.request.contextPath}/member/login.do">확인</a>
                     </div>
+       
                     
                     <div class="find">
-                        <ul>
-                            <li><a href="${pageContext.request.contextPath}/member/idForm.do">아이디 찾기</a></li>
-                            <li><a href="${pageContext.request.contextPath}/member/pwdForm.do">비밀번호 찾기</a></li>
-                            <li><a href="${pageContext.request.contextPath}/member/selectlog.do">회원가입</a></li>
-                        </ul>
                         
                         <div style="font-size: 15px; font-weight: 700; color: red; width: 100%; margin-top: 50px;" align="center">${message}</div>
                     </div>

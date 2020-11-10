@@ -18,10 +18,10 @@
 function sendLogin() { //입력 검사 후 
     var f = document.loginForm;
 
-	var str = f.userId.value;
+	var str = f.userName.value;
     if(!str) {
-        alert("아이디를 입력하세요. ");
-        f.userId.focus();
+        alert("이름을 입력하세요. ");
+        f.userName.focus();
         return;
     }
 
@@ -32,7 +32,7 @@ function sendLogin() { //입력 검사 후
         return;
     }
     
-    f.action = "${pageContext.request.contextPath}/member/login_ok.do";
+    f.action = "${pageContext.request.contextPath}/member/idForm_ok.do";
     f.submit();
     
 }
@@ -56,23 +56,23 @@ function sendLogin() { //입력 검사 후
 		<!--login -->
        <div class="login">
         <div id="login_text">
-            <h3>로그인</h3>
+            <h3>아이디 찾기</h3>
         </div>
         <form name="loginForm" method="post">
             <div class="login-box">
-                <input type="text" class="id" placeholder="아이디를 입력해주세요." id="loginID" name="userId">
+                <input type="text" class="id" placeholder="이름을 입력해주세요." id="loginID" name="userName">
                 <input type="password" class="pw" placeholder="비밀번호를 입력해주세요." id="loginPW" name="userPwd">
 
-                    <div class="btn-submit">
-                        <a onclick="sendLogin();">로그인</a>
+                    <div class="btn-submit"  style="width: 190px; display: inline-block;">
+                        <a onclick="sendLogin();">확인</a>
+                        
+                    </div>
+                    
+                     <div class="btn-submit" style="width: 190px; display: inline-block; float: right;">
+                        <a href="${pageContext.request.contextPath}/member/login.do">돌아가기</a>
                     </div>
                     
                     <div class="find">
-                        <ul>
-                            <li><a href="${pageContext.request.contextPath}/member/idForm.do">아이디 찾기</a></li>
-                            <li><a href="${pageContext.request.contextPath}/member/pwdForm.do">비밀번호 찾기</a></li>
-                            <li><a href="${pageContext.request.contextPath}/member/selectlog.do">회원가입</a></li>
-                        </ul>
                         
                         <div style="font-size: 15px; font-weight: 700; color: red; width: 100%; margin-top: 50px;" align="center">${message}</div>
                     </div>

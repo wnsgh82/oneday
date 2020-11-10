@@ -165,8 +165,8 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberDTO readMember(String userId) {
 		MemberDTO dto=null;
-		PreparedStatement pstmt=null;
 		ResultSet rs=null;
+		PreparedStatement pstmt=null;
 		String sql;
 		
 		try {
@@ -276,6 +276,96 @@ public class MemberDAOImpl implements MemberDAO{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public MemberDTO searchId(String userName, String userPwd) throws SQLException {
+		MemberDTO dto=null;
+		ResultSet rs=null;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="select userId from member1 where userName=? and userPwd=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userPwd);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto= new MemberDTO();
+				
+				dto.setUserName(userName);
+				dto.setUserId(rs.getString("userId"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public MemberDTO searchPwd(String userId, String userName) throws SQLException {
+		MemberDTO dto=null;
+		ResultSet rs=null;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="select userPwd from member1 where userName=? and userId=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userId);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto= new MemberDTO();
+				
+				dto.setUserName(userName);
+				dto.setUserPwd(rs.getString("userPwd"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return dto;
 	}
 
 

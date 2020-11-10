@@ -66,15 +66,21 @@ public class MemberServlet extends MyUploadServlet{
 			userIdCheck(req, resp);
 		} else if(uri.indexOf("selectlog.do")!=-1) {
 			selectlogin(req, resp);
+		} else if(uri.indexOf("idForm.do")!=-1) {
+			idForm(req, resp);
+		} else if(uri.indexOf("idForm_ok.do")!=-1) {
+			idSubmit(req, resp);
+		} else if(uri.indexOf("pwdForm.do")!=-1) {
+			pwdForm(req, resp);
+		} else if(uri.indexOf("pwdForm_ok.do")!=-1) {
+			pwdSubmit(req, resp);
 		}
 
 	}
 	
 	protected void loginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//로그인 폼
-		
-		
-		
+
 		String path="/WEB-INF/views/member/login.jsp";
 		forward(req, resp, path);
 	}
@@ -221,6 +227,72 @@ public class MemberServlet extends MyUploadServlet{
 		
 	}
 	
-
+	protected void idForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//아이디 찾기 폼
+		String path="/WEB-INF/views/member/id.jsp";
+		forward(req, resp, path);
+	}
 	
+	protected void idSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberDAO dao = new MemberDAOImpl();
+		String cp=req.getContextPath();
+		
+		try {
+			String userName=req.getParameter("userName");
+			String userPwd=req.getParameter("userPwd");
+			
+			MemberDTO dto=dao.searchId(userName, userPwd);
+			
+			if(dto!=null) {
+				req.setAttribute("dto", dto);
+				forward(req, resp, "/WEB-INF/views/member/id_ok.jsp");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//찾기 실패한 경우	
+		req.setAttribute("message", "이름 또는 패스워드가 일치하지 않습니다.");
+		forward(req, resp, "/WEB-INF/views/member/id.jsp");		
+	}
+	
+	protected void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//비밀번호 찾기 폼
+		String path="/WEB-INF/views/member/pwd.jsp";
+		forward(req, resp, path);
+	}
+	
+	protected void pwdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberDAO dao = new MemberDAOImpl();
+		String cp=req.getContextPath();
+		
+		try {
+			String userName=req.getParameter("userName");
+			String userId=req.getParameter("userId");
+			
+			MemberDTO dto=dao.searchPwd(userId, userName);
+			
+			if(dto!=null) {
+				//패스워드 일부만 출력
+				String userPwd=dto.getUserPwd().substring(0,4);
+				for(int i=4; i<dto.userPwd.length();i++) {
+					userPwd+="*";
+				}
+				
+				req.setAttribute("userPwd", userPwd);
+				req.setAttribute("dto", dto);
+				forward(req, resp, "/WEB-INF/views/member/pwd_ok.jsp");
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//찾기 실패한 경우	
+		req.setAttribute("message", "아이디 또는 이름이 일치하지 않습니다.");
+		forward(req, resp, "/WEB-INF/views/member/pwd.jsp");	
+	}
 }
