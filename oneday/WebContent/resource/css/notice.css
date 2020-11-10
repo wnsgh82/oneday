@@ -134,3 +134,12 @@ a {
 	line-height: 80px;
 	height: 70px;
 }
+.faqBtn {
+	float: right;
+	width: 50px;
+	height: 30px;
+	background: #f1f1f1;
+    border-radius: 9px;
+    border: 1px solid #ccc;
+	
+}

@@ -17,8 +17,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/notice.css">
 <script type="text/javascript">
 function searchList() {
-	var f=document.QnaForm;
+	var f=document.faqForm;
 	f.submit();
+}
+function deleteBoard(bNum) {
+	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
+		var url="${pageContext.request.contextPath}/faq/delete.do?bNum="+bNum+"&${query}";
+		location.href=url;
+	}
 }
 </script>
 </head>
@@ -45,7 +51,7 @@ function searchList() {
 			 	</li>
 			 </ul>
 			
-			<form name="QnaForm" method="post">
+			<form name="faqForm" method="post">
 			
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 			   <tr height="35">
@@ -57,15 +63,22 @@ function searchList() {
 			
 			      <div class="board-notice">
 			         <ul class="article-table">
-			            
+			            <c:forEach var="dto" items="${list}">
 			            <li class="item title Q" >
-			               <span id="group" style="width: 80px; float: left;">신청</span>
-			               <span style="width: 800px; float: left; text-align: left">신청 취소는 언제까지 가능한가요?</span>
+			               <span id="group" style="width: 80px; float: left;">${dto.bGroup }</span>
+			               <span style="width: 800px; float: left; text-align: left">${dto.bQ }</span>
 			            </li>
 			            <li class="item A">
 			               <span style="width: 10%; float: left; font-size: 20px; font-weight: 900">A</span>
-			               <span id="" style="width: 90%; float: left; text-align: left; margin: auto 0px;">신청 취소는 언제까지 가능한가요?</span>
+			               <span id="" style="width: 500px; float: left; text-align: left; margin: auto 0px;">${dto.bA }</span>
+			               <c:if test="${sessionScope.member.userId=='admin'}">
+			               <span>
+			               		<button type="button" class="faqBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/update.do?page=${page}&rows=${rows}&bNum=${dto.bNum}';">수정</button>
+			               		<button type="button" class="faqBtn" onclick="deleteBoard('${dto.bNum}');">삭제</button>
+			               </span>
+			               </c:if>
 			            </li>
+			            </c:forEach>
 			
 			          </ul>
 			      </div>
@@ -90,18 +103,23 @@ function searchList() {
 				      <td id="selectsearch" align="center">
 				              <select name="condition" class="selectField">
 				                  <option value="all"     ${condition=="all"?"selected='selected'":"" }>제목+내용</option>
-				                  <option value="subject"     ${condition=="subject"?"selected='selected'":"" }>제목</option>
-				                  <option value="userName" 	  ${condition=="userName"?"selected='selected'":"" }>작성자</option>
-				                  <option value="content"     ${condition=="content"?"selected='selected'":"" }>내용</option>
-				                  <option value="created"     ${condition=="created"?"selected='selected'":"" }>등록일</option>
+				                  <option value="bGroup"     ${condition=="bGroup"?"selected='selected'":"" }>구분</option>
 				            </select>
+				            
+					          <select name="keyword" class="selectField">
+					                  <option>기타</option>
+					                  <option>결제</option>
+					                  <option>취소/환불</option>
+					                  <option>클래스신청</option>
+					                  <option>클래스등록</option>
+					          </select>
 				            <input type="text" name="keyword" class="boxTF" value="${keyword}">
 				            <input type="hidden" name="rows" value="${rows}">
 				            <button type="button" class="btn" onclick="searchList()">검색</button>
 				      </td>
 				      <td align="right" width="100">
-				      	<c:if test="${not empty sessionScope.member.userId}">
-				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/created.do?';">글올리기</button>
+				      	<c:if test="${sessionScope.member.userId=='admin'}">
+				              <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/created.do?';">글올리기</button>
 				      	</c:if> 
 				      </td>
 				   </tr>
