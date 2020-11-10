@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
+
 import com.notice.NoticeDTO;
 import com.util.DBConn;
 
@@ -49,14 +51,59 @@ public class ReviewDAOImpl implements ReviewDAO{
 
 	@Override
 	public int updateReview(ReviewDTO dto) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result= 0;
+		PreparedStatement pstmt= null;
+		String sql ;
+		
+		try {
+			sql = " UPDATE review SET rvContent= ? , rvScore = ? WHERE rvNum = ? ";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getRvContent());
+			pstmt.setString(2, dto.getRvScore());
+			pstmt.setInt(3, dto.getRvNum());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		
+		
+		return result;
 	}
 
 	@Override
 	public int deleteReview(int num) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement pstmt= null;
+		int result = 0;
+		String sql;
+		
+		try {
+			sql="DELETE FROM review WHERE rvNum = ? ";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!= null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -339,8 +386,8 @@ public class ReviewDAOImpl implements ReviewDAO{
                 sb.append("SELECT rvNum, rvclassName FROM review ");
                 sb.append(" WHERE (INSTR(" + condition + ", ?) >= 1)  ");
               
-                sb.append("         AND (num > ? )  ");
-                sb.append(" ORDER BY num ASC  ");
+                sb.append("         AND (rvNum > ? )  ");
+                sb.append(" ORDER BY rvNum ASC  ");
                 sb.append(" FETCH  FIRST  1  ROWS  ONLY");
 
                 pstmt=conn.prepareStatement(sb.toString());
@@ -348,8 +395,8 @@ public class ReviewDAOImpl implements ReviewDAO{
                 pstmt.setInt(2, num);
 			} else {
                 sb.append("SELECT rvNum, rvclassName FROM review ");                
-                sb.append(" WHERE num > ?  ");
-                sb.append(" ORDER BY num ASC  ");
+                sb.append(" WHERE rvNum > ?  ");
+                sb.append(" ORDER BY rvNum ASC  ");
                 sb.append(" FETCH  FIRST  1  ROWS  ONLY");
 
                 pstmt=conn.prepareStatement(sb.toString());
@@ -397,8 +444,8 @@ public class ReviewDAOImpl implements ReviewDAO{
             if(keyword.length() != 0) {
                 sb.append("SELECT rvNum, rvclassName FROM review ");
                 sb.append(" WHERE (INSTR(" + condition + ", ?) >= 1)  ");
-                sb.append("         AND (num < ? )  ");
-                sb.append(" ORDER BY num DESC  ");
+                sb.append("         AND (rvNum < ? )  ");
+                sb.append(" ORDER BY rvNum DESC  ");
                 sb.append(" FETCH  FIRST  1  ROWS  ONLY");
 
                 pstmt=conn.prepareStatement(sb.toString());
@@ -406,8 +453,8 @@ public class ReviewDAOImpl implements ReviewDAO{
                 pstmt.setInt(2, num);
 			} else {
                 sb.append("SELECT rvNum, rvclassName FROM review ");
-                sb.append(" WHERE num < ?  ");
-                sb.append(" ORDER BY num DESC  ");
+                sb.append(" WHERE rvNum < ?  ");
+                sb.append(" ORDER BY rvNum DESC  ");
                 sb.append(" FETCH  FIRST  1  ROWS  ONLY");
 
                 pstmt=conn.prepareStatement(sb.toString());

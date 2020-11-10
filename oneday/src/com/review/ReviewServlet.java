@@ -50,6 +50,12 @@ public class ReviewServlet extends MyUploadServlet{
 			MycreateForm(req, resp);
 		}else if(uri.indexOf("article.do")!=-1) {
 			article(req, resp);
+		}else if(uri.indexOf("update.do")!=-1) {
+			updateForm(req, resp);
+		}else if(uri.indexOf("update_ok.do")!=-1) {
+			updateSubmit(req, resp);
+		}else if(uri.indexOf("delete.do")!=-1) {
+			deleterew(req, resp);
 		}
 			
 	}
@@ -280,5 +286,66 @@ public class ReviewServlet extends MyUploadServlet{
 		}
 		
 		resp.sendRedirect(cp+"/review/list.do?"+query);
+	}
+	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ReviewDAO dao = new ReviewDAOImpl();
+		int num=Integer.parseInt(req.getParameter("rvNum"));
+		ReviewDTO dto = null;
+		int page = Integer.parseInt(req.getParameter("page"));
+		int rows = Integer.parseInt(req.getParameter("rows"));
+		
+		
+		try {
+			dto= dao.readReview(num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		req.setAttribute("sdto", dto);
+		req.setAttribute("page", page);
+		req.setAttribute("rows", rows);
+		req.setAttribute("mode", "update");
+		
+		forward(req, resp, "/WEB-INF/views/review/created.jsp");
+	}
+	protected void updateSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		
+		ReviewDAO dao = new ReviewDAOImpl();		
+		try {
+			ReviewDTO dto = new ReviewDTO();
+			dto.setRvNum(Integer.parseInt(req.getParameter("rvNum")));
+			dto.setRvContent(req.getParameter("rvContent"));
+			dto.setRvScore(req.getParameter("rvscore"));
+			
+			dao.updateReview(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+		resp.sendRedirect(cp);
+		
+	}
+	protected void deleterew(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		
+
+		int num = Integer.parseInt(req.getParameter("rvNum"));
+		
+		try {
+			
+			ReviewDAO dao = new ReviewDAOImpl();
+			
+			dao.deleteReview(num);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp);
 	}
 }

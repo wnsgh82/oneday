@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/oneday.css">
+<script type="text/javascript">
+function deleteBoard(num) {
+	
+	if (confirm("위 자료를 삭제하시겠습니까 ?")) {
+		var url="${pageContext.request.contextPath}/review/delete.do?rvNum="+num+"&page=${page}&rows=${rows}";
+		location.href=url;
+	}
+}
+
+</script>
 </head>
 <body>
 
@@ -20,6 +30,7 @@
 </div>
 
 <!--content  -->
+<form name="rewf" method="post">
 <div class="body_tem">
 	<div class="content_tem" >
 		<div class="title-area">
@@ -69,9 +80,12 @@
 			    <td>
 			    	 <%--관리자랑 강사만 클래스 등록 가능하니까 굳이 userEnabled로  조건 걸지 않음--%>
 			    	 <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==dto.userId}">
-			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/review/update.do?rvNum=${dto.rvNum}&page=${page}';">수정</button>
+			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/review/update.do?rvNum=${dto.rvNum}&page=${page}&rows=${rows}';">수정</button>
 			          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.rvNum}');">삭제</button>
 			         </c:if>
+			         <input type="hidden" name="page" value="${page}">
+			         <input type="hidden" name="rows" value="${rows}">
+			         <input type="hidden" name="rvNum" name="${dto.rvNum}">
 			          
 			    </td>
 			
@@ -84,7 +98,7 @@
 	    
 	</div>
 </div>
-
+</form>
 <!-- footer -->
 <div class="footer_tem">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>

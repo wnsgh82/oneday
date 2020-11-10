@@ -78,12 +78,7 @@ function sendOk() {
     	f.submit();
 }
 
-<c:if test="${mode=='update'}">
-function deleteFile(num) {
-	  var url="${pageContext.request.contextPath}/notice/deleteFile.do?num="+num+"&page=${page}&rows=${rows}";
-	  location.href=url;
-}
-</c:if>
+
 </script>
 
 </head>
@@ -110,18 +105,29 @@ function deleteFile(num) {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">클래스 명 :</td>
 			      <td style="padding-left:10px;"> 
+			         	<c:if test="${mode=='created'}">
 			         	${sdto.className}
 			         	<input type="hidden" name="className" value="${sdto.className}">
+			         	</c:if>
+			         	<c:if test="${mode=='update'}">
+			         	${sdto.rvClassName}
+			         	<input type="hidden" name="rvClassName" value="${sdto.rvClassName}">
+			         	</c:if>
 			      </td>
 			  </tr>
 
 			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">아이디 :</td>
 			      <td style="padding-left:10px;"> 
+			         
 			          ${sdto.userId}
 			          <input type="hidden" name="userId" value="${sdto.userId}">
 			          <input type="hidden" name="classNum1" value="${sdto.classNum}">
+			          <input type="hidden" name="page" value="${page}">
+			          <input type="hidden" name="rows" value="${rows}">
+			          <input type="hidden" name="rvNum" value="${sdto.rvNum}">
 			          
+			         
 			      </td>
 			  </tr>
 			  
@@ -139,8 +145,12 @@ function deleteFile(num) {
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 			      <td valign="top" style="padding:5px 0px 5px 10px;"> 
-			          <textarea name="rvContent" rows="12" class="boxTA" style="width: 95%;"></textarea>
+			          <textarea name="rvContent" rows="12" class="boxTA" style="width: 95%;"><c:if test="${mode=='update'}">
+			          		${sdto.rvContent.trim()}
+			          	</c:if>
+			          </textarea>
 			      </td>
+			     
 			  </tr>
 			  			  
 			  </table>
