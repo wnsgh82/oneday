@@ -183,7 +183,12 @@ public class MemberServlet extends MyUploadServlet{
 			dto.setUserAddr1(req.getParameter("userAddr1"));
 			dto.setUserAddr2(req.getParameter("userAddr2"));
 			
-			int enable = Integer.parseInt(req.getParameter("userEnabled"));
+			String enableck  = (req.getParameter("userEnabled"));
+			
+			if(enableck==null) {
+				enableck="1";
+			}
+			int enable=Integer.parseInt(enableck);
 				
 			if(enable ==100) {
 				String filename=null; 
@@ -208,12 +213,13 @@ public class MemberServlet extends MyUploadServlet{
 			req.setAttribute("message", "날짜 형식 등이 잘못 입력되었습니다.");
 		} catch (Exception e) {
 			req.setAttribute("message", "데이터 추가가 실패했습니다.");
+			e.printStackTrace();
 		}
 		
 		//입력이 제대로 안됐으면 다시 회원가입 창으로 
 		req.setAttribute("mode", "member");
 		req.setAttribute("title", "회원 가입");
-		String path="/WEB-INF/views/member/list.do";
+		String path="/WEB-INF/views/member/member.jsp";
 		forward(req, resp, path);
 	}
 	
