@@ -373,6 +373,7 @@ public class EventServlet extends MyUploadServlet {
 			dto.setUserId(info.getUserId());
 			
 			dao.eventNo1(dto);
+			req.setAttribute("dto", dto);
 
 			forward(req, resp, "/WEB-INF/views/event/eventNo1.jsp");
 			

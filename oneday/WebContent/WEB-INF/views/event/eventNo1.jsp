@@ -36,39 +36,22 @@
 		<div>
 			<table style="width: 930px; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 
-			<tr>
-				<td colspan="2" style="padding: 10px 5px" align="center">
-					<img src="resource/images/event_ok.png" width="290" height="180" border="0"
-					 		style="max-width: 100%; height: auto; resize: both;">
-				</td> 
-			</tr>
-			
-			<tr style="border-bottom: 1px solid #cccccc;">
-			  <td colspan="2" align="center" style="padding: 10px 5px;" valign="top" height="30">
-			  	<input type="hidden" name="userId" value="${dto.userId}">
-			  	<input type="hidden" name="userPoint" value="${dto.userPoint}">
-			  	${dto.randomPoint}당첨!!${dto.userId} 님의 현재 포인트는 ${dto.userPoint}입니다
-			      
-			      <br>
-			      <c:if test="${sessionScope.member.userId==null}">
-			      	<input type="hidden" name="eNum" value="${dto.eNum}">
-			      	<input type="hidden" name="page" value="${page}">
-			      </c:if>
-			      <form name="applyform" method="post">
-			      <span>
-			      	<input type="hidden" name="eSubject" value="${dto.eSubject}">
-			      	<input type="hidden" name="eNum" value="${dto.eNum}">
-			      	<input type="hidden" name="eStart" value="${dto.eStart}">
-			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
-			      	
-
-		      		<button type="button" class="eBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/list.do';">목록 돌아가기</button>
-		      	
-			      </span>
-			      </form>
-			   </td>
-			   
-			</tr>
+				<tr>
+					<td colspan="2" style="padding: 10px 5px" align="center">
+						<img src="${pageContext.request.contextPath}/resource/images/event_ok.png" width="290" height="180" border="0"
+						 		style="max-width: 100%; height: auto; resize: both;">
+					</td> 
+				</tr>
+				
+				<tr style="border-bottom: 1px solid #cccccc;">
+					<td colspan="2" align="center" style="padding: 10px 5px; font-size: 16px;" valign="top" height="30">
+							${dto.randomPoint}포인트 당첨!!&nbsp;${dto.userId}님의 현재 포인트는 ${dto.userPoint}포인트 입니다.
+						<br>
+						<span>
+			      			<button type="button" class="eBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/list.do';">목록 돌아가기</button>
+				      	</span>
+			   		</td>
+				</tr>
 
 			</table>
 			
