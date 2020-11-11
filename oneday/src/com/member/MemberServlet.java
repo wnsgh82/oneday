@@ -239,9 +239,9 @@ public class MemberServlet extends MyUploadServlet{
 		
 		try {
 			String userName=req.getParameter("userName");
-			String userPwd=req.getParameter("userPwd");
+			String userEmail=req.getParameter("userEmail");
 			
-			MemberDTO dto=dao.searchId(userName, userPwd);
+			MemberDTO dto=dao.searchId(userName, userEmail);
 			
 			if(dto!=null) {
 				req.setAttribute("dto", dto);

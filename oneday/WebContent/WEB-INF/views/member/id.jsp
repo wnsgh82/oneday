@@ -25,9 +25,9 @@ function sendLogin() { //입력 검사 후
         return;
     }
 
-    str = f.userPwd.value;
+    str = f.userEmail.value;
     if(!str) {
-        alert("패스워드를 입력하세요. ");
+        alert("이메일을 입력하세요. ");
         f.userPwd.focus();
         return;
     }
@@ -61,7 +61,7 @@ function sendLogin() { //입력 검사 후
         <form name="loginForm" method="post">
             <div class="login-box">
                 <input type="text" class="id" placeholder="이름을 입력해주세요." id="loginID" name="userName">
-                <input type="password" class="pw" placeholder="비밀번호를 입력해주세요." id="loginPW" name="userPwd">
+                <input type="text" class="pw" placeholder="이메일을 입력해주세요." id="loginPW" name="userEmail">
 
                     <div class="btn-submit"  style="width: 190px; display: inline-block;">
                         <a onclick="sendLogin();">확인</a>

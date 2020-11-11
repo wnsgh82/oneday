@@ -92,6 +92,8 @@ public class MypageServlet extends MyUploadServlet{
 	    	  trclassList(req, resp);
 	      }else if(uri.indexOf("stdlist.do")!=-1) {
 	    	  trstdList(req, resp);
+	      }else if(uri.indexOf("stdDelete.do")!=-1) {
+	    	  stdDelete(req, resp);
 	      }else if(uri.indexOf("deleteMemberA.do")!=-1) {
 	    	  deleteMemberA(req, resp);
 	      }else if(uri.indexOf("classAdmin.do")!=-1) {
@@ -297,7 +299,7 @@ public class MypageServlet extends MyUploadServlet{
 	    try {
 	    	//강사 마이페이지 - 수강생 관리에 전달할 파라미터 값
 			int classNum=Integer.parseInt(req.getParameter("classNum"));
-
+			
 			List<TrmyDTO> stdList=dao.stdList(info.getUserName(), classNum); //trName, classNum
 			
 			List<TrmyDTO> list=dao.listDTO(info.getUserId());
@@ -336,6 +338,28 @@ public class MypageServlet extends MyUploadServlet{
 	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
 	}
 	
+	protected void stdDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//수강생 추방
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
+		
+		
+		int classNum=Integer.parseInt(req.getParameter("classNum"));
+		System.out.println(classNum);
+		try {
+			String userId=req.getParameter("userId");
+			
+			dao.deleteMemberA(userId);
+			
+			resp.sendRedirect(cp+"/mypage/stdlist.do?classNum="+classNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 	/**
 	 *  수강생(선성)
 	 */
@@ -361,19 +385,19 @@ public class MypageServlet extends MyUploadServlet{
 			try {
 				Date date=sdf.parse(dto.getClassDate().substring(0,10));
 								
-				// gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
-				gap = (curDate.getTime() - date.getTime()) /(1000*60*60); // 현재시간 - 수강 시작날자 
+				 gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+				//gap = (curDate.getTime() - date.getTime()) /(1000*60*60); // 현재시간 - 수강 시작날자 
 				dto.setStartgap(gap);
 				
 				date=sdf.parse(dto.getClassDate().substring(13));
 				
-				// gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
-				gap = (curDate.getTime() - date.getTime()) /(1000*60*60); // 현재시간 - 수강 마지막날자 
+				 gap = (curDate.getTime() - date.getTime()) /(1000*60*60*24); // 일자
+				//gap = (curDate.getTime() - date.getTime()) /(1000*60*60); // 현재시간 - 수강 마지막날자 
 				dto.setEndgap(gap);
 				
-				if(dto.getStartgap() < 0) {
+				if(dto.getStartgap() < 0 &&  dto.getEndgap() < 0) {
 					dto.setStdstate("수강전");
-				}else if(dto.getStartgap() > 0 && dto.getEndgap() < 0) {
+				}else if(dto.getStartgap() >= 0 && dto.getEndgap() <= 0) {
 					dto.setStdstate("진행중");
 				}else {
 					dto.setStdstate("수강완료");

@@ -279,17 +279,17 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public MemberDTO searchId(String userName, String userPwd) throws SQLException {
+	public MemberDTO searchId(String userName, String userEmail) throws SQLException {
 		MemberDTO dto=null;
 		ResultSet rs=null;
 		PreparedStatement pstmt=null;
 		String sql;
 		
 		try {
-			sql="select userId from member1 where userName=? and userPwd=?";
+			sql="select userId from member1 where userName=? and userEmail=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, userName);
-			pstmt.setString(2, userPwd);
+			pstmt.setString(2, userEmail);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {

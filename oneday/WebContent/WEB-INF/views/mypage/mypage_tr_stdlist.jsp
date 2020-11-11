@@ -52,6 +52,13 @@ function send(){
 	
 }
 
+function deleteMemberA(userId) {
+	if(confirm("해당 수강생을 강제 탈퇴처리하시겠습니까?")) {
+		var url="${pageContext.request.contextPath}/mypage/stdDelete.do";
+		location.href=url;
+	}
+}
+
 </script>
 
 </head>
@@ -104,20 +111,24 @@ function send(){
                 <div id=table_title>
                     <!-- 이거 내용 맞춰서 알아서 수정해서 쓰세유 -->
                     <ul>
-                        <li style="width: 25%;"><p>아이디</p></li>
-                        <li style="width: 25%;"><p>이름</p></li>
-                        <li style="width: 25%;"><p>이메일</p></li>
-                        <li style="width: 25%;"><p>수강상태</p></li>
+                    	<li style="width: 6%;"><p>&nbsp;</p></li>
+                        <li style="width: 13%;"><p>아이디</p></li>
+                        <li style="width: 13%;"><p>이름</p></li>
+                        <li style="width: 30%;"><p>이메일</p></li>
+                        <li style="width: 30%;"><p>수강상태</p></li>
+                        <li style="width: 14%;"><p>&nbsp;</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
                       <!-- 여기 포문돌려서 값 불러왕 -->
+                     <form name="sendForm" method="post">
                       <c:forEach var="dto" items="${stdList}">
                         <ul style="background: white; border-bottom: 1px solid #e0e0e0;">
-                            <li style="width: 25%;"><p>${dto.stdId}</p></li>
-                            <li style="width: 25%;"><p>${dto.stdName}</p></li>
-                            <li style="width: 25%;"><p>${dto.stdEmail}</p></li>
-                            <li style="width: 25%; color: tomato;">
+                        	<li style="width: 6%;"><p>&nbsp;</p></li>
+                            <li style="width: 13%;"><p>${dto.stdId}</p></li>
+                            <li style="width: 13%;"><p>${dto.stdName}</p></li>
+                            <li style="width: 30%;"><p>${dto.stdEmail}</p></li>
+                            <li style="width: 30%; color: tomato;">
                             	<c:if test="${dto.sstdEnabled<0 && dto.estdEnabled<0}">
                             		<p>진행전</p>
                             	</c:if>	
@@ -128,12 +139,14 @@ function send(){
                             		<p>진행완료</p>
                             	</c:if>
                             </li>
+                            <li style="width: 14%;"><button type="button" class="faqBtn" onclick="deleteMemberA('${dto.stdId}');">강제탈퇴</button></li>
                         </ul>
-                      </c:forEach>
-                      <form name="sendForm" method="post">
-                      	<input type="hidden" name="classNum" value="${dto.classNum}">
+                        
+                        <input type="hidden" name="classNum" value="${dto.classNum}">
                       	<input type="hidden" name="trName" value="${sessionScope.member.userName}"> 
                       	
+                      </c:forEach>
+
                       	<button onclick="send();" style="margin-top: 100px;" class="btn">돌아가기</button>
                 	  </form>
                       
