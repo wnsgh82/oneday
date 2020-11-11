@@ -431,7 +431,34 @@ public class TrmyDAO {
 		
 		return result;
 	}
-	
+
+	public int deleteClassB(int classNum, String userId) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="delete from std where classNum=? and userId=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, classNum);
+			pstmt.setString(2, userId);
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return result;
+	}
 	
 	
 }

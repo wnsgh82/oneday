@@ -351,7 +351,7 @@ public class MypageServlet extends MyUploadServlet{
 			String userId=req.getParameter("userId");
 			System.out.println(classNum);
 			
-			dao.deleteMemberB(userId,classNum);
+			dao.deleteClassB(classNum,userId);
 			
 			
 			
@@ -377,9 +377,6 @@ public class MypageServlet extends MyUploadServlet{
 		
 		String userId = info.getUserId();
 		
-		int userPoint = info.getUserPoint();
-		req.setAttribute("userPoint", userPoint);
-				
 		
 		StdDAO dao = new StdDAOImpl();
 		List<StdDTO> list = dao.listStd(userId);
@@ -419,9 +416,6 @@ public class MypageServlet extends MyUploadServlet{
 			}
 			
 			req.setAttribute("list2", list2);
-			
-			
-			
 			
 		}
 		forward(req, resp, "/WEB-INF/views/mypage/mypage_main.jsp");
