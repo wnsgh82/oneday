@@ -107,10 +107,10 @@ function searchList() {
 				      <td id="selectsearch" align="center">
 				              <select name="condition" class="selectField">
 				                  <option value="all"     ${condition=="all"?"selected='selected'":"" }>제목+내용</option>
-				                  <option value="subject"     ${condition=="subject"?"selected='selected'":"" }>제목</option>
+				                  <option value="bSubject"     ${condition=="bSubject"?"selected='selected'":"" }>제목</option>
 				                  <option value="userName" 	  ${condition=="userName"?"selected='selected'":"" }>작성자</option>
-				                  <option value="content"     ${condition=="content"?"selected='selected'":"" }>내용</option>
-				                  <option value="created"     ${condition=="created"?"selected='selected'":"" }>등록일</option>
+				                  <option value="bContent"     ${condition=="bContent"?"selected='selected'":"" }>내용</option>
+				                  <option value="bCreated"     ${condition=="bCreated"?"selected='selected'":"" }>등록일</option>
 				            </select>
 				            <input type="text" name="keyword" class="boxTF" value="${keyword}">
 				            <input type="hidden" name="rows" value="${rows}">

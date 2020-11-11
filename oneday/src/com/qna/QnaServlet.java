@@ -96,11 +96,6 @@ public class QnaServlet extends MyUploadServlet {
 			list=dao.listQna(offset, rows, condition, keyword);
 		}
 		
-		for(QnaDTO ddd : list ) {
-		String d=ddd.getbSubject();
-		System.out.println(d);
-	}
-		
 		int listNum, n=0;
 		for(QnaDTO dto : list){
 			listNum=dataCount-(offset+n);
