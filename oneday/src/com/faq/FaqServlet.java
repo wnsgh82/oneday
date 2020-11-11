@@ -89,12 +89,7 @@ public class FaqServlet extends MyUploadServlet {
 		} else {
 			list=dao.listFaq(offset, rows, condition, keyword);
 		}
-//		String s=null;
-//		List<String> ss = new ArrayList<String>();
-//		for(FaqDTO cc : list) {
-//			s=cc.getbA().replaceAll("\n", "<br>");
-//			ss.add(s);
-//		}
+
 		
 		String query="";
 		if(keyword.length()!=0) {
@@ -115,7 +110,6 @@ public class FaqServlet extends MyUploadServlet {
 		req.setAttribute("paging", paging);
 		req.setAttribute("condition", condition);
 		req.setAttribute("keyword", keyword);
-//		req.setAttribute("bA", ss);
 		
 		forward(req, resp, "/WEB-INF/views/faq/list.jsp");
 	}

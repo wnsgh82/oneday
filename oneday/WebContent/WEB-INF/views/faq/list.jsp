@@ -139,7 +139,7 @@ $(function(){
 			   <table id="listfooter">
 				   <tr height="40" style="width: 100%">
 				      <td id="resetbutton" align="left">
-				          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/list.do';">새로고침</button>
+				          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/list.do';">새로고침</button>
 				      </td>
 				      <td id="selectsearch" align="center">
 				              <select name="condition" class="selectField" id="search1">

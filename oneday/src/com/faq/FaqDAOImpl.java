@@ -248,8 +248,67 @@ public class FaqDAOImpl implements FaqDAO {
 
 	@Override
 	public List<FaqDTO> listFaq(int offset, int rows, String condition, String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		List<FaqDTO> list = new ArrayList<>();
+		PreparedStatement pstmt=null;
+		StringBuilder sb=new StringBuilder();
+		ResultSet rs=null;
+		
+		try {
+			sb.append(" SELECT bNum, bQ, bA, bGroup ");
+			sb.append("    FROM board1");
+			if(condition.equals("all")) {
+				sb.append(" WHERE INSTR(bQ, ?) >= 1 OR INSTR(bA, ?) >= 1 ");
+			} else {
+				sb.append(" WHERE INSTR(" + condition + ", ?) >= 1  ");
+			}
+			sb.append(" ORDER BY bNum DESC ");
+			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
+			
+			pstmt=conn.prepareStatement(sb.toString());
+
+			if(condition.equals("all")) {
+				pstmt.setString(1, keyword);
+				pstmt.setString(2, keyword);
+				pstmt.setInt(3, offset);
+				pstmt.setInt(4, rows);
+			} else { 
+    			pstmt.setString(1, keyword);
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, rows);
+			}
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				FaqDTO dto= new FaqDTO();
+				
+				dto.setbNum(rs.getInt("bNum"));
+				dto.setbQ(rs.getString("bQ"));
+				dto.setbA(rs.getString("bA"));
+				dto.setbGroup(rs.getString("bGroup"));
+
+				list.add(dto);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+			
+		return list;
 	}
 
 	@Override

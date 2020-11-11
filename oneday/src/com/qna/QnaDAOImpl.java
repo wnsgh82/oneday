@@ -264,7 +264,7 @@ public class QnaDAOImpl implements QnaDAO {
         String sql;
 
         try {
-        	sql="SELECT COUNT(*) FROM board2 b JOIN member1 m ON b.userId=m.userId ";
+        	sql="SELECT COUNT(*) FROM board2 b JOIN member1 m ON b.userId=m.userId";
         	if(condition.equals("created")) {
         		keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
         		sql+="  WHERE TO_CHAR(bCreated, 'YYYYMMDD') = ? ";
@@ -373,21 +373,21 @@ public class QnaDAOImpl implements QnaDAO {
 		StringBuilder sb=new StringBuilder();
 		
 		try {
-			sb.append(" SELECT bNum, b.userId, userName, bSubject, ");
-			sb.append("    groupNum, orderNo, depth, bHitCount, bEnabled,");
-			sb.append("    TO_CHAR(bCreated, 'YYYY-MM-DD') bCreated ");
-			sb.append("	  FROM board2 b ");
-			sb.append("   JOIN member1 m ON b.userId = m.userId ");
+			sb.append(" SELECT bNum, b.userId, userName, bSubject,");
+			sb.append("  groupNum, orderNo, depth, bHitCount, bEnabled,");
+			sb.append("  TO_CHAR(bCreated, 'YYYY-MM-DD') bCreated");
+			sb.append("  FROM board2 b");
+			sb.append("  JOIN member1 m ON b.userId = m.userId");
 			if(condition.equals("created")) {
 				keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-				sb.append(" WHERE TO_CHAR(bCreated, 'YYYYMMDD') = ?  ");
+				sb.append("  WHERE TO_CHAR(bCreated, 'YYYYMMDD') = ?  ");
 			} else if(condition.equals("all")) {
-				sb.append(" WHERE INSTR(bSubject, ?) >= 1 OR INSTR(bContent, ?) >= 1 ");
+				sb.append("  WHERE INSTR(bSubject, ?) >= 1 OR INSTR(bContent, ?) >= 1 ");
 			} else {
-				sb.append(" WHERE INSTR(" + condition + ", ?) >= 1  ");
+				sb.append("  WHERE INSTR(" +condition+ ", ?) >= 1  ");
 			}
-			sb.append(" ORDER BY groupNum DESC, orderNo ASC ");
-			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
+			sb.append("  ORDER BY groupNum DESC, orderNo ASC ");
+			sb.append("  OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 			
 			pstmt=conn.prepareStatement(sb.toString());
 			if(condition.equals("all")) {
@@ -396,8 +396,9 @@ public class QnaDAOImpl implements QnaDAO {
 				pstmt.setInt(3, offset);
 				pstmt.setInt(4, rows);
 			} else { 
-				pstmt.setInt(1, offset);
-				pstmt.setInt(2, rows);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, rows);
 			}
 			rs=pstmt.executeQuery();
 			while(rs.next()) {

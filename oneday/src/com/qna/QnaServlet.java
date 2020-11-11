@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.faq.FaqDTO;
 import com.member.SessionInfo;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
@@ -94,6 +95,11 @@ public class QnaServlet extends MyUploadServlet {
 		} else {
 			list=dao.listQna(offset, rows, condition, keyword);
 		}
+		
+		for(QnaDTO ddd : list ) {
+		String d=ddd.getbSubject();
+		System.out.println(d);
+	}
 		
 		int listNum, n=0;
 		for(QnaDTO dto : list){
