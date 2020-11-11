@@ -15,6 +15,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/notice.css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/jquery/js/jquery.min.js"></script>
+
 <script type="text/javascript">
 function searchList() {
 	var f=document.faqForm;
@@ -27,6 +30,44 @@ function deleteBoard(bNum) {
 	}
 }
 </script>
+<script type="text/javascript">
+$(function(){
+	$(".itemA").hide();
+	
+	$(".itemQ").click(function(){
+		var h = $(this).next(".itemA").is(":hidden");
+
+		if(h) {
+			$(".itemA").hide(300);
+			$(this).next(".itemA").show(300);
+		} else {
+			$(this).next(".itemA").hide(300);
+		}
+		
+	});
+});
+
+$(function(){
+	$("#search1").change(function(){
+		var v = $(this).val();
+		if(v==="all") {
+			$("#search2").hide();
+			$("#search3").show();
+			
+			$("#search2").prop("disabled", true);
+			$("#search3").prop("disabled", false);		
+		} else {
+			$("#search2").show();
+			$("#search3").hide();
+			
+			$("#search2").prop("disabled", false);
+			$("#search3").prop("disabled", true);		
+		}
+	});
+});
+</script>
+
+
 </head>
 <body>
 
@@ -64,11 +105,11 @@ function deleteBoard(bNum) {
 			      <div class="board-notice">
 			         <ul class="article-table">
 			            <c:forEach var="dto" items="${list}">
-			            <li class="item title Q" >
+			            <li class="item title itemQ" style="cursor: pointer;">
 			               <span id="group" style="width: 80px; float: left;">${dto.bGroup }</span>
 			               <span style="width: 800px; float: left; text-align: left">${dto.bQ}</span>
 			            </li>
-			            <li class="item A">
+			            <li class="item itemA">
 			               <span style="width: 10%; float: left; font-size: 20px; font-weight: 900">A</span>
 			               <span id="" style="width: 550px; float: left; text-align: left; margin: auto 0px;">${dto.bA }</span>
 			               <c:if test="${sessionScope.member.userId=='admin'}">
@@ -101,12 +142,12 @@ function deleteBoard(bNum) {
 				          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/qna/list.do';">새로고침</button>
 				      </td>
 				      <td id="selectsearch" align="center">
-				              <select name="condition" class="selectField">
+				              <select name="condition" class="selectField" id="search1">
 				                  <option value="all"     ${condition=="all"?"selected='selected'":"" }>제목+내용</option>
 				                  <option value="bGroup"     ${condition=="bGroup"?"selected='selected'":"" }>구분</option>
 				            </select>
 				            
-					          <select name="keyword" class="selectField">
+					          <select name="keyword" class="selectField" id="search2" style="display: none;" disabled="disabled">
 					                  <option>기타</option>
 					                  <option>회원관련</option>
 					                  <option>결제</option>
@@ -114,7 +155,7 @@ function deleteBoard(bNum) {
 					                  <option>클래스신청</option>
 					                  <option>클래스등록</option>
 					          </select>
-				            <input type="text" name="keyword" class="boxTF" value="${keyword}">
+				            <input type="text" name="keyword" class="boxTF" value="${keyword}" id="search3">
 				            <input type="hidden" name="rows" value="${rows}">
 				            <input type="hidden" name="page" value="${page}">
 				            <button type="button" class="btn" onclick="searchList()">검색</button>

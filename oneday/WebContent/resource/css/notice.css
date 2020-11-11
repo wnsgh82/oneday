@@ -4,12 +4,14 @@ body,  div, select { font-family:'Noto Sans KR', 'Noto Sans', Helvetica, AppleGo
 
 a {
 	text-decoration: none;
+	color: black;
 }
 .notice ul, li {
 	list-style: none;
 }
 .notice a {
 	text-decoration: none;
+	color: black;
 }
 #wrapper {
 	padding: 0;
@@ -122,15 +124,15 @@ a {
 	margin-left: 10px;
 	margin-right: 10px;
 }
-.Q {
+.itemQ {
 	height: 70px;
 }
-.Q span {
+.itemQ span {
 	line-height: 40px;
 	display: inline-block;
 	margin: 15px auto;
 }
-.Q li{
+.itemQ li{
 	line-height: 80px;
 	height: 70px;
 }

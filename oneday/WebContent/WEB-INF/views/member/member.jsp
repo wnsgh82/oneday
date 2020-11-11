@@ -1,3 +1,5 @@
+<%@page import="com.member.MemberDAOImpl"%>
+<%@page import="com.member.MemberDAO"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,6 +14,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/signup.css">
 <script type="text/javascript">
+function validation() {
+	
+}
 
 function membercreated() {
 	var f = document.memberF;
@@ -102,6 +107,13 @@ function membercreated() {
 		
 	
 }
+function idCheck() {
+	var f = document.memberF;
+	
+	f.action="${pageContext.request.contextPath}/member/idCheck.do";
+	f.submit();
+	
+}
 
 
 </script>
@@ -132,8 +144,9 @@ function membercreated() {
 		                        <dl class="both">
 		                            <dt>아이디</dt>
 		                            <dd class="innerbtn">
-		                                <input type="text" name="userId" placeholder="아이디를 입력해주세요.">
-		                                <a onclick="">중복확인</a>
+		                                <input type="text" name="userId" placeholder="아이디를 입력해주세요." value="${userId}">
+		                                <a onclick="idCheck();">중복확인</a>
+		                                <div style="height:12px; font-size: 12px; font-weight: 700; margin-top:8px; color: red; width: 100%;" >${message}</div>
 		                            </dd>
 		                        </dl>
 		                    </div>

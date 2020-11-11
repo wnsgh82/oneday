@@ -74,6 +74,8 @@ public class MemberServlet extends MyUploadServlet{
 			pwdForm(req, resp);
 		} else if(uri.indexOf("pwdForm_ok.do")!=-1) {
 			pwdSubmit(req, resp);
+		} else if(uri.indexOf("idCheck.do")!=-1) {
+			idCheck(req, resp);
 		}
 
 	}
@@ -294,5 +296,31 @@ public class MemberServlet extends MyUploadServlet{
 		//찾기 실패한 경우	
 		req.setAttribute("message", "아이디 또는 이름이 일치하지 않습니다.");
 		forward(req, resp, "/WEB-INF/views/member/pwd.jsp");	
+	}
+	protected void idCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String userId=req.getParameter("userId");
+		String cp=req.getContextPath();
+		
+		MemberDAO dao=new MemberDAOImpl();
+		
+		try {
+
+			MemberDTO dto= dao.readMember(userId);			
+			
+			if(dto==null) {
+				req.setAttribute("message", "사용가능한 아이디입니다.");
+				req.setAttribute("userId", userId);
+				req.setAttribute("mode", "idCkOk");
+				forward(req, resp, "/WEB-INF/views/member/member.jsp");	
+				return;
+			} else {
+				req.setAttribute("message", "이미 사용중인 아이디입니다 .");
+				forward(req, resp, "/WEB-INF/views/member/member.jsp");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 }
