@@ -32,9 +32,7 @@ function eventApply(eNum) {
 	if(confirm("참여 하시겠습니까?")) {
 		var f = document.applyform;
 		f.action="javascript:location.href='${pageContext.request.contextPath}/event/apply.do?eNum=${dto.eNum}'";
-		
-		alert("참여가 완료 됐습니다.");
-		
+			alert("참여가 완료 됐습니다.");
 		f.submit();
 	}
 }
@@ -46,6 +44,13 @@ function eventApplyNot() {
 function eventEnd() {
 	alert("종료 된 이벤트 입니다")
 }
+
+function notLogin() {
+	alert("로그인 후 이용해 주세요")
+	var url="${pageContext.request.contextPath}/member/login.do}";
+	location.href=url;
+}
+
 </script>
 </head>
 <body>
@@ -111,12 +116,17 @@ function eventEnd() {
 			      	<input type="hidden" name="eNum" value="${dto.eNum}">
 			      	<input type="hidden" name="eStart" value="${dto.eStart}">
 			      	<input type="hidden" name="eEnd" value="${dto.eEnd}">
-			      	
-			      	<c:if test="${eventEnabled==true && dto.eEnabled<=0}">
-				      	<button type="button" class="eBtn" onclick="eventApply('${dto.eNum}');">이벤트 참가</button>
+			      	<c:if test="${sessionScope.member.userId==null}">
+			      		<button type="button" class="eBtn-notlogin" onclick="notLogin()">로그인 후 이용해주세요</button>
 			      	</c:if>
- 				    <c:if test="${eventEnabled==false && dto.eEnabled<=0}">
-				      	<button type="button" class="eBtn-aplyfin" onclick="eventApplyNot()">참여 완료</button>
+			      	
+			      	<c:if test="${sessionScope.member.userId!=null}">	      	
+				      	<c:if test="${eventEnabled==true && dto.eEnabled<=0}">
+					      	<button type="button" class="eBtn" onclick="eventApply('${dto.eNum}');">이벤트 참가</button>
+				      	</c:if>
+	 				    <c:if test="${eventEnabled==false && dto.eEnabled<=0}">
+					      	<button type="button" class="eBtn-aplyfin" onclick="eventApplyNot()">참여 완료</button>
+				      	</c:if>
 			      	</c:if>
 			      	<c:if test="${dto.eEnabled>0}">
 			      		<button type="button" class="eBtn-end" onclick="eventEnd()">이벤트 종료</button>
