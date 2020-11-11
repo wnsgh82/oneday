@@ -343,21 +343,21 @@ public class MypageServlet extends MyUploadServlet{
 		String cp=req.getContextPath();
 		TrmyDAO dao=new TrmyDAO();
 		
-		
 		int classNum=Integer.parseInt(req.getParameter("classNum"));
-		System.out.println(classNum);
+		
 		try {
 			String userId=req.getParameter("userId");
+			System.out.println(classNum);
 			
-			dao.deleteMemberA(userId);
+			dao.deleteMemberB(userId,classNum);
 			
-			resp.sendRedirect(cp+"/mypage/stdlist.do?classNum="+classNum);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
+		resp.sendRedirect(cp+"/mypage/stdlist.do?classNum="+classNum);
 		
 	}
 	/**

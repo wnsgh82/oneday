@@ -40,6 +40,18 @@ a:hover{
 .btn:hover{
 	background: #40434A;
 }
+
+.faqBtn {
+	float: right;
+	width: 80px;
+	height: 30px;
+	background: #f1f1f1;
+    border-radius: 9px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -54,7 +66,7 @@ function send(){
 
 function deleteMemberA(userId) {
 	if(confirm("해당 수강생을 강제 탈퇴처리하시겠습니까?")) {
-		var url="${pageContext.request.contextPath}/mypage/stdDelete.do";
+		var url="${pageContext.request.contextPath}/mypage/stdDelete.do?classNum=${classNum}";
 		location.href=url;
 	}
 }
@@ -139,11 +151,15 @@ function deleteMemberA(userId) {
                             		<p>진행완료</p>
                             	</c:if>
                             </li>
-                            <li style="width: 14%;"><button type="button" class="faqBtn" onclick="deleteMemberA('${dto.stdId}');">강제탈퇴</button></li>
+                            <li style="width: 14%;">
+                           
+		                        <input type="hidden" name="classNum" value="${dto.classNum}">
+		                      	<input type="hidden" name="trName" value="${sessionScope.member.userName}">  
+                            	
+                            	<button type="button" class="faqBtn" onclick="deleteMemberA('${dto.stdId}');">강제탈퇴</button>
+                            </li>
                         </ul>
                         
-                        <input type="hidden" name="classNum" value="${dto.classNum}">
-                      	<input type="hidden" name="trName" value="${sessionScope.member.userName}"> 
                       	
                       </c:forEach>
 
