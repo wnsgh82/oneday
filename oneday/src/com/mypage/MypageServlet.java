@@ -98,6 +98,8 @@ public class MypageServlet extends MyUploadServlet{
 	    	  deleteMemberA(req, resp);
 	      }else if(uri.indexOf("classAdmin.do")!=-1) {
 	    	  classAdmin(req, resp);
+	      }else if(uri.indexOf("deleteClassA.do")!=-1) {
+	    	  deleteClassA(req, resp);
 	      }
 	      
 	}
@@ -245,7 +247,7 @@ public class MypageServlet extends MyUploadServlet{
 	 *  강사(상명)
 	 */
 	protected void trclassList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//강사 마이페이지 - 내 수강생 리스트
+		//강사 마이페이지 - 수강생관리
 		String cp=req.getContextPath();
 		TrmyDAO dao=new TrmyDAO();
 		
@@ -465,8 +467,44 @@ public class MypageServlet extends MyUploadServlet{
 		resp.sendRedirect(cp+"/mypage/mypageMain.do?userEnabled="+userEnabled);
 
 	}
+	
 	protected void classAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		List<TrmyDTO> list=null;
+		String cp=req.getContextPath();
+		TrmyDAO dao=new TrmyDAO();
 		
+		HttpSession session=req.getSession();
+	    SessionInfo info=(SessionInfo)session.getAttribute("member");
+	    
+	    
+	    try {
+	    	list=dao.classAdmin();
+	    	
+			req.setAttribute("list", list);
+			forward(req, resp, "/WEB-INF/views/mypage/mypage_classAdmin.jsp");
+			
+			return;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+	    resp.sendRedirect(cp+"/mypage/mypageMain.do");
+	}
+	
+	protected void deleteClassA(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		TrmyDAO dao= new TrmyDAO();
+		String cp=req.getContextPath();
+		
+		try {
+			int classNum=Integer.parseInt(req.getParameter("classNum"));
+			dao.deleteClassA(classNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		resp.sendRedirect(cp+"/mypage/classAdmin.do");
+
 	}
 }

@@ -70,7 +70,7 @@ public class TrmyDAO {
 		
 		return dto;
 	}
-	public List<TrmyDTO> listDTO(String userId) {
+	public List<TrmyDTO> listDTO(String userId) { 
 		List<TrmyDTO> list=new ArrayList<TrmyDTO>();
 		TrmyDTO dto=null;
 		PreparedStatement pstmt=null;
@@ -129,7 +129,7 @@ public class TrmyDAO {
 		return list;
 	}
 	
-	public List<TrmyDTO> readClass(String userId) { //나의 클래스 
+	public List<TrmyDTO> readClass(String userId) { //나의 클래스 (메인)
 		List<TrmyDTO> list=new ArrayList<TrmyDTO>();	
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -292,32 +292,6 @@ public class TrmyDAO {
 		return list;
 	}
 	
-	public int deleteMemberA(String userId) throws SQLException {
-		int result=0;
-		PreparedStatement pstmt=null;
-		String sql;
-		
-		try {
-			sql="delete from member1 where userId=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			result=pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if(pstmt!=null) {
-				try {
-					pstmt.close();
-				} catch (Exception e2) {
-					
-				}
-			}
-		}
-		
-		return result;
-	}
 
 	public int deleteMemberB(String userId, int classNum) throws SQLException {
 		int result=0;
@@ -348,6 +322,116 @@ public class TrmyDAO {
 		
 		return result;
 	}
+	
+	//관리자
+	public int deleteMemberA(String userId) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="delete from member1 where userId=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	public List<TrmyDTO> classAdmin() { //관리자 클래스리스트
+		List<TrmyDTO> list=new ArrayList<TrmyDTO>();	
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql="select classNum, className, c.userId, c.userName, "
+					+ " to_char(classStart,'yyyy-mm-dd') classStart,"
+					+ " to_char(classEnd,'yyyy-mm-dd') classEnd, classEnabled "
+					+ " from classtb c"
+					+ " join member1 m on m.userId=c.userId";
+			
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TrmyDTO dto=new TrmyDTO();
+				dto.setClassNum(rs.getInt("classNum"));
+				dto.setClassName(rs.getString("className"));
+				
+				//dto.setClassEnabled(classEnabled);
+				
+				dto.setClassStart(rs.getString("classStart"));
+				dto.setClassEnd(rs.getString("classEnd"));
+				
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserName(rs.getString("userName"));	
+				
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	public int deleteClassA(int classNum) throws SQLException {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="delete from classtb where classNum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, classNum);
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+					
+				}
+			}
+		}
+		
+		return result;
+	}
+	
 	
 	
 }

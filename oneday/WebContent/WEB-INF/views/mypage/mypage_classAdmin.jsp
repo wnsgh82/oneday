@@ -24,9 +24,9 @@
 }
 </style>
 <script type="text/javascript">
-function deleteMemberA(userId) {
-	if(confirm("강제 탈퇴처리하시겠습니까?")) {
-		var url="${pageContext.request.contextPath}/mypage/deleteMemberA.do?userId="+userId+"&userEnabled="+${userEnabled};
+function deleteClassA(classNum) {
+	if(confirm("클래스를 삭제하시겠습니까?")) {
+		var url="${pageContext.request.contextPath}/mypage/deleteClassA.do?classNum="+classNum;
 		location.href=url;
 	}
 }
@@ -41,7 +41,7 @@ function deleteMemberA(userId) {
 
 <!--content  -->
 <div class="body_tem">
-	<div class="content_tem">
+	<div class="content_tem" style="height: 700px;">
 		
 		<!-- 여기부터 자기가 만드는거임!  -->
 	<form name="adminmemberForm">
@@ -81,9 +81,9 @@ function deleteMemberA(userId) {
                         <li style="width: 6%;"><p>&nbsp;</p></li>
                         <li style="width: 13%; text-align: left; padding-left: 10px;"><p>아이디</p></li>
                         <li style="width: 13%;"><p>이름</p></li>
-                        <li style="width: 30%;"><p>전화번호</p></li>
-                        <li style="width: 30%;"><p>이메일</p></li>
-                        <li style="width: 14%;"><p>&nbsp;</p></li>
+                        <li style="width: 34%;"><p>클래스명</p></li>
+                        <li style="width: 30%;"><p>기간</p></li>
+                        <li style="width: 10%;"><p>&nbsp;</p></li>
                     </ul>
                 </div>
                 <div id="table_content">
@@ -93,9 +93,9 @@ function deleteMemberA(userId) {
                             <li style="width: 6%;"><p>&nbsp;</p></li>
                             <li style="width: 13%; text-align: left; padding-left: 10px;"><p>${dto.userId }</p></li>
                             <li style="width: 13%;"><p>${dto.userName }</p></li>
-                            <li style="width: 30%;"><p>${dto.userTel }</p></li>
-                            <li style="width: 30%;"><p>${dto.userEmail }</p></li>
-                            <li style="width: 14%;"><button type="button" class="faqBtn" onclick="deleteMemberA('${dto.userId}');">강제탈퇴</button></li>
+                            <li style="width: 34%; text-align: left;"><p>${dto.className}</p></li>
+                            <li style="width: 30%;"><p>${dto.classStart}~${dto.classEnd}</p></li>
+                            <li style="width: 10%;"><button type="button" class="faqBtn" onclick="deleteClassA('${dto.classNum}');">클래스삭제</button></li>
                         </ul>
                       </c:forEach>
                       
