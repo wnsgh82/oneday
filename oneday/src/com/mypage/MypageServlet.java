@@ -376,7 +376,9 @@ public class MypageServlet extends MyUploadServlet{
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		
 		String userId = info.getUserId();
+		int userPoint = info.getUserPoint();
 		
+		req.setAttribute("userPoint", userPoint);
 		
 		StdDAO dao = new StdDAOImpl();
 		List<StdDTO> list = dao.listStd(userId);

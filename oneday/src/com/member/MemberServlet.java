@@ -113,6 +113,7 @@ public class MemberServlet extends MyUploadServlet{
 					info.setTel(dto.getUserTel());
 					info.setBirth(dto.getUserBirth());
 					info.setUserEnabled(dto.getUserEnabled());
+					info.setUserPoint(dto.getUserPoint());
 					
 					//세션에 정보 저장
 					session.setAttribute("member", info);
