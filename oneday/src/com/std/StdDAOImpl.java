@@ -89,7 +89,7 @@ public class StdDAOImpl implements StdDAO{
 				
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("userName"));
-
+				
 				
 				list.add(dto);
 				
@@ -180,7 +180,7 @@ public class StdDAOImpl implements StdDAO{
 		String sql;
 		
 		try {
-			sql="select classNum , userId , className, trName, userName , userEmail , classDate , stdEnabled "
+			sql="select classNum , userId , className, trName, userName , userEmail , classDate , stdEnabled , "
 					+ "  from std"
 					+ "  where userId = ?";
 			

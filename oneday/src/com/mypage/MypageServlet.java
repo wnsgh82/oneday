@@ -408,6 +408,7 @@ public class MypageServlet extends MyUploadServlet{
 				dto.setClassName(dto.getClassName());
 				dto.setClassDate(dto.getClassDate());
 				
+				
 				list2.add(dto);
 				
 			}catch (Exception e) {

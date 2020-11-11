@@ -21,6 +21,7 @@ public class TrmyDTO {
 	
 	private long sstdEnabled;
 	private long estdEnabled;
+
 	
 	
 	public int getClassNum() {
@@ -122,6 +123,6 @@ public class TrmyDTO {
 	public void setUserEnabled(long userEnabled) {
 		this.userEnabled = userEnabled;
 	}
-	
+
 	
 }

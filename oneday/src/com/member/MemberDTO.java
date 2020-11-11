@@ -12,7 +12,9 @@ public class MemberDTO {
 	public String userEmail;
 	public String userCert;
 	public int userEnabled;
+	public int userPoint;
 	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -80,5 +82,10 @@ public class MemberDTO {
 		this.userEnabled = userEnabled;
 	}
 	
-
+	public int getUserPoint() {
+		return userPoint;
+	}
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
 }
