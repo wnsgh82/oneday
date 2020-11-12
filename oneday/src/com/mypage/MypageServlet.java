@@ -349,7 +349,7 @@ public class MypageServlet extends MyUploadServlet{
 		
 		try {
 			String userId=req.getParameter("userId");
-			System.out.println(classNum);
+			System.out.println(classNum+":"+userId);
 			
 			dao.deleteClassB(classNum,userId);
 			

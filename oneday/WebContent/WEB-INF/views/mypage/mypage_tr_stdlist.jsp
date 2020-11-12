@@ -66,7 +66,7 @@ function send(){
 
 function deleteMemberA(userId) {
 	if(confirm("해당 수강생을 강제 탈퇴처리하시겠습니까?")) {
-		var url="${pageContext.request.contextPath}/mypage/stdDelete.do?classNum=${classNum}";
+		var url="${pageContext.request.contextPath}/mypage/stdDelete.do?classNum=${classNum}&userId="+userId;
 		location.href=url;
 	}
 }
