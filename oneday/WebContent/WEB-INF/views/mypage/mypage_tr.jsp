@@ -62,6 +62,9 @@ a:hover{
                     <div id="informantion">
                         <p style="font-size: 13px;"> 강사 </p>
                         <p style="font-size: 20px; font-weight: 600;">${sessionScope.member.userName} (${sessionScope.member.userId})</p>
+                    	<p style="font-size: 14px; margin:10px 0;">포인트 : 
+                    		<span style="font-size: 16px; color: #6799FF;">${sessionScope.member.userPoint}</span>
+                    	</p>                    
                     </div>
 
                 </div>

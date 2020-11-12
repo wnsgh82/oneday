@@ -40,6 +40,10 @@ public class MypageServlet extends MyUploadServlet{
 	      HttpSession session=req.getSession();
 	      SessionInfo info=(SessionInfo)session.getAttribute("member");
 	      
+	      // 포인트 표시
+	      int userPoint = info.getUserPoint();
+	      req.setAttribute("userPoint", userPoint);
+	      
 	      //이미지 저장할 경로
 		  String root=session.getServletContext().getRealPath("/");
 		  pathname=root+"uploads"+File.separator+"photo";
@@ -53,6 +57,8 @@ public class MypageServlet extends MyUploadServlet{
 		  Date curDate=new Date();
 		  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		  
+
+			
 		  for(TrmyDTO dto:list) {
 			  try {
 					Date edate=sdf.parse(dto.getClassEnd());

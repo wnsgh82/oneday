@@ -25,12 +25,12 @@ public class MemberDAOImpl implements MemberDAO{
 			
 			if(enable==1) {
 				sql="insert into member1(userId, userPwd, userName, userTel,"
-						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled)"
-						+ " values(?,?,?,?,?,?,?,?,1)";				
+						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userPoint)"
+						+ " values(?,?,?,?,?,?,?,?,1,0)";				
 			}else {
 				sql="insert into member1(userId, userPwd, userName,  userTel,"
-						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert)"
-						+ " values(?,?,?,?,?,?,?,?,100,?)";			
+						+ " userZip, userAddr1, userAddr2, userEmail, userEnabled, userCert, userPoint)"
+						+ " values(?,?,?,?,?,?,?,?,100,?,0)";			
 			}
 		
 			pstmt=conn.prepareStatement(sql);
