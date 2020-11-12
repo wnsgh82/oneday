@@ -306,6 +306,9 @@ public class MemberServlet extends MyUploadServlet{
 	}
 	protected void idCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userId=req.getParameter("userId");
+		int userEnabled = Integer.parseInt(req.getParameter("userEnabled"));
+		
+		
 		String cp=req.getContextPath();
 		
 		MemberDAO dao=new MemberDAOImpl();
@@ -317,11 +320,13 @@ public class MemberServlet extends MyUploadServlet{
 			if(dto==null) {
 				req.setAttribute("message", "사용가능한 아이디입니다.");
 				req.setAttribute("userId", userId);
+				req.setAttribute("userEnabled", userEnabled);
 				req.setAttribute("mode", "idCkOk");
 				forward(req, resp, "/WEB-INF/views/member/member.jsp");	
 				return;
 			} else {
 				req.setAttribute("message", "이미 사용중인 아이디입니다 .");
+				req.setAttribute("userEnabled", userEnabled);
 				forward(req, resp, "/WEB-INF/views/member/member.jsp");
 			}
 			

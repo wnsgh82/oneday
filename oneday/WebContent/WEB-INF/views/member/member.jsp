@@ -107,10 +107,10 @@ function membercreated() {
 		
 	
 }
-function idCheck() {
+function idCheck(userEnabled) {
 	var f = document.memberF;
 	
-	f.action="${pageContext.request.contextPath}/member/idCheck.do";
+	f.action="${pageContext.request.contextPath}/member/idCheck.do?userEnabled="+userEnabled;
 	f.submit();
 	
 }
@@ -145,7 +145,7 @@ function idCheck() {
 		                            <dt>아이디</dt>
 		                            <dd class="innerbtn">
 		                                <input type="text" name="userId" placeholder="아이디를 입력해주세요." value="${userId}">
-		                                <a onclick="idCheck();">중복확인</a>
+		                                <a onclick="idCheck('${userEnabled}');">중복확인</a>
 		                                <div style="height:12px; font-size: 12px; font-weight: 700; margin-top:8px; color: red; width: 100%;" >${message}</div>
 		                            </dd>
 		                        </dl>
