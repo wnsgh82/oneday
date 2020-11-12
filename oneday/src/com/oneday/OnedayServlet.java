@@ -240,6 +240,9 @@ public class OnedayServlet extends MyUploadServlet{
 		}
 		
 		String page=req.getParameter("page");
+		if(page==null) {
+			page="";
+		}
 		
 		try {
 			String classIFN=req.getParameter("classIFN");
@@ -271,7 +274,7 @@ public class OnedayServlet extends MyUploadServlet{
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"/oneday/list.do?page="+page);
+		resp.sendRedirect(cp+"/oneday/list.do");
 	}
 	
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

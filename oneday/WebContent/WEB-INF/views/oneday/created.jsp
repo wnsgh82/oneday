@@ -94,7 +94,7 @@ function sendOk(classNum) {
     	return;
     }
     
-	f.action="${pageContext.request.contextPath}/oneday/${mode}_ok.do?classNum="+classNum+"&page=${page}";
+	f.action="${pageContext.request.contextPath}/oneday/${mode}_ok.do?classNum="+classNum;
 	
     f.submit();
 }

@@ -173,7 +173,8 @@ function send(){
 			    <td>
 			    	 <%--관리자랑 강사만 클래스 등록 가능하니까 굳이 userEnabled로  조건 걸지 않음--%>
 			    	 <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==dto.userId}">
-			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/update.do?classNum=${dto.classNum}&page=${page}';">수정</button>
+			          <input type="hidden" name="page" value="${page}">
+			          <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/update.do?classNum=${dto.classNum}';">수정</button>
 			          <button type="button" class="classBtn3" onclick="deleteBoard('${dto.classNum}');">삭제</button>
 			         </c:if>
 			          
