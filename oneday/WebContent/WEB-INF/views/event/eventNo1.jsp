@@ -45,7 +45,7 @@
 				
 				<tr style="border-bottom: 1px solid #cccccc;">
 					<td colspan="2" align="center" style="padding: 10px 5px; font-size: 16px;" valign="top" height="30">
-							${dto.randomPoint}포인트 당첨!!&nbsp;${dto.userId}님의 현재 포인트는 ${dto.userPoint}포인트 입니다.
+							${dto.randomPoint}포인트 당첨!!&nbsp;${dto.userId}님의 현재 포인트는 ${dto.pointSum}포인트 입니다.
 						<br>
 						<span>
 			      			<button type="button" class="eBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/list.do';">목록 돌아가기</button>

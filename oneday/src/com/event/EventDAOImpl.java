@@ -337,6 +337,7 @@ public class EventDAOImpl implements EventDAO {
 			
 			if(rs.next()) {
 				dto.setUserPoint(rs.getInt("userPoint"));
+				
 			}
 			pstmt.close();
 
@@ -346,11 +347,15 @@ public class EventDAOImpl implements EventDAO {
 			int randomPoint = (int)(Math.random()*1000);
 			dto.setRandomPoint(randomPoint);
 
-			int pointSum = dto.getUserPoint() + randomPoint;
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pointSum);
-			pstmt.setString(2, dto.getUserId());
+			int pointSum;
+			pointSum = dto.getUserPoint() + randomPoint;
+
+			dto.setPointSum(pointSum);
 			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getPointSum());
+			pstmt.setString(2, dto.getUserId());
+	
 			result=pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

@@ -13,6 +13,7 @@ public class EventDTO {
 	private String eStart, eEnd;
 	private long eEnabled;
 	private int randomPoint;
+	private int pointSum;
 	
 	private int eventApplyEnabled;
 
@@ -102,6 +103,13 @@ public class EventDTO {
 	}
 	public void setRandomPoint(int randomPoint) {
 		this.randomPoint = randomPoint;
+	}
+	
+	public int getPointSum() {
+		return pointSum;
+	}
+	public void setPointSum(int pointSum) {
+		this.pointSum = pointSum;
 	}
 	
 }
