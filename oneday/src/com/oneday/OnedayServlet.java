@@ -102,6 +102,8 @@ public class OnedayServlet extends MyUploadServlet{
 	}
 	
 	protected void createdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String page=req.getParameter("page");
+		req.setAttribute("page", page);
 		req.setAttribute("mode", "created");
 		forward(req, resp, "/WEB-INF/views/oneday/created.jsp");
 	}
@@ -112,7 +114,7 @@ public class OnedayServlet extends MyUploadServlet{
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
 		OnedayDAO dao=new OnedayImpl();
-		
+		String page=req.getParameter("page");
 		try {
 			OnedayDTO dto=new OnedayDTO();
 			
@@ -142,6 +144,7 @@ public class OnedayServlet extends MyUploadServlet{
 				dao.insertOneday(dto);
 				
 			}
+			req.setAttribute("page", page);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

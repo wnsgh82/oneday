@@ -137,16 +137,13 @@ function update(){
 	            	<li><a href="${pageContext.request.contextPath}/mypage/classList.do"> 수강생 관리</a></li>
 	                <li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
 	                <li><a href="${pageContext.request.contextPath}/mypage/pwd.do"> 회원 탈퇴  </a></li>
-	                <li><a href=""> 넣으세요 </a></li>
             	</c:if>
             	
             	<c:if test="${dto.userEnabled==200}">  <%--관리자일 때 왼쪽 메뉴--%>
             		<li><a href="${pageContext.request.contextPath}/mypage/memberUpdate.do"> 회원정보수정</a></li>
-	                <li><a href=""> 여기  수강내역 이런거</a></li>
-	                <li><a href=""> 이런거 수강생강사</a></li>
-	                <li><a href=""> 별로 알아서  </a></li>
-	                <li><a href=""> 넣으세요 </a></li>
-            	
+	                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=100"> 강사회원관리</a></li>
+	                <li><a href="${pageContext.request.contextPath}/mypage/mypageMain.do?userEnabled=1"> 수강생회원관리</a></li>
+	                <li><a href="${pageContext.request.contextPath}/mypage/classAdmin.do?"> 클래스삭제</a></li>
             	</c:if>
                 
             </ul>

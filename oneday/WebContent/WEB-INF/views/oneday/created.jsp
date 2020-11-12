@@ -42,7 +42,7 @@
 </style>
 
 <script type="text/javascript">
-function sendOk() {
+function sendOk(classNum) {
     var f = document.onedayForm;
 
 	var str = f.className.value;
@@ -94,7 +94,7 @@ function sendOk() {
     	return;
     }
     
-	f.action="${pageContext.request.contextPath}/oneday/${mode}_ok.do";
+	f.action="${pageContext.request.contextPath}/oneday/${mode}_ok.do?classNum="+classNum+"&page=${page}";
 	
     f.submit();
 }
@@ -200,7 +200,7 @@ function sendOk() {
 			      		<input type="hidden" name="classIFN" value="${dto.classIFN}"> 
 			      			
 			      	</c:if>
-			        <button type="button" class="classBtn3" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+			        <button type="button" class="classBtn3" onclick="sendOk('${dto.classNum}');">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="classBtn3">다시입력</button>
 			        <button type="button" class="classBtn3" onclick="javascript:location.href='${pageContext.request.contextPath}/oneday/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 
