@@ -309,7 +309,7 @@ public class OnedayServlet extends MyUploadServlet{
 			e.printStackTrace();
 		}
 		
-		resp.sendRedirect(cp+"/oneday/list.do?page="+page);
+		resp.sendRedirect(cp+"/oneday/list.do");
 	}
 	
 	
